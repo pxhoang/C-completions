@@ -1,0 +1,165 @@
+{
+	"scope": "source.c",
+	"completions":[
+
+
+	/**
+	 * Stdio.h
+	 */
+		
+	 	{ "trigger": "fclose\tpxhoang-fclose", "contents": "fclose(${1:FILE *stream});"},
+	 	{ "trigger": "clearerr\tpxhoang-clearerr", "contents": "clearerr(${1:FILE *stream});"},
+	 	{ "trigger": "feof\tpxhoang-feof", "contents": "feof(${1:FILE *stream});"},
+
+	 	{ "trigger": "ferror\tpxhoang-ferror", "contents": "ferror(${1:FILE *stream});"},
+	 	{ "trigger": "fflush\tpxhoang-fflush", "contents": "fflush(${1:FILE *stream});"},
+	 	{ "trigger": "fgetpos\tpxhoang-fgetpos", "contents": "fgetpos(${1:FILE *stream}, ${2:fpos_t *pos});"},
+	 	{ "trigger": "fopen\tpxhoang-fopen", "contents": "fopen(${1:const char *filename}, ${2:const char *mode});"},
+	 	{ "trigger": "fread\tpxhoang-fread", "contents": "fread(${1:void *ptr}, ${2:size_t size}, ${3:size_t nmemb}, ${4:FILE *stream});"},
+	 	{ "trigger": "freopen\tpxhoang-freopen", "contents": "freopen(${1:const char *filename}, ${2:const char *mode}, ${3:FILE *stream});"},
+	 	{ "trigger": "fseek\tpxhoang-fseek", "contents": "fseek(${1:FILE *stream}, ${2:long int offset}, ${3:int whence});"},
+	 	{ "trigger": "fsetpos\tpxhoang-fsetpos", "contents": "fsetpos(${1:FILE *stream}, ${2:const fpos_t *pos});"},
+	 	{ "trigger": "ftell\tpxhoang-ftell", "contents": "ftell(${1:FILE *stream});"},
+	 	{ "trigger": "fwrite\tpxhoang-fwrite", "contents": "fwrite(${1:const void *ptr}, ${2:size_t size}, ${3:size_t nmemb}, ${4:FILE *stream});"},
+	 	{ "trigger": "remove\tpxhoang-remove", "contents": "remove(${1:const char *filename});"},
+	 	{ "trigger": "rename\tpxhoang-rename", "contents": "rename(${1:const char *old_filename}, ${2:const char *new_filename});"},
+	 	{ "trigger": "rewind\tpxhoang-rewind", "contents": "rewind(${1:FILE *stream});"},
+	 	{ "trigger": "setbuf\tpxhoang-setbuf", "contents": "setbuf(${1:FILE *stream}, ${2:char *buffer});"},
+	 	{ "trigger": "setvbuf\tpxhoang-setvbuf", "contents": "setvbuf(${1:FILE *stream}, ${2:char *buffer}, ${3:int mode}, ${4:size_t size});"},
+	 	{ "trigger": "tmpfile\tpxhoang-tmpfile", "contents": "tmpfile(${1:void});"},
+	 	{ "trigger": "tmpnam\tpxhoang-tmpnam", "contents": "tmpnam(${1:char *str});"},
+	 	{ "trigger": "fprintf\tpxhoang-fprintf", "contents": "fprintf(${1:FILE *stream}, ${2:const char *format});"},
+	 	{ "trigger": "printf\tpxhoang-printf", "contents": "printf(${1:const char *format}, ${2});"},
+	 	{ "trigger": "sprintf\tpxhoang-sprintf", "contents": "sprintf(${1:char *str}, ${2:const char *format}, ${3:flag});"},
+	 	{ "trigger": "vfprintf\tpxhoang-vfprintf", "contents": "vfprintf(${1:FILE *stream}, ${2:const char *format}, ${3:va_list arg});"},
+	 	{ "trigger": "vprintf\tpxhoang-vprintf", "contents": "vprintf(${1:const char *format}, ${2:va_list arg});"},
+	 	{ "trigger": "vsprintf\tpxhoang-vsprintf", "contents": "vsprintf(${1:char *str}, ${2:const char *format}, ${3:va_list arg});"},
+	 	{ "trigger": "fscanf\tpxhoang-fscanf", "contents": "fscanf(${1:FILE *stream}, ${2:const char *format}, ${3});"},
+	 	{ "trigger": "scanf\tpxhoang-scanf", "contents": "scanf(${1:const char *format}, ${2:});"},
+	 	{ "trigger": "sscanf\tpxhoang-sscanf", "contents": "sscanf(${1:const char *str}, ${2:const char *format}), ${3});"},
+	 	{ "trigger": "fgetc\tpxhoang-fgetc", "contents": "fgetc(${1:FILE *stream});"},
+	 	{ "trigger": "fgets\tpxhoang-fgets", "contents": "fgets(${1:char *str}, ${2:int n}, ${3:FILE *stream});"},
+	 	{ "trigger": "fputc\tpxhoang-fputc", "contents": "fputc(${1:int char}, ${2:FILE *stream});"},
+	 	{ "trigger": "fputs\tpxhoang-fputs", "contents": "fputs(${1:const char *str}, ${2:FILE *stream});"},
+	 	{ "trigger": "getc\tpxhoang-getc", "contents": "getc(${1:FILE *stream});"},
+	 	{ "trigger": "getchar\tpxhoang-getchar", "contents": "getchar(${1:void});"},
+	 	{ "trigger": "gets\tpxhoang-gets", "contents": "gets(${1:char *str});"},
+	 	{ "trigger": "putc\tpxhoang-putc", "contents": "putc(${1:int char}, ${2:FILE *stream});"},
+	 	{ "trigger": "putchar\tpxhoang-putchar", "contents": "putchar(${1:int char});"},
+	 	{ "trigger": "puts\tpxhoang-puts", "contents": "puts(${1:const char *str});"},
+	 	{ "trigger": "ungetc\tpxhoang-ungetc", "contents": "ungetc(${1:int char}, ${2:FILE *stream});"},
+	 	{ "trigger": "perror\tpxhoang-perror", "contents": "perror(${1:const char *str});"},
+
+	/**
+	 * Stdlib.h
+	 */
+
+	 	{ "trigger": "atof\tpxhoang-atof", "contents": "atof(${1:const char *str});"},
+	 	{ "trigger": "atoi\tpxhoang-atoi", "contents": "atoi(${1:const char *str});"},
+	 	{ "trigger": "atol\tpxhoang-atol", "contents": "atol(${1:const char *str});"},
+	 	{ "trigger": "strtod\tpxhoang-strtod", "contents": "strtod(${1:const char *str}, ${2:char **endptr});"},
+	 	{ "trigger": "strtol\tpxhoang-strtol", "contents": "strtol(${1:const char *str}, ${2:char **endptr}, ${3:int base});"},
+	 	{ "trigger": "strtoul\tpxhoang-strtoul", "contents": "strtoul(${1:const char *str}, ${2:char **endptr}, ${3:int base});"},
+	 	{ "trigger": "calloc\tpxhoang-calloc", "contents": "calloc(${1:size_t nitems}, ${2:size_t size});"},
+	 	{ "trigger": "free\tpxhoang-free", "contents": "free(${1:void *ptr});"},
+	 	{ "trigger": "malloc\tpxhoang-malloc", "contents": "malloc(${1:size_t size});"},
+	 	{ "trigger": "realloc\tpxhoang-realloc", "contents": "realloc(${1:void *ptr}, ${2:size_t size});"},
+	 	{ "trigger": "abort\tpxhoang-abort", "contents": "abort(${1:void});"},
+	 	{ "trigger": "atexit\tpxhoang-atexit", "contents": "atexit(${1:void (*func)(void)});"},
+	 	{ "trigger": "exit\tpxhoang-exit", "contents": "exit(${1:int status});"},
+	 	{ "trigger": "getenv\tpxhoang-getenv", "contents": "getenv(${1:const char *name});"},
+	 	{ "trigger": "system\tpxhoang-system", "contents": "system(${1:const char *command});"},
+	 	{ "trigger": "bsearch\tpxhoang-bsearch", "contents": "bsearch(${1:const void *key}, ${2:const void *base}, ${3:size_t nitems}, ${4:size_t size}, ${5:int (*compar)(const void *, const void *)});"},
+	 	{ "trigger": "qsort\tpxhoang-qsort", "contents": "qsort(${1:void *base}, ${2:size_t nitems}, ${3:size_t size}, ${4:int (*compar)(const void *, const void*)});"},
+	 	{ "trigger": "abs\tpxhoang-abs", "contents": "abs(${1:int x});"},
+	 	{ "trigger": "div\tpxhoang-div", "contents": "div(${1:int numer}, ${2:int denom});"},
+	 	{ "trigger": "labs\tpxhoang-labs", "contents": "labs(${1:long int x});"},
+	 	{ "trigger": "ldiv\tpxhoang-ldiv", "contents": "ldiv(${1:long int numer}, ${2:long int denom});"},
+	 	{ "trigger": "rand\tpxhoang-rand", "contents": "rand(${1:void});"},
+	 	{ "trigger": "srand\tpxhoang-srand", "contents": "srand(${1:unsigned int seed});"},
+	 	{ "trigger": "mblen\tpxhoang-mblen", "contents": "mblen(${1:const char *str}, ${2:size_t n});"},
+	 	{ "trigger": "mbstowcs\tpxhoang-mbstowcs", "contents": "mbstowcs(${1:schar_t *pwcs}, ${2:const char *str}, ${3:size_t n});"},
+	 	{ "trigger": "mbtowc\tpxhoang-mbtowc", "contents": "mbtowc(${1:whcar_t *pwc}, ${2:const char *str}, ${3:size_t n});"},
+	 	{ "trigger": "wcstombs\tpxhoang-wcstombs", "contents": "wcstombs(${1:char *str}, ${2:const wchar_t *pwcs}, ${3:size_t n});"},
+	 	{ "trigger": "wctomb\tpxhoang-wctomb", "contents": "wctomb(${1:char *str}, ${2:wchar_t wchar});"},
+
+
+	/**
+	 * String.h
+	 */
+	 	{ "trigger": "memchr\tpxhoang-memchr", "contents": "memchr(${1:const void *str}, ${2:int c}, ${3:size_t n});"},
+	 	{ "trigger": "memcmp\tpxhoang-memcmp", "contents": "memcmp(${1:const void *str1}, ${2:const void *str2}, ${3:size_t n});"},
+	 	{ "trigger": "memcpy\tpxhoang-memcpy", "contents": "memcpy(${1:void *str1}, ${2:const void *str2}, ${3:size_t n});"},
+	 	{ "trigger": "memmove\tpxhoang-memmove", "contents": "memmove(${1:void *str1}, ${2:const void *str2}, ${3:size_t n});"},
+	 	{ "trigger": "memset\tpxhoang-memset", "contents": "memset(${1:void *str}, ${2:int c}, ${3:size_t n});"},
+	 	{ "trigger": "strcat\tpxhoang-strcat", "contents": "strcat(${1:char *dest}, ${2:const char *src});"},
+	 	{ "trigger": "strncat\tpxhoang-strncat", "contents": "strncat(${1:char *dest}, ${2:const char *src}, ${3:size_t n});"},
+	 	{ "trigger": "strchr\tpxhoang-strchr", "contents": "strchr(${1:const char *str}, ${2:int c});"},
+	 	{ "trigger": "strcmp\tpxhoang-strcmp", "contents": "strcmp(${1:const char *str1}, ${2:const char *str2});"},
+	 	{ "trigger": "strncmp\tpxhoang-strncmp", "contents": "strncmp(${1:const char *str1}, ${2:const char *str2}, ${3:size_t n});"},
+	 	{ "trigger": "strcoll\tpxhoang-strcoll", "contents": "strcoll(${1:const char *str1},  ${2:const char *str2});"},
+	 	{ "trigger": "strcpy\tpxhoang-strcpy", "contents": "strcpy(${1:char *dest}, ${2:const char *src});"},
+	 	{ "trigger": "strncpy\tpxhoang-strncpy", "contents": "strncpy(${1:char *dest}, ${2:const char *src}, ${3:size_t n});"},
+	 	{ "trigger": "strcspn\tpxhoang-strcspn", "contents": "strcspn(${1:const char *str1}, ${2:const char *str2});"},
+	 	{ "trigger": "strerror\tpxhoang-strerror", "contents": "strerror(${1:int errnum});"},
+	 	{ "trigger": "strlen\tpxhoang-strlen", "contents": "strlen(${1:const char *str});"},
+	 	{ "trigger": "strpbrk\tpxhoang-strpbrk", "contents": "strpbrk(${1:const char *str1}, ${2:const char *str2});"},
+	 	{ "trigger": "strrchr\tpxhoang-strrchr", "contents": "strrchr(${1:const char *str}, ${2:int c});"},
+	 	{ "trigger": "strspn\tpxhoang-strspn", "contents": "strspn(${1:const char *str1}, ${2:const char *str2});"},
+	 	{ "trigger": "strstr\tpxhoang-strstr", "contents": "strstr(${1:const char *haystack}, ${2:const char *needle});"},
+	 	{ "trigger": "strtok\tpxhoang-strtok", "contents": "strtok(${1:char *str}, ${2:const char *delim});"},
+	 	{ "trigger": "strxfrm\tpxhoang-strxfrm", "contents": "strxfrm(${1:char *dest}, ${2:const char *src}, ${3:size_t n});"},
+
+	/**
+	 * 
+	 */
+	 	{ "trigger": "feof\tpxhoang-feof", "contents": "feof(${1:FILE *stream});"},
+	 	{ "trigger": "feof\tpxhoang-feof", "contents": "feof(${1:FILE *stream});"},
+	 	{ "trigger": "feof\tpxhoang-feof", "contents": "feof(${1:FILE *stream});"},
+	 	{ "trigger": "feof\tpxhoang-feof", "contents": "feof(${1:FILE *stream});"},
+	 	{ "trigger": "feof\tpxhoang-feof", "contents": "feof(${1:FILE *stream});"},
+	 	{ "trigger": "feof\tpxhoang-feof", "contents": "feof(${1:FILE *stream});"},
+	 	{ "trigger": "feof\tpxhoang-feof", "contents": "feof(${1:FILE *stream});"},
+	 	{ "trigger": "feof\tpxhoang-feof", "contents": "feof(${1:FILE *stream});"},
+	 	{ "trigger": "feof\tpxhoang-feof", "contents": "feof(${1:FILE *stream});"},
+	 	{ "trigger": "feof\tpxhoang-feof", "contents": "feof(${1:FILE *stream});"},
+
+
+
+
+
+
+
+
+
+	/**
+	* Types
+	*/
+		// 
+		{ "trigger": "int\tpxhoang-type-int", "contents": "int"},
+		{ "trigger": "double\tpxhoang-type-double", "contents": "double"},
+		{ "trigger": "float\tpxhoang-type-float", "contents": "float"},
+		{ "trigger": "char\tpxhoang-type-char", "contents": "char"},
+		{ "trigger": "void\tpxhoang-type-void", "contents": "void"},
+		{ "trigger": "unsigned\tpxhoang-type-unsigned", "contents": "unsigned"},
+		{ "trigger": "signed\tpxhoang-type-signed", "contents": "signed"},
+		{ "trigger": "long\tpxhoang-type-long", "contents": "long"},
+		{ "trigger": "short\tpxhoang-type-short", "contents": "short"},
+
+		// Type size
+		{ "trigger": "int8_t\tpxhoang-type-int8_t", "contents": "int8_t"},
+		{ "trigger": "uint8_t\tpxhoang-type-uint8_t", "contents": "uint8_t"},
+		{ "trigger": "int16_t\tpxhoang-type-int16_t", "contents": "int16_t"},
+		{ "trigger": "uint16_t\tpxhoang-type-uint16_t", "contents": "uint16_t"},
+		{ "trigger": "int32_t\tpxhoang-type-int32_t", "contents": "int32_t"},
+		{ "trigger": "uint32_t\tpxhoang-type-uint32_t", "contents": "uint32_t"},
+		{ "trigger": "int64_t\tpxhoang-type-int64_t", "contents": "int64_t"},
+		{ "trigger": "uint64_t\tpxhoang-type-uint64_t", "contents": "uint64_t"},
+		{ "trigger": "short\tpxhoang-type-short", "contents": "short"}
+
+		
+	]
+
+}
+
+
