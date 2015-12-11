@@ -133,24 +133,76 @@
 		{ "trigger": "dup2\tpxhoang-int dup2", "contents": "dup2(${1:int fildes}, ${2:int fildes2});"},
 		{ "trigger": "encrypt\tpxhoang-void encrypt", "contents": "encrypt(${1:char block[64]}, ${2:int edflag});"},
 		{ "trigger": "execl\tpxhoang-int execl", "contents": "execl(${1:const char *path}, ${2:const char *arg0}, ${3:...});"},
-		{ "trigger": "isalnum\tpxhoang-isalnum", "contents": "isalnum(${1:int c});"},
-		{ "trigger": "isalnum\tpxhoang-isalnum", "contents": "isalnum(${1:int c});"},
-		{ "trigger": "isalnum\tpxhoang-isalnum", "contents": "isalnum(${1:int c});"},
-		{ "trigger": "isalnum\tpxhoang-isalnum", "contents": "isalnum(${1:int c});"},
-		{ "trigger": "isalnum\tpxhoang-isalnum", "contents": "isalnum(${1:int c});"},
-		{ "trigger": "isalnum\tpxhoang-isalnum", "contents": "isalnum(${1:int c});"},
-		{ "trigger": "isalnum\tpxhoang-isalnum", "contents": "isalnum(${1:int c});"},
-		{ "trigger": "isalnum\tpxhoang-isalnum", "contents": "isalnum(${1:int c});"},
-
-
-
-
-
-
-
-
-
-
+		{ "trigger": "execle\tpxhoang-int execle", "contents": "execle(${1:const char *path}, ${2:const char *arg0}, ${3:...});"},
+		{ "trigger": "execlp\tpxhoang-int execlp", "contents": "execlp(${1:const char *file}, ${2:const char *arg0}, ${3:...});"},
+		{ "trigger": "execv\tpxhoang-int execv", "contents": "execv(${1:const char *path}, ${2:char *const argv[]});"},	
+		{ "trigger": "execve\tpxhoang-int execve", "contents": "execve(${1:const char *path}, ${2:char *const argv[]}, ${3:char *const envp[]});"},
+		{ "trigger": "execvp\tpxhoang-int execvp", "contents": "execvp(${1:const char *file}, ${2:char *const argv[]});"},
+		{ "trigger": "exit\tpxhoang-void exit", "contents": "exit(${1:int status});"},
+		{ "trigger": "fchown\tpxhoang-int fchown", "contents": "fchown(${1:int fildes}, ${2:uid_t owner}, ${3:gid_t group});"},
+		{ "trigger": "fchdir\tpxhoang-int fchdir", "contents": "fchdir(${1:int fildes});"},
+		{ "trigger": "fdatasync\tpxhoang-int fdatasync", "contents": "fdatasync(${1int fildes});"},
+		{ "trigger": "fork\tpxhoang-pid_t fork", "contents": "fork();"},
+		{ "trigger": "fpathconf\tpxhoang-long int fpathconf", "contents": "fpathconf(${1:int fildes}, ${2:int name});"},
+		{ "trigger": "fsync\tpxhoang-int fsync", "contents": "fsync(${1:int fildes});"},
+		{ "trigger": "ftruncate\tpxhoang-int ftruncate", "contents": "ftruncate(${1:int fildes}, ${2:off_t length});"},
+		{ "trigger": "getcwd\tpxhoang-char *getcwd", "contents": "getcwd(${1:char *buf}, ${2:size_t size});"},
+		{ "trigger": "getdtablesize\tpxhoang-int getdtablesize", "contents": "getdtablesize();"},
+		{ "trigger": "getegid\tpxhoang-gid_t getegid", "contents": "getegid();"},
+		{ "trigger": "geteuid\tpxhoang-uid_t geteuid", "contents": "geteuid();"},
+		{ "trigger": "getgid\tpxhoang-gid_t getgid", "contents": "getgid();"},
+		{ "trigger": "getgroups\tpxhoang-int getgroups", "contents": "getgroups(${1:int gidsetsize}, ${2:gid_t grouplist[]});"},
+		{ "trigger": "gethostid\tpxhoang-long gethostid", "contents": "gethostid();"},
+		{ "trigger": "getlogin\tpxhoang-char *getlogin", "contents": "getlogin();"},
+		{ "trigger": "getlogin_r\tpxhoang-int getlogin_r", "contents": "getlogin_r(${1:char *name}, ${2:size_t namesize});"},
+		{ "trigger": "getopt\tpxhoang-int getopt", "contents": "getopt(${1:int argc}, ${2:char * const argv[]}, ${3:const char *optstring});"},
+		{ "trigger": "getpagesize\tpxhoang-int getpagesize", "contents": "getpagesize();"},
+		{ "trigger": "getpass\tpxhoang-char *getpass", "contents": "getpass(${1:const char *prompt});"},
+		{ "trigger": "getpgid\tpxhoang-pid_t getpgid", "contents": "getpgid(${1:pid_t pid});"},
+		{ "trigger": "getpgrp\tpxhoang-pid_t getpgrp", "contents": "getpgrp();"},
+		{ "trigger": "getpid\tpxhoang-pid_t getpid", "contents": "getpid(${);"},
+		{ "trigger": "getppid\tpxhoang-pid_t getppid", "contents": "getppid();"},
+		{ "trigger": "getsid\tpxhoang-pid_t getsid", "contents": "getsid(${1:pid_t pid});"},
+		{ "trigger": "getuid\tpxhoang-uid_t getuid", "contents": "getuid();"},
+		{ "trigger": "getwd\tpxhoang-char *getwd", "contents": "getwd(${1:char *path_name});"},
+		{ "trigger": "isatty\tpxhoang-int isatty", "contents": "isatty(${1:int fildes});"},
+		{ "trigger": "lchown\tpxhoang-int lchown", "contents": "lchown(${1:const char *path}, ${2:uid_t owner}, ${3:gid_t group});"},
+		{ "trigger": "link\tpxhoang-int link", "contents": "link(${1:const char *path1}, ${2:const char *path2});"},
+		{ "trigger": "lockf\tpxhoang-int lockf", "contents": "lockf(${1:int fildes}, ${2:int function}, ${3:off_t size});"},
+		{ "trigger": "nice\tpxhoang-int nice", "contents": "nice(${1:int incr});"},
+		{ "trigger": "pathconf\tpxhoang-long int pathconf", "contents": "pathconf(${1:const char *path}, ${2:int name});"},
+		{ "trigger": "pause\tpxhoang-int pause", "contents": "pause();"},
+		{ "trigger": "pipe\tpxhoang-int pipe", "contents": "pipe(${1:int fildes[2]});"},
+		{ "trigger": "pread\tpxhoang-ssize_t pread", "contents": "pread(${1:int fildes}, ${2:void *buf}, ${3:size_t nbyte}, ${4:off_t offset});"},
+		{ "trigger": "pthread_atfork\tpxhoang-int pthread_atfork", "contents": "pthread_atfork(${1:void (*prepare)(void)}, ${2:void (*parent)(void)}, ${3:void (*child)(void)});"},
+		{ "trigger": "pwrite\tpxhoang-ssize_t pwrite", "contents": "pwrite(${1:int fildes}, ${2:const void *buf}, ${3:size_t nbyte}, ${4:off_t offset});"},
+		{ "trigger": "read\tpxhoang-ssize_t read", "contents": "read(${1:int fildes}, ${2:void *buf}, ${3:size_t nbyte});"},
+		{ "trigger": "readlink\tpxhoang-int readlink", "contents": "readlink(${1:const char *path}, ${2:char *buf}, ${3:size_t bufsize});"},
+		{ "trigger": "rmdir\tpxhoang-int rmdir", "contents": "rmdir(${1:const char *path});"},
+		{ "trigger": "sbrk\tpxhoang-void *sbrk", "contents": "sbrk(${1:gid_t gid});"},
+		{ "trigger": "setgid\tpxhoang-int setgid", "contents": "setgid(${1:gid_t gid});"},
+		{ "trigger": "setpgid\tpxhoang-int setpgid", "contents": "setpgid(${1:pid_t pid}, ${2:pid_t pgid});"},
+		{ "trigger": "setregid\tpxhoang-setregid", "contents": "setregid();"},
+		{ "trigger": "setpgrp\tpxhoang-pid_t setpgrp", "contents": "setpgrp();"},
+		{ "trigger": "setreuid\tpxhoang-int setreuid", "contents": "setreuid(${1:uid_t ruid}, ${2:uid_t euid});"},
+		{ "trigger": "setsid\tpxhoang-pid_t setsid", "contents": "isalnum();"},
+		{ "trigger": "setuid\tpxhoang-int setuid", "contents": "setuid();"},
+		{ "trigger": "sleep\tpxhoang-unsigned int sleep", "contents": "sleep(${1:unsigned int seconds});"},
+		{ "trigger": "swab\tpxhoang-void swab", "contents": "swab(${1:const void *src}, ${2:void *dest}, ${3:ssize_t nbytes});"},
+		{ "trigger": "symlink\tpxhoang-int symlink", "contents": "isalnum(${1:const char *path1}, ${2:const char *path2});"},
+		{ "trigger": "sync\tpxhoang-void sync", "contents": "sync();"},
+		{ "trigger": "sysconf\tpxhoang-long int sysconf", "contents": "sysconf(${1:int name});"},
+		{ "trigger": "tcgetpgrp\tpxhoang-pid_t tcgetpgrp", "contents": "tcgetpgrp(${1:int fildes});"},
+		{ "trigger": "tcsetpgrp\tpxhoang-int tcsetpgrp", "contents": "tcsetpgrp(${1:int filde}, ${2:pid_t pgid_id});"},
+		{ "trigger": "truncate\tpxhoang-int truncate", "contents": "truncate(${1:const char *path}, ${2:const char *path});"},
+		{ "trigger": "ttyname\tpxhoang-char *ttyname", "contents": "ttyname(${1:int fildes});"},
+		{ "trigger": "ttyname_r\tpxhoang-int ttyname_r", "contents": "ttyname_r(${1:int fildes}, ${2:char *name}, ${3:size_t namesize});"},
+		{ "trigger": "ualarm\tpxhoang-useconds_t ualarm", "contents": "ualarm(${1:useconds_t useconds}, ${2:useconds_t interval});"},
+		{ "trigger": "unlink\tpxhoang-int unlink", "contents": "unlink(${1:const char *path});"},
+		{ "trigger": "usleep\tpxhoang-int usleep", "contents": "usleep(${1:useconds_t useconds});"},
+		{ "trigger": "vfork\tpxhoang-pid_t vfork", "contents": "vfork();"},
+		{ "trigger": "write\tpxhoang-ssize_t write", "contents": "write(${1:int fildes}, ${2:const void *buf}, ${3:size_t nbyte});"},
+	
 
 
 
@@ -173,56 +225,180 @@
 	 	{ "trigger": "toupper\tpxhoang-toupper", "contents": "toupper(${1:int c});"},
 
 
+/**
+ * Sockets.h
+ * from http://man7.org
+ */
 
-	 	{ "trigger": "isalnum\tpxhoang-isalnum", "contents": "isalnum(${1:int c});"},
-	 	{ "trigger": "isalnum\tpxhoang-isalnum", "contents": "isalnum(${1:int c});"},
-	 	{ "trigger": "isalnum\tpxhoang-isalnum", "contents": "isalnum(${1:int c});"},
-	 	{ "trigger": "isalnum\tpxhoang-isalnum", "contents": "isalnum(${1:int c});"},
-	 	{ "trigger": "isalnum\tpxhoang-isalnum", "contents": "isalnum(${1:int c});"},
-	 	{ "trigger": "isalnum\tpxhoang-isalnum", "contents": "isalnum(${1:int c});"},
-	 	{ "trigger": "isalnum\tpxhoang-isalnum", "contents": "isalnum(${1:int c});"},
-	 	{ "trigger": "isalnum\tpxhoang-isalnum", "contents": "isalnum(${1:int c});"},
-	 	{ "trigger": "isalnum\tpxhoang-isalnum", "contents": "isalnum(${1:int c});"},
-	 	{ "trigger": "isalnum\tpxhoang-isalnum", "contents": "isalnum(${1:int c});"},
-	 	{ "trigger": "isalnum\tpxhoang-isalnum", "contents": "isalnum(${1:int c});"},
-	 	{ "trigger": "isalnum\tpxhoang-isalnum", "contents": "isalnum(${1:int c});"},
+	{ "trigger": "accept\tpxhoang-int accept", "contents": "accept(${1:int sockfd}, ${2:struct sockaddr *addr}, ${3:socklen_t *addrlen});"},
+	{ "trigger": "bind\tpxhoang-int bind", "contents": "bind(${1:int sockfd}, ${2:const struct sockaddr *addr}, ${3:socklen_t addrlen});"},
+	{ "trigger": "connect\tpxhoang-int connect", "contents": "connect(${1:int sockfd}, ${2:const struct sockaddr *addr}, ${3:socklen_t addrlen});"},
+	{ "trigger": "getpeername\tpxhoang-int getpeername", "contents": "getpeername(${1:int sockfd}, ${2:struct sockaddr *addr}, ${3:socklen_t*addrlen});"},
+	{ "trigger": "getsockname\tpxhoang-int getsockname", "contents": "getsockname(${1:int sockfd}, ${2:struct sockaddr *addr}, ${3:socklen_t *addrlen});"},
+	{ "trigger": "getsockopt\tpxhoang-int shutdown", "contents": "shutdown(${1:int sockfd}, ${2:int level}, ${3:int optname}, ${4:void *optval}, ${5:socklen_t *optlen});"},
+	{ "trigger": "listen\tpxhoang-int listen", "contents": "listen(${1:int sockfd}, ${2:int backlog});"},
+	{ "trigger": "recv\tpxhoang-ssize_t recv", "contents": "recv(${1:int sockfd}, ${2:void *buf}, ${3:size_t len}, ${4:int flags});"},
+	{ "trigger": "recvfrom\tpxhoang-ssize_t recvfrom", "contents": "recvfrom(${1:int sockfd}, ${2:void *buf}, ${3:size_t len}, ${4:int flags}, ${5:struct sockaddr *src_addr}, ${6:socklen_t *addrlen});"},
+	{ "trigger": "recvmsg\tpxhoang-ssize_t recvmsg", "contents": "recvmsg(${1:int sockfd}, ${2:struct msghdr *msg}, ${3:int flags});"},
+	{ "trigger": "send\tpxhoang-ssize_t send", "contents": "send(${1:int sockfd}, ${2:const void *buf}, ${3:size_t len}, ${4:nt flags});"},
+	{ "trigger": "sendmsg\tpxhoang-ssize_t sendmsg", "contents": "sendmsg(${1:iint sockfd}, ${2:const struct msghdr *msg}, ${3:int flags});"},
+	{ "trigger": "sendto\tpxhoang-ssize_t sendto", "contents": "sendto(${1:int sockfd}, ${2:const void *buf}, ${3:size_t len}, ${4:int flags}, ${5:const struct sockaddr *dest_addr}, ${6:socklen_t addrlen});"},
+	{ "trigger": "setsockopt\tpxhoang-int setsockopt", "contents": "setsockopt(${1:int sockfd}, ${2:int level}, ${3:int optname}, ${4:const void *optval}, ${5:socklen_t optlen});"},
+	{ "trigger": "shutdown\tpxhoang-int shutdown", "contents": "shutdown(${1:int sockfd}, ${2:int how});"},
+	{ "trigger": "socket\tpxhoang-int socket", "contents": "socket(${1:int domain}, ${2:int type}, ${3:int protocol});"},
+	{ "trigger": "socketpair\tpxhoang-int socketpair", "contents": "socketpair(${1:int domain}, ${2:int type}, ${3:int protocol}, ${4:int sv[2]});"},
+ 	
+	// Types 
+	{ "trigger": "AF_INET\tpxhoang-flag AF_INET", "contents": "AF_INET"},
+	{ "trigger": "AF_UNSPEC\tpxhoang-flag AF_UNSPEC", "contents": "AF_UNSPEC"},
+	{ "trigger": "AF_UNIX\tpxhoang-flag AF_UNIX", "contents": "AF_UNIX"},
+	{ "trigger": "SHUT_RD\tpxhoang-flag SHUT_RD", "contents": "SHUT_RD"},
+	{ "trigger": "SHUT_WR\tpxhoang-flag SHUT_WR", "contents": "SHUT_WR"},
+	{ "trigger": "SHUT_RDWR\tpxhoang-flag SHUT_RDWR", "contents": "SHUT_RDWR"},
+
+	{ "trigger": "MSG_CTRUNC\tpxhoang-flag MSG_CTRUNC", "contents": "MSG_CTRUNC"},
+	{ "trigger": "MSG_DONTROUTE\tpxhoang-flag MSG_DONTROUTE", "contents": "MSG_DONTROUTE"},
+	{ "trigger": "MSG_EOR\tpxhoang-flag MSG_EOR", "contents": "MSG_EOR"},
+	{ "trigger": "MSG_OOB\tpxhoang-flag MSG_OOB", "contents": "MSG_OOB"},
+	{ "trigger": "MSG_PEEK\tpxhoang-flag MSG_PEEK", "contents": "MSG_PEEK"},
+	{ "trigger": "MSG_TRUNC\tpxhoang-flag MSG_TRUNC", "contents": "MSG_TRUNC"},
+	{ "trigger": "MSG_WAITALL\tpxhoang-flag MSG_WAITALL", "contents": "MSG_WAITALL"},
+
+	{ "trigger": "SO_ACCEPTCONN\tpxhoang-flag SO_ACCEPTCONN", "contents": "SO_ACCEPTCONN"},
+	{ "trigger": "SO_BROADCAST\tpxhoang-flag SO_BROADCAST", "contents": "SO_BROADCAST"},
+	{ "trigger": "SO_DEBUG\tpxhoang-flag SO_DEBUG", "contents": "SO_DEBUG"},
+	{ "trigger": "SO_DONTROUTE\tpxhoang-flag SO_DONTROUTE", "contents": "SO_DONTROUTE"},
+	{ "trigger": "SO_ERROR\tpxhoang-flag SO_ERROR", "contents": "SO_ERROR"},
+	{ "trigger": "SO_KEEPALIVE\tpxhoang-flag SO_KEEPALIVE", "contents": "SO_KEEPALIVE"},
+	{ "trigger": "SO_LINGER\tpxhoang-flag SO_LINGER", "contents": "SO_LINGER"},
+	{ "trigger": "SO_OOBINLINE\tpxhoang-flag SO_OOBINLINE", "contents": "SO_OOBINLINE"},
+	{ "trigger": "SO_RCVBUF\tpxhoang-flag SO_RCVBUF", "contents": "SO_RCVBUF"},
+	{ "trigger": "SO_RCVLOWAT\tpxhoang-flag SO_RCVLOWAT", "contents": "SO_RCVLOWAT"},
+	{ "trigger": "SO_RCVTIMEO\tpxhoang-flag SO_RCVTIMEO", "contents": "SO_RCVTIMEO"},
+	{ "trigger": "SO_REUSEADDR\tpxhoang-flag SO_REUSEADDR", "contents": "SO_REUSEADDR"},
+	{ "trigger": "SO_SNDBUF\tpxhoang-flag SO_SNDBUF", "contents": "SO_SNDBUF"},
+	{ "trigger": "SO_SNDLOWAT\tpxhoang-flag SO_SNDLOWAT", "contents": "SO_SNDLOWAT"},
+	{ "trigger": "SO_SNDTIMEO\tpxhoang-flag SO_SNDTIMEO", "contents": "SO_SNDTIMEO"},
+	{ "trigger": "SO_TYPE\tpxhoang-flag SO_TYPE", "contents": "SO_TYPE"},
+	{ "trigger": "SOL_SOCKET\tpxhoang-flag SOL_SOCKET", "contents": "SOL_SOCKET"},
+	{ "trigger": "SOCK_DGRAM\tpxhoang-flag SOCK_DGRAM", "contents": "SOCK_DGRAM"},
+	{ "trigger": "SOCK_STREAM\tpxhoang-flag SOCK_STREAM", "contents": "SOCK_STREAM"},
+	{ "trigger": "SOCK_SEQPACKET\tpxhoang-flag SOCK_SEQPACKET", "contents": "SOCK_SEQPACKET"},
+
+	{ "trigger": "AF_UNIX\tpxhoang-flag AF_UNIX", "contents": "AF_UNIX"},
+	{ "trigger": "AF_UNIX\tpxhoang-flag AF_UNIX", "contents": "AF_UNIX"},
+	{ "trigger": "AF_UNIX\tpxhoang-flag AF_UNIX", "contents": "AF_UNIX"},
+	{ "trigger": "AF_UNIX\tpxhoang-flag AF_UNIX", "contents": "AF_UNIX"},
+	{ "trigger": "AF_UNIX\tpxhoang-flag AF_UNIX", "contents": "AF_UNIX"},
+	{ "trigger": "AF_UNIX\tpxhoang-flag AF_UNIX", "contents": "AF_UNIX"},
+	{ "trigger": "AF_UNIX\tpxhoang-flag AF_UNIX", "contents": "AF_UNIX"},
 
 
-	/**
-	* General types
-	*/
-		// General types
-		{ "trigger": "int\tpxhoang-type-general", "contents": "int"},
-		{ "trigger": "double\tpxhoang-type-general", "contents": "double"},
-		{ "trigger": "float\tpxhoang-type-general", "contents": "float"},
-		{ "trigger": "char\tpxhoang-type-general", "contents": "char"},
-		{ "trigger": "void\tpxhoang-type-general", "contents": "void"},
-		{ "trigger": "unsigned\tpxhoang-type-general", "contents": "unsigned"},
-		{ "trigger": "signed\tpxhoang-type-general", "contents": "signed"},
-		{ "trigger": "long\tpxhoang-type-general", "contents": "long"},
-		{ "trigger": "short\tpxhoang-type-general", "contents": "short"},
-
-		// Size types
-		{ "trigger": "int8_t\tpxhoang-type-general", "contents": "int8_t"},
-		{ "trigger": "uint8_t\tpxhoang-type-general", "contents": "uint8_t"},
-		{ "trigger": "int16_t\tpxhoang-type-general", "contents": "int16_t"},
-		{ "trigger": "uint16_t\tpxhoang-type-general", "contents": "uint16_t"},
-		{ "trigger": "int32_t\tpxhoang-type-general", "contents": "int32_t"},
-		{ "trigger": "uint32_t\tpxhoang-type-general", "contents": "uint32_t"},
-		{ "trigger": "int64_t\tpxhoang-type-general", "contents": "int64_t"},
-		{ "trigger": "uint64_t\tpxhoang-type-general", "contents": "uint64_t"},
-		{ "trigger": "short\tpxhoang-type-general", "contents": "short"},
 
 
-		// Struct types
-		{ "trigger": "sockaddr_in\tpxhoang-type-struct", "contents": "sockaddr_in"},
+/**
+ * netdb.h
+ * from man7.org
+ */
 
-	/**
-	 * Structs
-	 */
-		{ "trigger": "struct-sockaddr_in\tpxhoang-struct", "contents": "struct sockaddr_in{\n\tshort sin_family;\n\tu_short sin_port;\n\tstruct in_addr sin_addr;\n\tchar sin_zero[8];\n}"}
+ 	// Functions
+	{ "trigger": "endhostent\tpxhoang-void endhostent", "contents": "endhostent(${1:void});"},
+	{ "trigger": "endnetent\tpxhoang-void endnetent", "contents": "endnetent(${1:void});"},
+	{ "trigger": "endprotoent\tpxhoang-void endprotoent", "contents": "endprotoent(${1:void});"},
+	{ "trigger": "endservent\tpxhoang-void endservent", "contents": "endservent(${1:void});"},
+	{ "trigger": "freeaddrinfo\tpxhoang-void freeaddrinfo", "contents": "freeaddrinfo(${1:void});"},
+	{ "trigger": "gai_strerror\tpxhoang-char* gai_strerror", "contents": "gai_strerror(${1:int ecode});"},
+	{ "trigger": "getaddrinfo\tpxhoang-int getaddrinfo", "contents": "getaddrinfo(${1:const char *node}, ${2:const char *service}, ${3:const struct addrinfo *hints}, ${4:struct addrinfo **res});"},
+	{ "trigger": "gethostbyaddr\tpxhoang-struct hostent* gethostbyaddr", "contents": "gethostbyaddr(${1:void *addr}, ${2:socklen_t len}, ${3:int type});"},
+	{ "trigger": "gethostbyname\tpxhoang-struct hostent* gethostbyname", "contents": "gethostbyname(${1:const char *name});"},
+	{ "trigger": "gethostent\tpxhoang-struct hostent* gethostent", "contents": "gethostent(${1:void});"},
+	{ "trigger": "getnameinfo\tpxhoang-int getnameinfo", "contents": "getnameinfo(${1:struct sockaddr *sa}, ${2:socklen_t salen}, ${3:char *host}, ${4:socklen_t hostlen}, ${5:char *serv}, ${6:socklen_t servlen}, ${7:int flags});"},
+	{ "trigger": "getnetbyaddr\tpxhoang-struct netent* getnetbyaddr", "contents": "getnetbyaddr(${1:uint32_t net}, ${2:int type});"},
+	{ "trigger": "getnetbyname\tpxhoang-struct netent* getnetbyname", "contents": "getnetbyname(${1:const char *name});"},
+	{ "trigger": "getnetent\tpxhoang-struct netent* getnetent", "contents": "getnetent(${1:void});"},
+	{ "trigger": "getprotobyname\tpxhoang-struct protoent* getprotobyname", "contents": "getprotobyname(${1:const char *name});"},
+	{ "trigger": "getprotobynumber\tpxhoang-struct protoent* getprotobynumber", "contents": "getprotobynumber(${1:int proto});"},
+	{ "trigger": "getprotoent\tpxhoang-struct protoent* getprotoent", "contents": "getprotoent(${1:void});"},
+	{ "trigger": "getservbyname\tpxhoang-struct servent* getservbyname", "contents": "getservbyname(${1:onst char *name}, ${2:const char *proto});"},
+	{ "trigger": "getservbyport\tpxhoang-struct servent* getservbyport", "contents": "getservbyport(${1:int port}, ${2:const char *proto});"},
+	{ "trigger": "getservent\tpxhoang-struct servent* getservent", "contents": "getservent(${1:void});"},
+	{ "trigger": "sethostent\tpxhoang-void sethostent", "contents": "sethostent(${1:int stayopen});"},
+	{ "trigger": "setnetent\tpxhoang-void setnetent", "contents": "setnetent(${1:int stayopen});"},
+	{ "trigger": "setprotoent\tpxhoang-void setprotoent", "contents": "setprotoent(${1:int stayopen});"},
+	{ "trigger": "setservent\tpxhoang-void setservent", "contents": "setservent(${1:int stayopen});"},
 
 
+/**
+* General types
+* from tutorialpoints.com
+*/
+	// General types
+	{ "trigger": "int\tpxhoang-type-general", "contents": "int"},
+	{ "trigger": "double\tpxhoang-type-general", "contents": "double"},
+	{ "trigger": "float\tpxhoang-type-general", "contents": "float"},
+	{ "trigger": "char\tpxhoang-type-general", "contents": "char"},
+	{ "trigger": "void\tpxhoang-type-general", "contents": "void"},
+	{ "trigger": "unsigned\tpxhoang-type-general", "contents": "unsigned"},
+	{ "trigger": "signed\tpxhoang-type-general", "contents": "signed"},
+	{ "trigger": "long\tpxhoang-type-general", "contents": "long"},
+	{ "trigger": "short\tpxhoang-type-general", "contents": "short"},
+
+	// Size types
+	{ "trigger": "int8_t\tpxhoang-type-general", "contents": "int8_t"},
+	{ "trigger": "uint8_t\tpxhoang-type-general", "contents": "uint8_t"},
+	{ "trigger": "int16_t\tpxhoang-type-general", "contents": "int16_t"},
+	{ "trigger": "uint16_t\tpxhoang-type-general", "contents": "uint16_t"},
+	{ "trigger": "int32_t\tpxhoang-type-general", "contents": "int32_t"},
+	{ "trigger": "uint32_t\tpxhoang-type-general", "contents": "uint32_t"},
+	{ "trigger": "int64_t\tpxhoang-type-general", "contents": "int64_t"},
+	{ "trigger": "uint64_t\tpxhoang-type-general", "contents": "uint64_t"},
+	{ "trigger": "short\tpxhoang-type-general", "contents": "short"},
+
+
+
+
+
+/**
+ * sys/types.h
+ * from : http://pubs.opengroup.org/
+ */
+	{ "trigger": "blkcnt_t\tpxhoang-type-blkcnt_t", "contents": "blkcnt_t"},
+	{ "trigger": "blksize_t\tpxhoang-type-blksize_t", "contents": "blksize_t"},
+	{ "trigger": "clock_t\tpxhoang-type-clock_t", "contents": "clock_t"},
+	{ "trigger": "clockid_t\tpxhoang-type-clockid_t", "contents": "clockid_t"},
+	{ "trigger": "dev_t\tpxhoang-type-dev_t", "contents": "dev_t"},
+	{ "trigger": "fsblkcnt_t\tpxhoang-type-fsblkcnt_t", "contents": "fsblkcnt_t"},
+	{ "trigger": "fsfilcnt_t\tpxhoang-type-fsfilcnt_t", "contents": "fsfilcnt_t"},
+	{ "trigger": "gid_t\tpxhoang-type-gid_t", "contents": "gid_t"},
+	{ "trigger": "id_t\tpxhoang-type-id_t", "contents": "id_t"},
+	{ "trigger": "ino_t\tpxhoang-type-ino_t", "contents": "ino_t"},
+	{ "trigger": "key_t\tpxhoang-type-key_t", "contents": "key_t"},
+	{ "trigger": "mode_t\tpxhoang-type-mode_t", "contents": "mode_t"},
+	{ "trigger": "nlink_t\tpxhoang-type-nlink_t", "contents": "nlink_t"},
+	{ "trigger": "off_t\tpxhoang-type-off_t", "contents": "off_t"},
+	{ "trigger": "pid_t\tpxhoang-type-pid_t", "contents": "pid_t"},
+	{ "trigger": "pthread_attr_t\tpxhoang-type-pthread_attr_t", "contents": "pthread_attr_t"},
+	{ "trigger": "pthread_barrier_t\tpxhoang-type-pthread_barrier_t", "contents": "pthread_barrier_t"},
+	{ "trigger": "pthread_barrierattr_t\tpxhoang-type-pthread_barrierattr_t", "contents": "pthread_barrierattr_t"},
+	{ "trigger": "pthread_cond_t\tpxhoang-type-pthread_cond_t", "contents": "pthread_cond_t"},
+	{ "trigger": "pthread_condattr_t\tpxhoang-type-pthread_condattr_t", "contents": "pthread_condattr_t"},
+	{ "trigger": "pthread_key_t\tpxhoang-type-pthread_key_t", "contents": "pthread_key_t"},
+	{ "trigger": "pthread_mutex_t\tpxhoang-type-pthread_mutex_t", "contents": "pthread_mutex_t"},
+	{ "trigger": "pthread_mutexattr_t\tpxhoang-type-pthread_mutexattr_t", "contents": "pthread_mutexattr_t"},
+	{ "trigger": "pthread_once_t\tpxhoang-type-pthread_once_t", "contents": "pthread_once_t"},
+	{ "trigger": "pthread_rwlock_t\tpxhoang-type-pthread_rwlock_t", "contents": "pthread_rwlock_t"},
+	{ "trigger": "pthread_rwlockattr_t\tpxhoang-type-pthread_rwlockattr_t", "contents": "pthread_rwlockattr_t"},
+	{ "trigger": "pthread_spinlock_t\tpxhoang-type-pthread_spinlock_t", "contents": "pthread_spinlock_t"},
+	{ "trigger": "pthread_t\tpxhoang-type-pthread_t", "contents": "pthread_t"},
+	{ "trigger": "size_t\tpxhoang-type-size_t", "contents": "size_t"},
+	{ "trigger": "ssize_t\tpxhoang-type-ssize_t", "contents": "ssize_t"},
+	{ "trigger": "time_t\tpxhoang-type-time_t", "contents": "time_t"},
+	{ "trigger": "timer_t\tpxhoang-type-timer_t", "contents": "timer_t"},
+	{ "trigger": "trace_attr_t\tpxhoang-type-trace_attr_t", "contents": "trace_attr_t"},
+	{ "trigger": "trace_event_id_t\tpxhoang-type-trace_event_id_t", "contents": "trace_event_id_t"},
+	{ "trigger": "trace_event_set_t\tpxhoang-type-trace_event_set_t", "contents": "trace_event_set_t"},
+	{ "trigger": "trace_id_t\tpxhoang-type-trace_id_t", "contents": "trace_id_t"},
+	{ "trigger": "uid_t\tpxhoang-type-uid_t", "contents": "uid_t"},
 
 
 

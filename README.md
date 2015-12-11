@@ -1,5 +1,4 @@
 # C-completions
 C completions for sublime text 2/3
 
-+ Update text hints
-+ Uncompleted Unistd.h
+Support : Stdio.h, Stdlib.h, String.h, unistd.h, ctype.h, Sockets.h, netdb.h, sys/types.h
