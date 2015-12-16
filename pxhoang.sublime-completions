@@ -6,13 +6,15 @@
 	/**
 	 * General function 
 	 */
+		{ "trigger": "main\tpxhoang-main", "contents": "main(${1:int argc}, ${2:char const *argv[]}){\n\t${3:/* code */}\n\treturn 0;\n};"}, // while 
 		{ "trigger": "while\tpxhoang-while", "contents": "while(${1}){\n\t${2}\n};"}, // while 
-		{ "trigger": "case\tpxhoang-case", "contents": "switch(${1:expression}) {\n\tcase ${2:1} : \n\t\t${3}\n\t\tbreak;\n\tdefault : \n\t\t${4}\n}"}, // switch case 
+		{ "trigger": "switch case\tpxhoang-case", "contents": "switch(${1:expression}) {\n\tcase ${2:1} : \n\t\t${3}\n\t\tbreak;\n\tdefault : \n\t\t${4}\n}"}, // switch case 
 		{ "trigger": "if\tpxhoang-if", "contents": "if(${1:condiction}){\n\t${2}\n};"},
 		{ "trigger": "for\tpxhoang-for", "contents": "for(${1:i} = 0; ${1:i} < ${2:count}; ${1:i}++){\n\t${3:/* code */}\n};"},
 
 	/**
 	 * Stdio.h
+	 * from http://www.tutorialpoints.org/
 	 */
 	 	{ "trigger": "fclose\tpxhoang-int fclose", "contents": "fclose(${1:FILE *stream});"},
 	 	{ "trigger": "clearerr\tpxhoang-void clearerr", "contents": "clearerr(${1:FILE *stream});"},
@@ -58,6 +60,7 @@
 	
 	/**
 	 * Stdlib.h
+	 * from http://www.tutorialpoints.org/
 	 */
 	 	{ "trigger": "atof\tpxhoang-double atof", "contents": "atof(${1:const char *str});"},
 	 	{ "trigger": "atoi\tpxhoang-int atoi", "contents": "atoi(${1:const char *str});"},
@@ -90,6 +93,7 @@
 	
 	/**
 	 * String.h
+	 * from http://www.tutorialpoints.org/
 	 */
 	 	{ "trigger": "memchr\tpxhoang-void *memchr", "contents": "memchr(${1:const void *str}, ${2:int c}, ${3:size_t n});"},
 	 	{ "trigger": "memcmp\tpxhoang-int memcmp", "contents": "memcmp(${1:const void *str1}, ${2:const void *str2}, ${3:size_t n});"},
@@ -117,6 +121,7 @@
 
 	 /**
 	  * unistd.h
+	  * from http://www.tutorialpoints.org/
 	  */
 		{ "trigger": "access\tpxhoang-int access", "contents": "access(${1:const char *path}, ${2:int amode});"},
 		{ "trigger": "alarm\tpxhoang-unsigned int alarm", "contents": "alarm(${1:unsigned int seconds});"},
@@ -160,7 +165,7 @@
 		{ "trigger": "getpass\tpxhoang-char *getpass", "contents": "getpass(${1:const char *prompt});"},
 		{ "trigger": "getpgid\tpxhoang-pid_t getpgid", "contents": "getpgid(${1:pid_t pid});"},
 		{ "trigger": "getpgrp\tpxhoang-pid_t getpgrp", "contents": "getpgrp();"},
-		{ "trigger": "getpid\tpxhoang-pid_t getpid", "contents": "getpid(${);"},
+		{ "trigger": "getpid\tpxhoang-pid_t getpid", "contents": "getpid();"},
 		{ "trigger": "getppid\tpxhoang-pid_t getppid", "contents": "getppid();"},
 		{ "trigger": "getsid\tpxhoang-pid_t getsid", "contents": "getsid(${1:pid_t pid});"},
 		{ "trigger": "getuid\tpxhoang-uid_t getuid", "contents": "getuid();"},
@@ -209,6 +214,7 @@
 
 	/**
 	 * ctype.h
+	 * from http://www.tutorialpoints.org/
 	 */
 	 	{ "trigger": "isalnum\tpxhoang-isalnum", "contents": "isalnum(${1:int c});"},
 	 	{ "trigger": "isalpha\tpxhoang-isalpha", "contents": "isalpha(${1:int c});"},
@@ -227,7 +233,7 @@
 
 /**
  * Sockets.h
- * from http://man7.org
+ * from http://www.man7.org/
  */
 
 	{ "trigger": "accept\tpxhoang-int accept", "contents": "accept(${1:int sockfd}, ${2:struct sockaddr *addr}, ${3:socklen_t *addrlen});"},
@@ -298,7 +304,7 @@
 
 /**
  * netdb.h
- * from man7.org
+ * from http://www.man7.org/
  */
 
  	// Functions
@@ -329,8 +335,115 @@
 
 
 /**
+ * fcntl.h
+ * from http://www.man7.org/
+ */
+ 	// Functions
+	{ "trigger": "fcntl\tpxhoang-int fcntl", "contents": "fcntl(${1:int fd}, ${2:int cmd}, ${3:struct *flock});"},
+	{ "trigger": "open\tpxhoang-int open", "contents": "open(${1:const char *pathname}, ${2:int flags}, ${3:mode_t mode});"},
+	{ "trigger": "creat\tpxhoang-int creat", "contents": "creat(${1:const char *pathname}, ${2:mode_t mode});"},
+	{ "trigger": "openat\tpxhoang-int openat", "contents": "openat(${1:int dirfd}, ${2:const char *pathname}, ${3:int flags}, ${4:mode_t mode});"},
+
+	// Structs 
+ 	{ "trigger": "struct flock\tpxhoang-struct flock", "contents": "struct flock {\n\tshort l_type; /* Type of lock: F_RDLCK, F_WRLCK, F_UNLCK */\n\tshort l_whence; /* How to interpret l_start: SEEK_SET, SEEK_CUR, SEEK_END */\n\toff_t l_start; /* Starting offset for lock */\n\toff_t l_len; /* Number of bytes to lock */\n\tpid_t l_pid; /* PID of process blocking our lock (set by F_GETLK and F_OFD_GETLK) */\n}"},
+
+ 	// Flags
+	{ "trigger": "F_DUPFD\tpxhoang-flag F_DUPFD", "contents": "F_DUPFD"},
+	{ "trigger": "F_DUPFD_CLOEXEC\tpxhoang-flag F_DUPFD_CLOEXEC", "contents": "F_DUPFD_CLOEXEC"},
+	{ "trigger": "F_GETFD\tpxhoang-flag F_GETFD", "contents": "F_GETFD"},
+	{ "trigger": "F_SETFD\tpxhoang-falg F_SETFD", "contents": "F_SETFD"},
+	{ "trigger": "F_GETFL\tpxhoang-falg F_GETFL", "contents": "F_GETFL"},
+	{ "trigger": "F_SETFL\tpxhoang-falg F_SETFL", "contents": "F_SETFL"},
+	{ "trigger": "F_GETLK\tpxhoang-falg F_GETLK", "contents": "F_GETLK"},
+	{ "trigger": "F_SETLK\tpxhoang-falg F_SETLK", "contents": "F_SETLK"},
+	{ "trigger": "F_SETLKW\tpxhoang-flag F_SETLKW", "contents": "F_SETLKW"},
+	{ "trigger": "F_GETOWN\tpxhoang-flag F_GETOWN", "contents": "F_GETOWN"},
+	{ "trigger": "F_SETOWN\tpxhoang-flag F_SETOWN", "contents": "F_SETOWN"},
+	{ "trigger": "FD_CLOEXEC\tpxhoang-flag FD_CLOEXEC", "contents": "FD_CLOEXEC"},
+	{ "trigger": "F_RDLCK\tpxhoang-flag F_RDLCK", "contents": "F_RDLCK"},
+	{ "trigger": "F_UNLCK\tpxhoang-flag F_UNLCK", "contents": "F_UNLCK"},
+	{ "trigger": "O_APPEND\tpxhoang-flag O_APPEND", "contents": "O_APPEND"},
+	{ "trigger": "O_DSYNC\tpxhoang-flag O_DSYNC", "contents": "O_DSYNC"},
+	{ "trigger": "O_NONBLOCK\tpxhoang-flag O_NONBLOCK", "contents": "O_NONBLOCK"},
+	{ "trigger": "O_RSYNC\tpxhoang-flag O_RSYNC", "contents": "O_RSYNC"},
+	{ "trigger": "O_SYNC\tpxhoang-flag O_SYNC", "contents": "O_SYNC"},
+	{ "trigger": "O_ACCMODE\tpxhoang-flag O_ACCMODE", "contents": "O_ACCMODE"},
+	{ "trigger": "O_EXEC\tpxhoang-flag O_EXEC", "contents": "O_EXEC"},
+	{ "trigger": "O_RDONLY\tpxhoang-flag O_RDONLY", "contents": "O_RDONLY"},
+	{ "trigger": "O_RDWR\tpxhoang-flag O_RDWR", "contents": "O_RDWR"},
+	{ "trigger": "O_SEARCH\tpxhoang-flag O_SEARCH", "contents": "O_SEARCH"},
+	{ "trigger": "O_WRONLY\tpxhoang-flag O_WRONLY", "contents": "O_WRONLY"},
+	{ "trigger": "AT_FDCWD\tpxhoang-flag AT_FDCWD", "contents": "AT_FDCWD"},
+	{ "trigger": "AT_EACCESS\tpxhoang-flag AT_EACCESS", "contents": "AT_EACCESS"},
+	{ "trigger": "AT_SYMLINK_NOFOLLOW\tpxhoang-flag AT_SYMLINK_NOFOLLOW", "contents": "AT_SYMLINK_NOFOLLOW"},
+	{ "trigger": "AT_SYMLINK_FOLLOW\tpxhoang-flag AT_SYMLINK_FOLLOW", "contents": "AT_SYMLINK_FOLLOW"},
+	{ "trigger": "AT_REMOVEDIR\tpxhoang-flag AT_REMOVEDIR", "contents": "AT_REMOVEDIR"},
+	{ "trigger": "POSIX_FADV_DONTNEED\tpxhoang-flag POSIX_FADV_DONTNEED", "contents": "POSIX_FADV_DONTNEED"},
+	{ "trigger": "POSIX_FADV_NOREUSE\tpxhoang-flag POSIX_FADV_NOREUSE", "contents": "POSIX_FADV_NOREUSE"},
+	{ "trigger": "POSIX_FADV_NORMAL\tpxhoang-flag POSIX_FADV_NORMAL", "contents": "POSIX_FADV_NORMAL"},
+	{ "trigger": "POSIX_FADV_RANDOM\tpxhoang-flag POSIX_FADV_RANDOM", "contents": "POSIX_FADV_RANDOM"},
+	{ "trigger": "POSIX_FADV_SEQUENTIAL\tpxhoang-flag POSIX_FADV_SEQUENTIAL", "contents": "POSIX_FADV_SEQUENTIAL"},
+	{ "trigger": "POSIX_FADV_WILLNEED\tpxhoang-flag POSIX_FADV_WILLNEED", "contents": "POSIX_FADV_WILLNEED"},
+	{ "trigger": "F_WRLCK\tpxhoang-flag F_WRLCK", "contents": "F_WRLCK"},
+
+
+
+/**
+ * <sys/sem.h>
+ * from http://www.man7.org/
+ */
+
+ 	// Functions
+ 	{ "trigger": "semget\tpxhoang-int semget", "contents": "semget(${1:key_t key}, ${2:int nsems}, ${3:int semflg});"},
+	{ "trigger": "semop\tpxhoang-int semop", "contents": "semop(${1:int semid}, ${2:struct sembuf *sops}, ${3:size_t nsops});"},
+	{ "trigger": "semctl\tpxhoang-int semctl", "contents": "semctl(${1:int semid}, ${2:int semnum}, ${3:int cmd});"},
+
+	// Structs
+	{ "trigger": "struct semun\tpxhoang-struct semun", "contents": "struct semun {\n\tint val; /* used for SETVAL only */\n\tstruct semid_ds *buf; /* used for IPC_STAT and IPC_SET */\n\tushort *array; /* used for GETALL and SETALL */\n};"},
+	{ "trigger": "struct semid_ds\tpxhoang-struct semid_ds", "contents": "struct semid_ds {\n\tstruct ipc_perm sem_perm;  /* Ownership and permissions */\n\ttime_t          sem_otime; /* Last semop time */\n\ttime_t          sem_ctime; /* Last change time */\n\tunsigned short  sem_nsems; /* No. of semaphores in set */\n};"},
+	{ "trigger": "struct sembuf\tpxhoang-struct sembuf", "contents": "struct sembuf{\n\tushort sem_num;\n\tshort sem_op;\n\tshort sem_flg;\n};"},
+	
+	// Flags 
+	{ "trigger": "GETVAL\tpxhoang-flag GETVAL", "contents": "GETVAL"},
+	{ "trigger": "SETVAL\tpxhoang-flag SETVAL", "contents": "SETVAL"},
+	{ "trigger": "GETPID\tpxhoang-flag GETPID", "contents": "GETPID"},
+	{ "trigger": "GETNCNT\tpxhoang-flag GETNCNT", "contents": "GETNCNT"},
+	{ "trigger": "GETZCNT\tpxhoang-flag GETZCNT", "contents": "GETZCNT"},
+	{ "trigger": "GETALL\tpxhoang-flag GETALL", "contents": "GETALL"},
+	{ "trigger": "SETALL\tpxhoang-flag SETALL", "contents": "SETALL"},
+	{ "trigger": "IPC_STAT\tpxhoang-flag IPC_STAT", "contents": "IPC_STAT"},
+	{ "trigger": "IPC_SET\tpxhoang-flag IPC_SET", "contents": "IPC_SET"},
+	{ "trigger": "IPC_CREAT\tpxhoang-flag IPC_CREAT", "contents": "IPC_CREAT"},
+	{ "trigger": "IPC_EXCL\tpxhoang-flag IPC_EXCL", "contents": "IPC_EXCL"},
+	{ "trigger": "O_ACCMODE\tpxhoang-flag O_ACCMODE", "contents": "O_ACCMODE"},
+	{ "trigger": "O_ACCMODE\tpxhoang-flag O_ACCMODE", "contents": "O_ACCMODE"},
+	{ "trigger": "O_ACCMODE\tpxhoang-flag O_ACCMODE", "contents": "O_ACCMODE"},
+	{ "trigger": "O_ACCMODE\tpxhoang-flag O_ACCMODE", "contents": "O_ACCMODE"},
+	{ "trigger": "O_ACCMODE\tpxhoang-flag O_ACCMODE", "contents": "O_ACCMODE"},
+	{ "trigger": "O_ACCMODE\tpxhoang-flag O_ACCMODE", "contents": "O_ACCMODE"},
+
+
+
+/**
+ * <libxml/parser.h>
+ */
+
+	// Functions
+	{ "trigger": "xmlParseFile\tpxhoang-xmlDocPtr xmlParseFile", "contents": "xmlParseFile(${1:const char * filename});"},
+	{ "trigger": "xmlDocGetRootElement\tpxhoang-xmlDocPtr xmlDocGetRootElement", "contents": "xmlDocGetRootElement(${1:const xmlDoc * doc});"},
+	{ "trigger": "xmlStrcmp\tpxhoang-int xmlStrcmp", "contents": "xmlStrcmp(${1:const xmlChar * str1}, (xmlChar*)${2:str2});${3:/* Return 0 : equal, >0 : str2<str1, <0 : str1<str2 */}"},
+	{ "trigger": "xmlNodeGetContent\tpxhoang-xmlChar* xmlNodeGetContent", "contents": "xmlNodeGetContent(${1:const xmlNode * cur}); /* Get content from 1 node */"},
+	{ "trigger": "xmlNodeListGetString\tpxhoang-xmlChar* xmlNodeListGetString", "contents": "xmlNodeListGetString(${1:xmlDocPtr doc}, ${2:const xmlNode* list}, ${3:int inLine}); /* Get Content from many nodes */"},
+	{ "trigger": "xmlGetProp\tpxhoang-xmlDocPtr xmlGetProp", "contents": "xmlGetProp(${1:const xmlNode * node}, ${2:const xmlChar * name}});"},
+
+	// Types 
+	{ "trigger": "xmlDoc\tpxhoang-type-xmlDoc", "contents": "xmlDoc"},
+	{ "trigger": "xmlNode\tpxhoang-type-xmlNode", "contents": "xmlNode"},
+	{ "trigger": "xmlChar\tpxhoang-type-xmlChar", "contents": "xmlChar"},
+	{ "trigger": "xmlAttr\tpxhoang-type-xmlAttr", "contents": "xmlAttr"},
+/**
 * General types
-* from tutorialpoints.com
+* from http://www.tutorialpoints.org/
 */
 	// General types
 	{ "trigger": "int\tpxhoang-type-general", "contents": "int"},
