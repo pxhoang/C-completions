@@ -10,7 +10,7 @@ Support :
 + Sockets.h
 + netdb.h
 + sys/types.h
-+ <ys/sem.h
++ sys/sem.h
 + libxml/parser.h (unc)
 
 
