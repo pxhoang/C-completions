@@ -8,31 +8,12 @@
  * https://www.kernel.org/doc/htmldocs/kernel-api/
 ====================================================================================*/
 
-
- 
 // Structures 
 	{ "trigger": "KERNEL file_operations\tstruct file_operations", "contents": "static struct file_operations ${1:fops}\n{\n\t.owner          = THIS_MODULE,\n\t.open           = dev_open,\n\t.read           = dev_read,\n\t.write          = dev_write,\n\t.release        = dev_release,\n\t.unlocked_ioctl = dev_ioctl\n};"},
-
-
-
-/* fs/char_dev.c */
-
-	{ "trigger": "KERNEL alloc_chrdev_region\tvoid alloc_chrdev_region", "contents": "alloc_chrdev_region(${1:__init});"},
-
-// int alloc_chrdev_region(dev_t *, unsigned, unsigned, const char *);
-// int register_chrdev_region(dev_t, unsigned, const char *);
-// void unregister_chrdev_region(dev_t, unsigned);
-// void chrdev_show(struct seq_file *,off_t);
-// int register_chrdev(unsigned int major, const char *name, const struct file_operations *fops)
-// void unregister_chrdev(unsigned int major, const char *name)
-
-
 
 // Driver Entry and Exit points
 	{ "trigger": "KERNEL module_init\tvoid module_init", "contents": "module_init(${1:__init});"},
 	{ "trigger": "KERNEL module_exit\tvoid module_exit", "contents": "module_exit(${1:__init});"},
-
-
 
 // Procfs
 	{ "trigger": "KERNEL proc_create\tstruct proc_dir_entry *proc_create", "contents": "proc_create(${1:char *procfs_name}, ${2:umode_t mode}, ${3:struct proc_dir_entry *parent}, struct file_operations *proc_fops);"},
@@ -45,6 +26,52 @@
 	{ "trigger": "KERNEL write_func\tint write_func", "contents": "write_func(${1:struct file* file}, ${2:char* buffer}, ${3:unsigned long count}, ${4:void* data});"},
 	{ "trigger": "KERNEL create_proc_read_entry\tstruct proc_dir_entry* create_proc_read_entry", "contents": "create_proc_read_entry(${1:char* name}, ${2:mode_t mode}, ${3:struct proc_dir_entry* parent}, ${4:read_proc_t* read_proc}, ${5:void* data});"},
 
+
+	/* fs/char_dev.c */
+	{ "trigger": "KERNEL alloc_chrdev_region\tint alloc_chrdev_region", "contents": "alloc_chrdev_region(${1:dev_t* dev}, ${2:unsigned baseminor}, ${3:unsigned count}, ${4:const char* name});"},
+	{ "trigger": "KERNEL register_chrdev_region\tint register_chrdev_region", "contents": "register_chrdev_region(${1:dev_t from}, ${2:unsigned count}, ${3:const char* name});"},
+	{ "trigger": "KERNEL unregister_chrdev_region\tvoid unregister_chrdev_region", "contents": "unregister_chrdev_region(${1:dev_t from}, ${2:unsigned count});"},
+	{ "trigger": "KERNEL register_chrdev\tint register_chrdev", "contents": "register_chrdev(${1:unsigned int major}, ${2:const char *name}, ${3:const struct file_operations *fops});"},
+	{ "trigger": "KERNEL unregister_chrdev\tvoid unregister_chrdev", "contents": "unregister_chrdev(${1:unsigned int major}, ${2:char *name});"},
+	{ "trigger": "KERNEL cdev_add\tint cdev_add", "contents": "cdev_add(${1:struct cdev * p}, ${2:dev_t dev}, ${3:unsigned count});"},
+	{ "trigger": "KERNEL cdev_del\tvoid cdev_del", "contents": "cdev_del(${1:struct cdev * p});"},
+	{ "trigger": "KERNEL cdev_alloc\tstruct cdev *cdev_alloc", "contents": "cdev_alloc(${1:void});"},
+	{ "trigger": "KERNEL cdev_init\tvoid cdev_init", "contents": "cdev_init(${1:struct cdev * cdev}, ${2:struct file_operations * fops});"},
+
+	// 16. Miscellaneous Devices
+	{ "trigger": "KERNEL misc_register\tvoid misc_register", "contents": "misc_register(${1:struct miscdevice * misc});"},
+	{ "trigger": "KERNEL misc_deregister\tvoid misc_deregister", "contents": "misc_deregister(${1:struct miscdevice * misc});"},
+
+	// 4. Memory Management in Linux
+		// 4.1 The Slab Cache
+		{ "trigger": "KERNEL kmalloc\tvoid *kmalloc", "contents": "kmalloc(${1:size_t size}, ${2:gfp_t flags});"},
+		{ "trigger": "KERNEL kmalloc_array\tvoid *kmalloc_array", "contents": "kmalloc_array(${1:size_t n}, ${2:size_t size}, ${3:gfp_t flags});"},
+		{ "trigger": "KERNEL kcalloc\tvoid *kcalloc", "contents": "kcalloc(${1:size_t n}, ${2:size_t size}, ${3:gfp_t flags});"},
+		{ "trigger": "KERNEL kzalloc\tvoid *kzalloc", "contents": "kzalloc(${1:size_t size}, ${2:gfp_t flags});"},
+		{ "trigger": "KERNEL kzalloc_node\tvoid *kzalloc_node", "contents": "kzalloc_node(${1:size_t size}, ${2:gfp_t flags}, ${3:int node});"},
+		{ "trigger": "KERNEL kmem_cache_alloc\tvoid *kmem_cache_alloc", "contents": "kmem_cache_alloc(${1:struct kmem_cache * cachep}, ${2:gfp_t flags});"},
+		{ "trigger": "KERNEL kmem_cache_alloc_node\tvoid *kmem_cache_alloc_node", "contents": "kmem_cache_alloc_node(${1:struct kmem_cache * cachep}, ${2:gfp_t flags}, ${3:int nodeid});"},
+		{ "trigger": "KERNEL kmem_cache_free\tvoid kmem_cache_free", "contents": "kmem_cache_free(${1:struct kmem_cache * cachep}, ${2:void * objp});"},
+		{ "trigger": "KERNEL kfree\tvoid kfree", "contents": "kfree(${1:const void * objp});"},
+		{ "trigger": "KERNEL ksize\tsize_t ksize", "contents": "ksize(${1:const void * objp});"},
+		{ "trigger": "KERNEL kfree_const\tvoid kfree_const", "contents": "kfree_const(${1:const void * x});"},
+		{ "trigger": "KERNEL kstrdup\tchar *kstrdup", "contents": "kstrdup(${1:const char * s}, ${2:gfp_t gfp});"},
+		{ "trigger": "KERNEL kstrdup_const\tchar *kstrdup_const", "contents": "kstrdup_const(${1:const char * s}, ${2:gfp_t gfp});"},
+		{ "trigger": "KERNEL kstrndup\tchar *kstrndup", "contents": "kstrndup(${1:const char * s}, ${2:size_t max}, ${3:gfp_t gfp});"},
+		{ "trigger": "KERNEL kmemdup\tvoid *kmemdup", "contents": "kmemdup(${1:const void * src}, ${2:size_t len}, ${3:gfp_t gfp});"},
+		{ "trigger": "KERNEL memdup_user\tvoid *memdup_user", "contents": "memdup_user(${1:void __user * src}, ${2:size_t len});"},
+		{ "trigger": "KERNEL memdup_user_nul\tvoid *memdup_user_nul", "contents": "memdup_user_nul(${1:void __user * src}, ${2:size_t len});"},
+		{ "trigger": "KERNEL get_user_pages_fast\tint get_user_pages_fast", "contents": "get_user_pages_fast(${1:unsigned long start}, ${2:int nr_pages}, ${3:int write}, ${4:struct page ** pages});"},
+
+		// 4.2 User Space Memory Access
+		{ "trigger": "KERNEL copy_to_user\tvoid copy_to_user", "contents": "copy_to_user(${1:void __user*}, ${2:void* from}, ${3:unsigned long n});"},
+		{ "trigger": "KERNEL copy_from_user\tvoid copy_from_user", "contents": "copy_from_user(${1:void *to}, ${2:void __user *}, ${3:unsigned long n});"},
+		
+
+
+
+		// 4.3 More Memory Management Functions
+	
 
 
 /*===================================================================================
@@ -696,10 +723,10 @@
 // 	{ "trigger": "KERNEL __register_chrdev\tint __register_chrdev", "contents": "__register_chrdev(${1:unsigned int major}, ${2:unsigned int baseminor}, ${3:unsigned int count}, ${4:const char * name}, ${5:struct file_operations * fops});"},
 // 	{ "trigger": "KERNEL unregister_chrdev_region\tvoid unregister_chrdev_region", "contents": "unregister_chrdev_region(${1:dev_t from}, ${2:unsigned count});"},
 // 	{ "trigger": "KERNEL __unregister_chrdev\tvoid __unregister_chrdev", "contents": "__unregister_chrdev(${1:unsigned int major}, ${2:unsigned int baseminor}, ${3:unsigned int count}, ${4:const char * name});"},
-// 	{ "trigger": "KERNEL cdev_add\tint cdev_add", "contents": "cdev_add(${1:struct cdev * p}, ${2:dev_t dev}, ${3:unsigned count});"},
-// 	{ "trigger": "KERNEL cdev_del\tvoid cdev_del", "contents": "cdev_del(${1:struct cdev * p});"},
-// 	{ "trigger": "KERNEL cdev_alloc\tstruct cdev *cdev_alloc", "contents": "cdev_alloc(${1:void});"},
-// 	{ "trigger": "KERNEL cdev_init\tvoid cdev_init", "contents": "cdev_init(${1:struct cdev * cdev}, ${2:struct file_operations * fops});"},
+	// { "trigger": "KERNEL cdev_add\tint cdev_add", "contents": "cdev_add(${1:struct cdev * p}, ${2:dev_t dev}, ${3:unsigned count});"},
+	// { "trigger": "KERNEL cdev_del\tvoid cdev_del", "contents": "cdev_del(${1:struct cdev * p});"},
+	// { "trigger": "KERNEL cdev_alloc\tstruct cdev *cdev_alloc", "contents": "cdev_alloc(${1:void});"},
+	// { "trigger": "KERNEL cdev_init\tvoid cdev_init", "contents": "cdev_init(${1:struct cdev * cdev}, ${2:struct file_operations * fops});"},
 
 
 // // 16. Miscellaneous Devices
