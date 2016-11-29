@@ -9,7 +9,7 @@
 ====================================================================================*/
 
 // Structures 
-	{ "trigger": "KERNEL file_operations\tstruct file_operations", "contents": "static struct file_operations ${1:fops}\n{\n\t.owner          = THIS_MODULE,\n\t.open           = dev_open,\n\t.read           = dev_read,\n\t.write          = dev_write,\n\t.release        = dev_release,\n\t.unlocked_ioctl = dev_ioctl\n};"},
+	{ "trigger": "KERNEL file_operations\tstruct file_operations", "contents": "static struct file_operations ${1:fops} = \n{\n\t.owner          = THIS_MODULE,\n\t.open           = dev_open,\n\t.read           = dev_read,\n\t.write          = dev_write,\n\t.release        = dev_release,\n\t.unlocked_ioctl = dev_ioctl\n};"},
 
 // Driver Entry and Exit points
 	{ "trigger": "KERNEL module_init\tvoid module_init", "contents": "module_init(${1:__init});"},
@@ -37,6 +37,16 @@
 	{ "trigger": "KERNEL cdev_del\tvoid cdev_del", "contents": "cdev_del(${1:struct cdev * p});"},
 	{ "trigger": "KERNEL cdev_alloc\tstruct cdev *cdev_alloc", "contents": "cdev_alloc(${1:void});"},
 	{ "trigger": "KERNEL cdev_init\tvoid cdev_init", "contents": "cdev_init(${1:struct cdev * cdev}, ${2:struct file_operations * fops});"},
+
+
+// struct device * device_create (	struct class * class, struct device * parent, dev_t devt, void * drvdata, const char * fmt, ...);
+	{ "trigger": "KERNEL device_create\tstruct device *device_create", "contents": "device_create(${1:struct class *class}, ${2:struct device *parent}, ${3:dev_t devt}, ${4:void * drvdata}, ${5:char * fmt}, ${7:var_arg var});"},
+	{ "trigger": "KERNEL class_create\tstruct class *class_create", "contents": "class_create(${1:struct module *owner}, ${2:char *name});"},
+	{ "trigger": "KERNEL class_destroy\tvoid class_destroy", "contents": "class_destroy(${1:struct class *cls});"},
+
+
+	
+
 
 	// 16. Miscellaneous Devices
 	{ "trigger": "KERNEL misc_register\tvoid misc_register", "contents": "misc_register(${1:struct miscdevice * misc});"},
@@ -73,6 +83,12 @@
 		// 4.3 More Memory Management Functions
 	
 
+
+
+	// MAROS
+	{ "trigger": "KERNEL MKDEV\tvoid MKDEV", "contents": "MKDEV(${1:int major}, ${2:int minor});"},
+	{ "trigger": "KERNEL MAJOR\tvoid MAJOR", "contents": "MAJOR(${1:dev_t dev});"},
+	{ "trigger": "KERNEL MINOR\tvoid MINOR", "contents": "MINOR(${1:dev_t dev});"},
 
 /*===================================================================================
  * LINUX USERSPACE
