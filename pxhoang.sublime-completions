@@ -1,398 +1,454 @@
 {
-	"scope": "source.c",
-	"completions":[
+   "scope": "source.c",
+   "completions":[
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// PXHOANG DEFINITION
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * General function
+ */
+   { "trigger": "main-PXHOANG\tmain", "contents": "main(${1:int argc}, ${2:char const *argv[]}){\n\t${3:/* code */}\n\treturn 0;\n};"},
+   { "trigger": "while-PXHOANG\twhile", "contents": "while(${1})\n{\n${2}\n}"},
+   { "trigger": "switch-case-PXHOANG\tcase", "contents": "switch (${1:/* expression */})\n{\n\tcase ${2:A}:\n\t\tbreak;\n\n\tdefault:\n\t\tbreak;\n}"},
+   { "trigger": "if-PXHOANG\tif", "contents": "if (${1:condiction})\n{\n${2}\n}"},
+   { "trigger": "for-PXHOANG\tfor", "contents": "for (idx = 0; idx < ${2:count}; idx++)\n{\n\t${3:/* code */}\n}"},
+
+/**
+ * Macros
+ */
+   { "trigger": "define -PXHOANG\t#define", "contents": "#define ${1:/* Definition */}"},
+   { "trigger": "undef-PXHOANG\t#undef", "contents": "#undef ${1:/* Definition */}"},
+   { "trigger": "include-PXHOANG\t#include \"\"", "contents": "#include \"${1:test.h}\""},
+
+   { "trigger": "ifdef-PXHOANG\t#ifdef", "contents": "#ifdef ${1:/* Definition */}"},
+   { "trigger": "ifndef-PXHOANG\t#ifndef", "contents": "#ifndef ${1:/* Definition */}"},
+   { "trigger": "endif-PXHOANG\t#endif", "contents": "#endif"},
 
 
-/*===================================================================================
- * LINUX KERNEL API
- * https://www.kernel.org/doc/htmldocs/kernel-api/
-====================================================================================*/
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// LINUX KERNEL API - https://www.kernel.org/doc/htmldocs/kernel-api/
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// Structures 
-	{ "trigger": "KERNEL file_operations\tstruct file_operations", "contents": "static struct file_operations ${1:fops} = \n{\n\t.owner          = THIS_MODULE,\n\t.open           = dev_open,\n\t.read           = dev_read,\n\t.write          = dev_write,\n\t.release        = dev_release,\n\t.unlocked_ioctl = dev_ioctl\n};"},
+/**
+ * Init.h
+ */
+   { "trigger": "KERN module_init\tvoid module_init", "contents": "module_init(${1:__init});"},
+   { "trigger": "KERN module_exit\tvoid module_exit", "contents": "module_exit(${1:__init});"},
 
-// Driver Entry and Exit points
-	{ "trigger": "KERNEL module_init\tvoid module_init", "contents": "module_init(${1:__init});"},
-	{ "trigger": "KERNEL module_exit\tvoid module_exit", "contents": "module_exit(${1:__init});"},
+/**
+ * Procfs.h
+ */
+   { "trigger": "KERN proc_create\tstruct proc_dir_entry *proc_create", "contents": "proc_create(${1:char *procfs_name}, ${2:umode_t mode}, ${3:struct proc_dir_entry *parent}, struct file_operations *proc_fops);"},
+   { "trigger": "KERN remove_proc_entry\tvoid", "contents": "remove_proc_entry(${1:char* procfs_name}, ${2:struct proc_dir_entry *parent});"},
+   { "trigger": "KERN create_proc_entry\tproc_dir_entry* create_proc_entry", "contents": "create_proc_entry(${1:char* procfs_name}, ${2:mode_t mode}, ${3:struct proc_dir_entry* parent});"},
+   { "trigger": "KERN proc_symlink\tstruct proc_dir_entry* proc_symlink", "contents": "proc_symlink(${1:char* procfs_name}, ${2:struct proc_dir_entry* parent}, ${3:char* dest});"},
+   { "trigger": "KERN proc_mknod\tproc_dir_entry* proc_mknod", "contents": "proc_mknod(${1:char* procfs_name}, ${2:mode_t mode}, ${3:struct proc_dir_entry* parent}, ${4:kdev_t rdev});"},
+   { "trigger": "KERN proc_mkdir\tproc_dir_entry* proc_mkdir", "contents": "proc_mkdir(${1:char* procfs_name}, ${2:}struct proc_dir_entry* parent);"},
+   { "trigger": "KERN read_func\tint read_func", "contents": "read_func(${1:char* page}, ${2:char** start}, ${3:off_t off}, ${4:int count}, ${5:int* eof}, ${6:void* data});"},
+   { "trigger": "KERN write_func\tint write_func", "contents": "write_func(${1:struct file* file}, ${2:char* buffer}, ${3:unsigned long count}, ${4:void* data});"},
+   { "trigger": "KERN create_proc_read_entry\tstruct proc_dir_entry* create_proc_read_entry", "contents": "create_proc_read_entry(${1:char* name}, ${2:mode_t mode}, ${3:struct proc_dir_entry* parent}, ${4:read_proc_t* read_proc}, ${5:void* data});"},
 
-// Procfs
-	{ "trigger": "KERNEL proc_create\tstruct proc_dir_entry *proc_create", "contents": "proc_create(${1:char *procfs_name}, ${2:umode_t mode}, ${3:struct proc_dir_entry *parent}, struct file_operations *proc_fops);"},
-	{ "trigger": "KERNEL remove_proc_entry\tvoid", "contents": "remove_proc_entry(${1:char* procfs_name}, ${2:struct proc_dir_entry *parent});"},
-	{ "trigger": "KERNEL create_proc_entry\tproc_dir_entry* create_proc_entry", "contents": "create_proc_entry(${1:char* procfs_name}, ${2:mode_t mode}, ${3:struct proc_dir_entry* parent});"},
-	{ "trigger": "KERNEL proc_symlink\tstruct proc_dir_entry* proc_symlink", "contents": "proc_symlink(${1:char* procfs_name}, ${2:struct proc_dir_entry* parent}, ${3:char* dest});"},
-	{ "trigger": "KERNEL proc_mknod\tproc_dir_entry* proc_mknod", "contents": "proc_mknod(${1:char* procfs_name}, ${2:mode_t mode}, ${3:struct proc_dir_entry* parent}, ${4:kdev_t rdev});"},
-	{ "trigger": "KERNEL proc_mkdir\tproc_dir_entry* proc_mkdir", "contents": "proc_mkdir(${1:char* procfs_name}, ${2:}struct proc_dir_entry* parent);"},
-	{ "trigger": "KERNEL read_func\tint read_func", "contents": "read_func(${1:char* page}, ${2:char** start}, ${3:off_t off}, ${4:int count}, ${5:int* eof}, ${6:void* data});"},
-	{ "trigger": "KERNEL write_func\tint write_func", "contents": "write_func(${1:struct file* file}, ${2:char* buffer}, ${3:unsigned long count}, ${4:void* data});"},
-	{ "trigger": "KERNEL create_proc_read_entry\tstruct proc_dir_entry* create_proc_read_entry", "contents": "create_proc_read_entry(${1:char* name}, ${2:mode_t mode}, ${3:struct proc_dir_entry* parent}, ${4:read_proc_t* read_proc}, ${5:void* data});"},
+   /* fs/char_dev.c */
+   { "trigger": "KERN alloc_chrdev_region\tint alloc_chrdev_region", "contents": "alloc_chrdev_region(${1:dev_t* dev}, ${2:unsigned baseminor}, ${3:unsigned count}, ${4:const char* name});"},
+   { "trigger": "KERN register_chrdev_region\tint register_chrdev_region", "contents": "register_chrdev_region(${1:dev_t from}, ${2:unsigned count}, ${3:const char* name});"},
+   { "trigger": "KERN unregister_chrdev_region\tvoid unregister_chrdev_region", "contents": "unregister_chrdev_region(${1:dev_t from}, ${2:unsigned count});"},
+   { "trigger": "KERN register_chrdev\tint register_chrdev", "contents": "register_chrdev(${1:unsigned int major}, ${2:const char *name}, ${3:const struct file_operations *fops});"},
+   { "trigger": "KERN unregister_chrdev\tvoid unregister_chrdev", "contents": "unregister_chrdev(${1:unsigned int major}, ${2:char *name});"},
+   { "trigger": "KERN cdev_add\tint cdev_add", "contents": "cdev_add(${1:struct cdev * p}, ${2:dev_t dev}, ${3:unsigned count});"},
+   { "trigger": "KERN cdev_del\tvoid cdev_del", "contents": "cdev_del(${1:struct cdev * p});"},
+   { "trigger": "KERN cdev_alloc\tstruct cdev *cdev_alloc", "contents": "cdev_alloc(${1:void});"},
+   { "trigger": "KERN cdev_init\tvoid cdev_init", "contents": "cdev_init(${1:struct cdev * cdev}, ${2:struct file_operations * fops});"},
 
+   /* Class create */
+   { "trigger": "KERN device_create\tstruct device *device_create", "contents": "device_create(${1:struct class *class}, ${2:struct device *parent}, ${3:dev_t devt}, ${4:void * drvdata}, ${5:char * fmt}, ${7:var_arg var});"},
+   { "trigger": "KERN class_create\tstruct class *class_create", "contents": "class_create(${1:struct module *owner}, ${2:char *name});"},
+   { "trigger": "KERN class_destroy\tvoid class_destroy", "contents": "class_destroy(${1:struct class *cls});"},
 
-	/* fs/char_dev.c */
-	{ "trigger": "KERNEL alloc_chrdev_region\tint alloc_chrdev_region", "contents": "alloc_chrdev_region(${1:dev_t* dev}, ${2:unsigned baseminor}, ${3:unsigned count}, ${4:const char* name});"},
-	{ "trigger": "KERNEL register_chrdev_region\tint register_chrdev_region", "contents": "register_chrdev_region(${1:dev_t from}, ${2:unsigned count}, ${3:const char* name});"},
-	{ "trigger": "KERNEL unregister_chrdev_region\tvoid unregister_chrdev_region", "contents": "unregister_chrdev_region(${1:dev_t from}, ${2:unsigned count});"},
-	{ "trigger": "KERNEL register_chrdev\tint register_chrdev", "contents": "register_chrdev(${1:unsigned int major}, ${2:const char *name}, ${3:const struct file_operations *fops});"},
-	{ "trigger": "KERNEL unregister_chrdev\tvoid unregister_chrdev", "contents": "unregister_chrdev(${1:unsigned int major}, ${2:char *name});"},
-	{ "trigger": "KERNEL cdev_add\tint cdev_add", "contents": "cdev_add(${1:struct cdev * p}, ${2:dev_t dev}, ${3:unsigned count});"},
-	{ "trigger": "KERNEL cdev_del\tvoid cdev_del", "contents": "cdev_del(${1:struct cdev * p});"},
-	{ "trigger": "KERNEL cdev_alloc\tstruct cdev *cdev_alloc", "contents": "cdev_alloc(${1:void});"},
-	{ "trigger": "KERNEL cdev_init\tvoid cdev_init", "contents": "cdev_init(${1:struct cdev * cdev}, ${2:struct file_operations * fops});"},
+   // 16. Miscellaneous Devices
+   { "trigger": "KERN misc_register\tvoid misc_register", "contents": "misc_register(${1:struct miscdevice * misc});"},
+   { "trigger": "KERN misc_deregister\tvoid misc_deregister", "contents": "misc_deregister(${1:struct miscdevice * misc});"},
 
+/**
+ * Memory management kernel space
+ */
+   // 4.1 The Slab Cache
+   { "trigger": "KERN kmalloc\tvoid *kmalloc", "contents": "kmalloc(${1:size_t size}, ${2:gfp_t flags});"},
+   { "trigger": "KERN kmalloc_array\tvoid *kmalloc_array", "contents": "kmalloc_array(${1:size_t n}, ${2:size_t size}, ${3:gfp_t flags});"},
+   { "trigger": "KERN kcalloc\tvoid *kcalloc", "contents": "kcalloc(${1:size_t n}, ${2:size_t size}, ${3:gfp_t flags});"},
+   { "trigger": "KERN kzalloc\tvoid *kzalloc", "contents": "kzalloc(${1:size_t size}, ${2:gfp_t flags});"},
+   { "trigger": "KERN kzalloc_node\tvoid *kzalloc_node", "contents": "kzalloc_node(${1:size_t size}, ${2:gfp_t flags}, ${3:int node});"},
+   { "trigger": "KERN kmem_cache_alloc\tvoid *kmem_cache_alloc", "contents": "kmem_cache_alloc(${1:struct kmem_cache * cachep}, ${2:gfp_t flags});"},
+   { "trigger": "KERN kmem_cache_alloc_node\tvoid *kmem_cache_alloc_node", "contents": "kmem_cache_alloc_node(${1:struct kmem_cache * cachep}, ${2:gfp_t flags}, ${3:int nodeid});"},
+   { "trigger": "KERN kmem_cache_free\tvoid kmem_cache_free", "contents": "kmem_cache_free(${1:struct kmem_cache * cachep}, ${2:void * objp});"},
+   { "trigger": "KERN kfree\tvoid kfree", "contents": "kfree(${1:const void * objp});"},
+   { "trigger": "KERN ksize\tsize_t ksize", "contents": "ksize(${1:const void * objp});"},
+   { "trigger": "KERN kfree_const\tvoid kfree_const", "contents": "kfree_const(${1:const void * x});"},
+   { "trigger": "KERN kstrdup\tchar *kstrdup", "contents": "kstrdup(${1:const char * s}, ${2:gfp_t gfp});"},
+   { "trigger": "KERN kstrdup_const\tchar *kstrdup_const", "contents": "kstrdup_const(${1:const char * s}, ${2:gfp_t gfp});"},
+   { "trigger": "KERN kstrndup\tchar *kstrndup", "contents": "kstrndup(${1:const char * s}, ${2:size_t max}, ${3:gfp_t gfp});"},
+   { "trigger": "KERN kmemdup\tvoid *kmemdup", "contents": "kmemdup(${1:const void * src}, ${2:size_t len}, ${3:gfp_t gfp});"},
+   { "trigger": "KERN memdup_user\tvoid *memdup_user", "contents": "memdup_user(${1:void __user * src}, ${2:size_t len});"},
+   { "trigger": "KERN memdup_user_nul\tvoid *memdup_user_nul", "contents": "memdup_user_nul(${1:void __user * src}, ${2:size_t len});"},
+   { "trigger": "KERN get_user_pages_fast\tint get_user_pages_fast", "contents": "get_user_pages_fast(${1:unsigned long start}, ${2:int nr_pages}, ${3:int write}, ${4:struct page ** pages});"},
 
-// struct device * device_create (	struct class * class, struct device * parent, dev_t devt, void * drvdata, const char * fmt, ...);
-	{ "trigger": "KERNEL device_create\tstruct device *device_create", "contents": "device_create(${1:struct class *class}, ${2:struct device *parent}, ${3:dev_t devt}, ${4:void * drvdata}, ${5:char * fmt}, ${7:var_arg var});"},
-	{ "trigger": "KERNEL class_create\tstruct class *class_create", "contents": "class_create(${1:struct module *owner}, ${2:char *name});"},
-	{ "trigger": "KERNEL class_destroy\tvoid class_destroy", "contents": "class_destroy(${1:struct class *cls});"},
+   // 4.2 User Space Memory Access
+   { "trigger": "KERN copy_to_user\tvoid copy_to_user", "contents": "copy_to_user(${1:void __user*}, ${2:void* from}, ${3:unsigned long n});"},
+   { "trigger": "KERN copy_from_user\tvoid copy_from_user", "contents": "copy_from_user(${1:void *to}, ${2:void __user *}, ${3:unsigned long n});"},
 
-
-	
-
-
-	// 16. Miscellaneous Devices
-	{ "trigger": "KERNEL misc_register\tvoid misc_register", "contents": "misc_register(${1:struct miscdevice * misc});"},
-	{ "trigger": "KERNEL misc_deregister\tvoid misc_deregister", "contents": "misc_deregister(${1:struct miscdevice * misc});"},
-
-	// 4. Memory Management in Linux
-		// 4.1 The Slab Cache
-		{ "trigger": "KERNEL kmalloc\tvoid *kmalloc", "contents": "kmalloc(${1:size_t size}, ${2:gfp_t flags});"},
-		{ "trigger": "KERNEL kmalloc_array\tvoid *kmalloc_array", "contents": "kmalloc_array(${1:size_t n}, ${2:size_t size}, ${3:gfp_t flags});"},
-		{ "trigger": "KERNEL kcalloc\tvoid *kcalloc", "contents": "kcalloc(${1:size_t n}, ${2:size_t size}, ${3:gfp_t flags});"},
-		{ "trigger": "KERNEL kzalloc\tvoid *kzalloc", "contents": "kzalloc(${1:size_t size}, ${2:gfp_t flags});"},
-		{ "trigger": "KERNEL kzalloc_node\tvoid *kzalloc_node", "contents": "kzalloc_node(${1:size_t size}, ${2:gfp_t flags}, ${3:int node});"},
-		{ "trigger": "KERNEL kmem_cache_alloc\tvoid *kmem_cache_alloc", "contents": "kmem_cache_alloc(${1:struct kmem_cache * cachep}, ${2:gfp_t flags});"},
-		{ "trigger": "KERNEL kmem_cache_alloc_node\tvoid *kmem_cache_alloc_node", "contents": "kmem_cache_alloc_node(${1:struct kmem_cache * cachep}, ${2:gfp_t flags}, ${3:int nodeid});"},
-		{ "trigger": "KERNEL kmem_cache_free\tvoid kmem_cache_free", "contents": "kmem_cache_free(${1:struct kmem_cache * cachep}, ${2:void * objp});"},
-		{ "trigger": "KERNEL kfree\tvoid kfree", "contents": "kfree(${1:const void * objp});"},
-		{ "trigger": "KERNEL ksize\tsize_t ksize", "contents": "ksize(${1:const void * objp});"},
-		{ "trigger": "KERNEL kfree_const\tvoid kfree_const", "contents": "kfree_const(${1:const void * x});"},
-		{ "trigger": "KERNEL kstrdup\tchar *kstrdup", "contents": "kstrdup(${1:const char * s}, ${2:gfp_t gfp});"},
-		{ "trigger": "KERNEL kstrdup_const\tchar *kstrdup_const", "contents": "kstrdup_const(${1:const char * s}, ${2:gfp_t gfp});"},
-		{ "trigger": "KERNEL kstrndup\tchar *kstrndup", "contents": "kstrndup(${1:const char * s}, ${2:size_t max}, ${3:gfp_t gfp});"},
-		{ "trigger": "KERNEL kmemdup\tvoid *kmemdup", "contents": "kmemdup(${1:const void * src}, ${2:size_t len}, ${3:gfp_t gfp});"},
-		{ "trigger": "KERNEL memdup_user\tvoid *memdup_user", "contents": "memdup_user(${1:void __user * src}, ${2:size_t len});"},
-		{ "trigger": "KERNEL memdup_user_nul\tvoid *memdup_user_nul", "contents": "memdup_user_nul(${1:void __user * src}, ${2:size_t len});"},
-		{ "trigger": "KERNEL get_user_pages_fast\tint get_user_pages_fast", "contents": "get_user_pages_fast(${1:unsigned long start}, ${2:int nr_pages}, ${3:int write}, ${4:struct page ** pages});"},
-
-		// 4.2 User Space Memory Access
-		{ "trigger": "KERNEL copy_to_user\tvoid copy_to_user", "contents": "copy_to_user(${1:void __user*}, ${2:void* from}, ${3:unsigned long n});"},
-		{ "trigger": "KERNEL copy_from_user\tvoid copy_from_user", "contents": "copy_from_user(${1:void *to}, ${2:void __user *}, ${3:unsigned long n});"},
-		
-
-
-
-		// 4.3 More Memory Management Functions
-	
-
-
-
-	// MAROS
-	{ "trigger": "KERNEL MKDEV\tvoid MKDEV", "contents": "MKDEV(${1:int major}, ${2:int minor});"},
-	{ "trigger": "KERNEL MAJOR\tvoid MAJOR", "contents": "MAJOR(${1:dev_t dev});"},
-	{ "trigger": "KERNEL MINOR\tvoid MINOR", "contents": "MINOR(${1:dev_t dev});"},
-
-/*===================================================================================
- * LINUX USERSPACE
- * 
-====================================================================================*/
-
-
-	/**
-	 * General function 
-	 */
-		{ "trigger": "main\tmain", "contents": "main(${1:int argc}, ${2:char const *argv[]}){\n\t${3:/* code */}\n\treturn 0;\n};"}, // while 
-		{ "trigger": "while\twhile", "contents": "while(${1}){\n\t${2}\n}"}, // while 
-		{ "trigger": "switch case\tcase", "contents": "switch(${1:expression}) {\n\tcase ${2:1} : \n\t\t${3}\n\t\tbreak;\n\tdefault : \n\t\t${4}\n}"}, // switch case 
-		{ "trigger": "if\tif", "contents": "if(${1:condiction}){\n\t${2}\n}"},
-		{ "trigger": "for\tfor", "contents": "for(${1:i} = 0; ${1:i} < ${2:count}; ${1:i}++){\n\t${3:/* code */}\n}"},
-
-	/**
-	 * Stdio.h
-	 * from http://www.tutorialpoints.org/
-	 */
-	 	{ "trigger": "USER fclose\tint fclose", "contents": "fclose(${1:FILE *stream});"},
-	 	{ "trigger": "USER clearerr\tvoid clearerr", "contents": "clearerr(${1:FILE *stream});"},
-	 	{ "trigger": "USER feof\tint feof", "contents": "feof(${1:FILE *stream});"},
-	 	{ "trigger": "USER ferror\tint ferror", "contents": "ferror(${1:FILE *stream});"},
-	 	{ "trigger": "USER fflush\tint fflush", "contents": "fflush(${1:FILE *stream});"},
-	 	{ "trigger": "USER fgetpos\tint fgetpos", "contents": "fgetpos(${1:FILE *stream}, ${2:fpos_t *pos});"},
-	 	{ "trigger": "USER fopen\tFILE *fopen", "contents": "fopen(${1:const char *filename}, ${2:const char *mode});"},
-	 	{ "trigger": "USER fread\tsize_t fread", "contents": "fread(${1:void *ptr}, ${2:size_t size}, ${3:size_t nmemb}, ${4:FILE *stream});"},
-	 	{ "trigger": "USER freopen\tFILE *freopen", "contents": "freopen(${1:const char *filename}, ${2:const char *mode}, ${3:FILE *stream});"},
-	 	{ "trigger": "USER fseek\tint fseek", "contents": "fseek(${1:FILE *stream}, ${2:long int offset}, ${3:int whence});"},
-	 	{ "trigger": "USER fsetpos\tint fsetpos", "contents": "fsetpos(${1:FILE *stream}, ${2:const fpos_t *pos});"},
-	 	{ "trigger": "USER ftell\tlong int ftel", "contents": "ftell(${1:FILE *stream});"},
-	 	{ "trigger": "USER fwrite\tsize_t fwrite", "contents": "fwrite(${1:const void *ptr}, ${2:size_t size}, ${3:size_t nmemb}, ${4:FILE *stream});"},
-	 	{ "trigger": "USER remove\tint remove", "contents": "remove(${1:const char *filename});"},
-	 	{ "trigger": "USER rename\tint rename", "contents": "rename(${1:const char *old_filename}, ${2:const char *new_filename});"},
-	 	{ "trigger": "USER rewind\tvoid rewind", "contents": "rewind(${1:FILE *stream});"},
-	 	{ "trigger": "USER setbuf\tvoid setbuf", "contents": "setbuf(${1:FILE *stream}, ${2:char *buffer});"},
-	 	{ "trigger": "USER setvbuf\tint setvbuf", "contents": "setvbuf(${1:FILE *stream}, ${2:char *buffer}, ${3:int mode}, ${4:size_t size});"},
-	 	{ "trigger": "USER tmpfile\tFILE *tmpfile", "contents": "tmpfile(${1:void});"},
-	 	{ "trigger": "USER tmpnam\tchar *tmpnam", "contents": "tmpnam(${1:char *str});"},
-	 	{ "trigger": "USER fprintf\tint fprint", "contents": "fprintf(${1:FILE *stream}, ${2:const char *format});"},
-	 	{ "trigger": "USER printf\tint printf", "contents": "printf(${1:const char *format}, ${2});"},
-	 	{ "trigger": "USER sprintf\tint sprintf", "contents": "sprintf(${1:char *str}, ${2:const char *format}, ${3:flag});"},
-	 	{ "trigger": "USER vfprintf\tint vfprintf", "contents": "vfprintf(${1:FILE *stream}, ${2:const char *format}, ${3:va_list arg});"},
-	 	{ "trigger": "USER vprintf\tint vprintf", "contents": "vprintf(${1:const char *format}, ${2:va_list arg});"},
-	 	{ "trigger": "USER vsprintf\tint vsprintf", "contents": "vsprintf(${1:char *str}, ${2:const char *format}, ${3:va_list arg});"},
-	 	{ "trigger": "USER fscanf\tint fscanf", "contents": "fscanf(${1:FILE *stream}, ${2:const char *format}, ${3});"},
-	 	{ "trigger": "USER scanf\tint scanf", "contents": "scanf(${1:const char *format}, ${2:});"},
-	 	{ "trigger": "USER sscanf\tint sscanf", "contents": "sscanf(${1:const char *str}, ${2:const char *format}), ${3});"},
-	 	{ "trigger": "USER fgetc\tint fgetc", "contents": "fgetc(${1:FILE *stream});"},
-	 	{ "trigger": "USER fgets\tchar *fgets", "contents": "fgets(${1:char *str}, ${2:int n}, ${3:FILE *stream});"},
-	 	{ "trigger": "USER fputc\tint fputc", "contents": "fputc(${1:int char}, ${2:FILE *stream});"},
-	 	{ "trigger": "USER fputs\tint fputs", "contents": "fputs(${1:const char *str}, ${2:FILE *stream});"},
-	 	{ "trigger": "USER getc\tint getc", "contents": "getc(${1:FILE *stream});"},
-	 	{ "trigger": "USER getchar\tint getchar", "contents": "getchar(${1:void});"},
-	 	{ "trigger": "USER gets\tchar *gets", "contents": "gets(${1:char *str});"},
-	 	{ "trigger": "USER putc\tint putc", "contents": "putc(${1:int char}, ${2:FILE *stream});"},
-	 	{ "trigger": "USER putchar\tint putchar", "contents": "putchar(${1:int char});"},
-	 	{ "trigger": "USER puts\tint puts", "contents": "puts(${1:const char *str});"},
-	 	{ "trigger": "USER ungetc\tint ungetc", "contents": "ungetc(${1:int char}, ${2:FILE *stream});"},
-	 	{ "trigger": "USER perror\tvoid perror", "contents": "perror(${1:const char *str});"},
-	
-	/**
-	 * Stdlib.h
-	 * from http://www.tutorialpoints.org/
-	 */
-	 	{ "trigger": "USER atof\tdouble atof", "contents": "atof(${1:const char *str});"},
-	 	{ "trigger": "USER atoi\tint atoi", "contents": "atoi(${1:const char *str});"},
-	 	{ "trigger": "USER atol\tlong int atol", "contents": "atol(${1:const char *str});"},
-	 	{ "trigger": "USER strtod\tdouble strtod", "contents": "strtod(${1:const char *str}, ${2:char **endptr});"},
-	 	{ "trigger": "USER strtol\tlong int strtol", "contents": "strtol(${1:const char *str}, ${2:char **endptr}, ${3:int base});"},
-	 	{ "trigger": "USER strtoul\tunsigned long int strtoul", "contents": "strtoul(${1:const char *str}, ${2:char **endptr}, ${3:int base});"},
-	 	{ "trigger": "USER calloc\tvoid *calloc", "contents": "calloc(${1:size_t nitems}, ${2:size_t size});"},
-	 	{ "trigger": "USER free\tvoid free", "contents": "free(${1:void *ptr});"},
-	 	{ "trigger": "USER malloc\tvoid *malloc", "contents": "malloc(${1:size_t size});"},
-	 	{ "trigger": "USER realloc\tvoid *realloc", "contents": "realloc(${1:void *ptr}, ${2:size_t size});"},
-	 	{ "trigger": "USER abort\tvoid abort", "contents": "abort(${1:void});"},
-	 	{ "trigger": "USER atexit\tint atexit", "contents": "atexit(${1:void (*func)(void)});"},
-	 	{ "trigger": "USER exit\tvoid exit", "contents": "exit(${1:int status});"},
-	 	{ "trigger": "USER getenv\tchar *getenv", "contents": "getenv(${1:const char *name});"},
-	 	{ "trigger": "USER system\tint system", "contents": "system(${1:const char *command});"},
-	 	{ "trigger": "USER bsearch\tvoid *bsearch", "contents": "bsearch(${1:const void *key}, ${2:const void *base}, ${3:size_t nitems}, ${4:size_t size}, ${5:int (*compar)(const void *, const void *)});"},
-	 	{ "trigger": "USER qsort\tvoid qsort", "contents": "qsort(${1:void *base}, ${2:size_t nitems}, ${3:size_t size}, ${4:int (*compar)(const void *, const void*)});"},
-	 	{ "trigger": "USER abs\tint abs", "contents": "abs(${1:int x});"},
-	 	{ "trigger": "USER div\tdiv_t div", "contents": "div(${1:int numer}, ${2:int denom});"},
-	 	{ "trigger": "USER labs\tlong int labs", "contents": "labs(${1:long int x});"},
-	 	{ "trigger": "USER ldiv\tldiv_t ldiv", "contents": "ldiv(${1:long int numer}, ${2:long int denom});"},
-	 	{ "trigger": "USER rand\tint rand", "contents": "rand(${1:void});"},
-	 	{ "trigger": "USER srand\tvoid srand", "contents": "srand(${1:unsigned int seed});"},
-	 	{ "trigger": "USER mblen\tint mblen", "contents": "mblen(${1:const char *str}, ${2:size_t n});"},
-	 	{ "trigger": "USER mbstowcs\tsize_t mbstowcs", "contents": "mbstowcs(${1:schar_t *pwcs}, ${2:const char *str}, ${3:size_t n});"},
-	 	{ "trigger": "USER mbtowc\tint mbtowc", "contents": "mbtowc(${1:whcar_t *pwc}, ${2:const char *str}, ${3:size_t n});"},
-	 	{ "trigger": "USER wcstombs\tsize_t wcstomb", "contents": "wcstombs(${1:char *str}, ${2:const wchar_t *pwcs}, ${3:size_t n});"},
-	 	{ "trigger": "USER wctomb\tint wctomb(", "contents": "wctomb(${1:char *str}, ${2:wchar_t wchar});"},
-	
-	/**
-	 * String.h
-	 * from http://www.tutorialpoints.org/
-	 */
-	 	{ "trigger": "USER memchr\tvoid *memchr", "contents": "memchr(${1:const void *str}, ${2:int c}, ${3:size_t n});"},
-	 	{ "trigger": "USER memcmp\tint memcmp", "contents": "memcmp(${1:const void *str1}, ${2:const void *str2}, ${3:size_t n});"},
-	 	{ "trigger": "USER memcpy\tvoid *memcpy(void *dest, const void *src, size_t n)", "contents": "memcpy(${1:void *str1}, ${2:const void *str2}, ${3:size_t n});"},
-	 	{ "trigger": "USER memmove\tvoid *memmove", "contents": "memmove(${1:void *str1}, ${2:const void *str2}, ${3:size_t n});"},
-	 	{ "trigger": "USER memset\tvoid *memset", "contents": "memset(${1:void *str}, ${2:int c}, ${3:size_t n});"},
-	 	{ "trigger": "USER strcat\tchar *strcat", "contents": "strcat(${1:char *dest}, ${2:const char *src});"},
-	 	{ "trigger": "USER strncat\tchar *strncat", "contents": "strncat(${1:char *dest}, ${2:const char *src}, ${3:size_t n});"},
-	 	{ "trigger": "USER strchr\tchar *strchr", "contents": "strchr(${1:const char *str}, ${2:int c});"},
-	 	{ "trigger": "USER strcmp\tint strcmp", "contents": "strcmp(${1:const char *str1}, ${2:const char *str2});"},
-	 	{ "trigger": "USER strncmp\tint strncmp", "contents": "strncmp(${1:const char *str1}, ${2:const char *str2}, ${3:size_t n});"},
-	 	{ "trigger": "USER strcoll\tint strcoll", "contents": "strcoll(${1:const char *str1},  ${2:const char *str2});"},
-	 	{ "trigger": "USER strcpy\tchar *strcpy", "contents": "strcpy(${1:char *dest}, ${2:const char *src});"},
-	 	{ "trigger": "USER strncpy\tchar *strncpy", "contents": "strncpy(${1:char *dest}, ${2:const char *src}, ${3:size_t n});"},
-	 	{ "trigger": "USER strcspn\tsize_t strcspn", "contents": "strcspn(${1:const char *str1}, ${2:const char *str2});"},
-	 	{ "trigger": "USER strerror\tchar *strerror", "contents": "strerror(${1:int errnum});"},
-	 	{ "trigger": "USER strlen\tsize_t strlen", "contents": "strlen(${1:const char *str});"},
-	 	{ "trigger": "USER strpbrk\tchar *strpbrk", "contents": "strpbrk(${1:const char *str1}, ${2:const char *str2});"},
-	 	{ "trigger": "USER strrchr\tchar *strrchr", "contents": "strrchr(${1:const char *str}, ${2:int c});"},
-	 	{ "trigger": "USER strspn\tsize_t strspn", "contents": "strspn(${1:const char *str1}, ${2:const char *str2});"},
-	 	{ "trigger": "USER strstr\tchar *strstr", "contents": "strstr(${1:const char *haystack}, ${2:const char *needle});"},
-	 	{ "trigger": "USER strtok\tchar *strtok", "contents": "strtok(${1:char *str}, ${2:const char *delim});"},
-	 	{ "trigger": "USER strxfrm\tsize_t strxfrm", "contents": "strxfrm(${1:char *dest}, ${2:const char *src}, ${3:size_t n});"},
-
-
-	 /**
-	  * unistd.h
-	  * from http://www.tutorialpoints.org/
-	  */
-		{ "trigger": "USER access\tint access", "contents": "access(${1:const char *path}, ${2:int amode});"},
-		{ "trigger": "USER alarm\tunsigned int alarm", "contents": "alarm(${1:unsigned int seconds});"},
-		{ "trigger": "USER brk\tint brk", "contents": "brk(${1:void *addr});"},
-		{ "trigger": "USER chdir\tint chdir", "contents": "chdir(${1:const char *path});"},
-		{ "trigger": "USER chroot\tint chroot", "contents": "chroot(${1:const char *path});"},
-		{ "trigger": "USER chown\tint chown", "contents": "chown(${1:const char *path}, ${2:uid_t owner}, ${3:gid_t group});"},
-		{ "trigger": "USER close\tint close", "contents": "close(${1:int fildes});"},
-		{ "trigger": "USER confstr\tsize_t confstr", "contents": "confstr(${1:int name}, ${2:char *buf}, ${3:size_t len});"},
-		{ "trigger": "USER crypt\tchar *crypt", "contents": "crypt(${1:const char *key}, ${2:const char *salt});"},
-		{ "trigger": "USER ctermid\tchar *ctermid", "contents": "ctermid(${1:char *s});"},
-		{ "trigger": "USER cuserid\tchar *cuserid", "contents": "cuserid(${1:char *s});"},
-		{ "trigger": "USER dup\tint dup", "contents": "dup(${1:int fildes});"},
-		{ "trigger": "USER dup2\tint dup2", "contents": "dup2(${1:int fildes}, ${2:int fildes2});"},
-		{ "trigger": "USER encrypt\tvoid encrypt", "contents": "encrypt(${1:char block[64]}, ${2:int edflag});"},
-		{ "trigger": "USER execl\tint execl", "contents": "execl(${1:const char *path}, ${2:const char *arg0}, ${3:...});"},
-		{ "trigger": "USER execle\tint execle", "contents": "execle(${1:const char *path}, ${2:const char *arg0}, ${3:...});"},
-		{ "trigger": "USER execlp\tint execlp", "contents": "execlp(${1:const char *file}, ${2:const char *arg0}, ${3:...});"},
-		{ "trigger": "USER execv\tint execv", "contents": "execv(${1:const char *path}, ${2:char *const argv[]});"},	
-		{ "trigger": "USER execve\tint execve", "contents": "execve(${1:const char *path}, ${2:char *const argv[]}, ${3:char *const envp[]});"},
-		{ "trigger": "USER execvp\tint execvp", "contents": "execvp(${1:const char *file}, ${2:char *const argv[]});"},
-		{ "trigger": "USER exit\tvoid exit", "contents": "exit(${1:int status});"},
-		{ "trigger": "USER fchown\tint fchown", "contents": "fchown(${1:int fildes}, ${2:uid_t owner}, ${3:gid_t group});"},
-		{ "trigger": "USER fchdir\tint fchdir", "contents": "fchdir(${1:int fildes});"},
-		{ "trigger": "USER fdatasync\tint fdatasync", "contents": "fdatasync(${1int fildes});"},
-		{ "trigger": "USER fork\tpid_t fork", "contents": "fork();"},
-		{ "trigger": "USER fpathconf\tlong int fpathconf", "contents": "fpathconf(${1:int fildes}, ${2:int name});"},
-		{ "trigger": "USER fsync\tint fsync", "contents": "fsync(${1:int fildes});"},
-		{ "trigger": "USER ftruncate\tint ftruncate", "contents": "ftruncate(${1:int fildes}, ${2:off_t length});"},
-		{ "trigger": "USER getcwd\tchar *getcwd", "contents": "getcwd(${1:char *buf}, ${2:size_t size});"},
-		{ "trigger": "USER getdtablesize\tint getdtablesize", "contents": "getdtablesize();"},
-		{ "trigger": "USER getegid\tgid_t getegid", "contents": "getegid();"},
-		{ "trigger": "USER geteuid\tuid_t geteuid", "contents": "geteuid();"},
-		{ "trigger": "USER getgid\tgid_t getgid", "contents": "getgid();"},
-		{ "trigger": "USER getgroups\tint getgroups", "contents": "getgroups(${1:int gidsetsize}, ${2:gid_t grouplist[]});"},
-		{ "trigger": "USER gethostid\tlong gethostid", "contents": "gethostid();"},
-		{ "trigger": "USER getlogin\tchar *getlogin", "contents": "getlogin();"},
-		{ "trigger": "USER getlogin_r\tint getlogin_r", "contents": "getlogin_r(${1:char *name}, ${2:size_t namesize});"},
-		{ "trigger": "USER getopt\tint getopt", "contents": "getopt(${1:int argc}, ${2:char * const argv[]}, ${3:const char *optstring});"},
-		{ "trigger": "USER getpagesize\tint getpagesize", "contents": "getpagesize();"},
-		{ "trigger": "USER getpass\tchar *getpass", "contents": "getpass(${1:const char *prompt});"},
-		{ "trigger": "USER getpgid\tpid_t getpgid", "contents": "getpgid(${1:pid_t pid});"},
-		{ "trigger": "USER getpgrp\tpid_t getpgrp", "contents": "getpgrp();"},
-		{ "trigger": "USER getpid\tpid_t getpid", "contents": "getpid();"},
-		{ "trigger": "USER getppid\tpid_t getppid", "contents": "getppid();"},
-		{ "trigger": "USER getsid\tpid_t getsid", "contents": "getsid(${1:pid_t pid});"},
-		{ "trigger": "USER getuid\tuid_t getuid", "contents": "getuid();"},
-		{ "trigger": "USER getwd\tchar *getwd", "contents": "getwd(${1:char *path_name});"},
-		{ "trigger": "USER isatty\tint isatty", "contents": "isatty(${1:int fildes});"},
-		{ "trigger": "USER lchown\tint lchown", "contents": "lchown(${1:const char *path}, ${2:uid_t owner}, ${3:gid_t group});"},
-		{ "trigger": "USER link\tint link", "contents": "link(${1:const char *path1}, ${2:const char *path2});"},
-		{ "trigger": "USER lockf\tint lockf", "contents": "lockf(${1:int fildes}, ${2:int function}, ${3:off_t size});"},
-		{ "trigger": "USER nice\tint nice", "contents": "nice(${1:int incr});"},
-		{ "trigger": "USER pathconf\tlong int pathconf", "contents": "pathconf(${1:const char *path}, ${2:int name});"},
-		{ "trigger": "USER pause\tint pause", "contents": "pause();"},
-		{ "trigger": "USER pipe\tint pipe", "contents": "pipe(${1:int fildes[2]});"},
-		{ "trigger": "USER pread\tssize_t pread", "contents": "pread(${1:int fildes}, ${2:void *buf}, ${3:size_t nbyte}, ${4:off_t offset});"},
-		{ "trigger": "USER pthread_atfork\tint pthread_atfork", "contents": "pthread_atfork(${1:void (*prepare)(void)}, ${2:void (*parent)(void)}, ${3:void (*child)(void)});"},
-		{ "trigger": "USER pwrite\tssize_t pwrite", "contents": "pwrite(${1:int fildes}, ${2:const void *buf}, ${3:size_t nbyte}, ${4:off_t offset});"},
-		{ "trigger": "USER read\tssize_t read", "contents": "read(${1:int fildes}, ${2:void *buf}, ${3:size_t nbyte});"},
-		{ "trigger": "USER readlink\tint readlink", "contents": "readlink(${1:const char *path}, ${2:char *buf}, ${3:size_t bufsize});"},
-		{ "trigger": "USER rmdir\tint rmdir", "contents": "rmdir(${1:const char *path});"},
-		{ "trigger": "USER sbrk\tvoid *sbrk", "contents": "sbrk(${1:gid_t gid});"},
-		{ "trigger": "USER setgid\tint setgid", "contents": "setgid(${1:gid_t gid});"},
-		{ "trigger": "USER setpgid\tint setpgid", "contents": "setpgid(${1:pid_t pid}, ${2:pid_t pgid});"},
-		{ "trigger": "USER setregid\tsetregid", "contents": "setregid();"},
-		{ "trigger": "USER setpgrp\tpid_t setpgrp", "contents": "setpgrp();"},
-		{ "trigger": "USER setreuid\tint setreuid", "contents": "setreuid(${1:uid_t ruid}, ${2:uid_t euid});"},
-		{ "trigger": "USER setsid\tpid_t setsid", "contents": "isalnum();"},
-		{ "trigger": "USER setuid\tint setuid", "contents": "setuid();"},
-		{ "trigger": "USER sleep\tunsigned int sleep", "contents": "sleep(${1:unsigned int seconds});"},
-		{ "trigger": "USER swab\tvoid swab", "contents": "swab(${1:const void *src}, ${2:void *dest}, ${3:ssize_t nbytes});"},
-		{ "trigger": "USER symlink\tint symlink", "contents": "isalnum(${1:const char *path1}, ${2:const char *path2});"},
-		{ "trigger": "USER sync\tvoid sync", "contents": "sync();"},
-		{ "trigger": "USER sysconf\tlong int sysconf", "contents": "sysconf(${1:int name});"},
-		{ "trigger": "USER tcgetpgrp\tpid_t tcgetpgrp", "contents": "tcgetpgrp(${1:int fildes});"},
-		{ "trigger": "USER tcsetpgrp\tint tcsetpgrp", "contents": "tcsetpgrp(${1:int filde}, ${2:pid_t pgid_id});"},
-		{ "trigger": "USER truncate\tint truncate", "contents": "truncate(${1:const char *path}, ${2:const char *path});"},
-		{ "trigger": "USER ttyname\tchar *ttyname", "contents": "ttyname(${1:int fildes});"},
-		{ "trigger": "USER ttyname_r\tint ttyname_r", "contents": "ttyname_r(${1:int fildes}, ${2:char *name}, ${3:size_t namesize});"},
-		{ "trigger": "USER ualarm\tuseconds_t ualarm", "contents": "ualarm(${1:useconds_t useconds}, ${2:useconds_t interval});"},
-		{ "trigger": "USER unlink\tint unlink", "contents": "unlink(${1:const char *path});"},
-		{ "trigger": "USER usleep\tint usleep", "contents": "usleep(${1:useconds_t useconds});"},
-		{ "trigger": "USER vfork\tpid_t vfork", "contents": "vfork();"},
-		{ "trigger": "USER write\tssize_t write", "contents": "write(${1:int fildes}, ${2:const void *buf}, ${3:size_t nbyte});"},
-	
+/**
+ * Macros
+ */
+   { "trigger": "KERN MKDEV\tvoid MKDEV", "contents": "MKDEV(${1:int major}, ${2:int minor});"},
+   { "trigger": "KERN MAJOR\tvoid MAJOR", "contents": "MAJOR(${1:dev_t dev});"},
+   { "trigger": "KERN MINOR\tvoid MINOR", "contents": "MINOR(${1:dev_t dev});"},
 
 
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// LINUX USERSPACE API - Man7.org
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	/**
-	 * ctype.h
-	 * from http://www.tutorialpoints.org/
-	 */
-	 	{ "trigger": "USER isalnum\tisalnum", "contents": "isalnum(${1:int c});"},
-	 	{ "trigger": "USER isalpha\tisalpha", "contents": "isalpha(${1:int c});"},
-	 	{ "trigger": "USER iscntrl\tiscntrl", "contents": "iscntrl(${1:int c});"},
-	 	{ "trigger": "USER isdigit\tisdigit", "contents": "isdigit(${1:int c});"},
-	 	{ "trigger": "USER isgraph\tisgraph", "contents": "isgraph(${1:int c});"},
-	 	{ "trigger": "USER islower\tislower", "contents": "islower(${1:int c});"},
-	 	{ "trigger": "USER isprint\tisprint", "contents": "isprint(${1:int c});"},
-	 	{ "trigger": "USER ispunct\tispunct", "contents": "ispunct(${1:int c});"},
-	 	{ "trigger": "USER isspace\tisspace", "contents": "isspace(${1:int c});"},
-	 	{ "trigger": "USER isupper\tisupper", "contents": "isupper(${1:int c});"},
-	 	{ "trigger": "USER isxdigit\tisxdigit", "contents": "isxdigit(${1:int c});"},
-	 	{ "trigger": "USER tolower\ttolower", "contents": "tolower(${1:int c});"},
-	 	{ "trigger": "USER toupper\ttoupper", "contents": "toupper(${1:int c});"},
+/**
+ * Stdio.h
+ * List function: http://pubs.opengroup.org/onlinepubs/7908799/xsh/stdio.h.html
+ * Description  : http://man7.org/
+ */
+   { "trigger": "USER remove\tint remove", "contents": "remove(${1:const char *pathname});"},
+   { "trigger": "USER clearerr\tvoid clearerr", "contents": "clearerr(${1:FILE *stream});"},
+   { "trigger": "USER ctermid\tchar *ctermid", "contents": "ctermid(${1:char *s});"},
+   { "trigger": "USER fclose\tint fclose", "contents": "fclose(${1:FILE *stream});"},
+   { "trigger": "USER fdopen\tFILE *fdopen", "contents": "fdopen(${1:int fildes}, ${2:const char *mode});"},
+   { "trigger": "USER feof\tint feof", "contents": "feof(${1:FILE *stream});"},
+   { "trigger": "USER ferror\tint ferror", "contents": "ferror(${1:FILE *stream});"},
+   { "trigger": "USER fflush\tint fflush", "contents": "fflush(${1:FILE *stream});"},
+   { "trigger": "USER fgetc\tint fgetc", "contents": "fgetc(${1:FILE *stream});"},
+   { "trigger": "USER fgetpos\tint fgetpos", "contents": "fgetpos(${1:FILE *restrict stream}, ${2:fpos_t *restrict pos});"},
+   { "trigger": "USER fgets\tchar *fgets", "contents": "fgets(${1:char *restrict s}, ${2:FILE *restrict stream});"},
+   { "trigger": "USER fileno\tint fileno", "contents": "fileno(${1:FILE *stream});"},
+   { "trigger": "USER flockfile\tvoid flockfile", "contents": "flockfile(${1:FILE *filehandle});"},
+   { "trigger": "USER fopen\tFILE *fopen", "contents": "fopen(${1:const char *path}, ${2:const char *mode});"},
+   { "trigger": "USER fprintf\tint fprintf", "contents": "fprintf(${1:FILE *restrict stream}, ${2:const char *restrict format}, ${3:...});"},
+   { "trigger": "USER fputc\tint fputc", "contents": "fputc(${1:int c}, ${2:FILE *stream});"},
+   { "trigger": "USER fputs\tint fputs", "contents": "fputs(${1:const char *restrict s}, ${2:FILE *restrict stream});"},
+   { "trigger": "USER fread\tsize_t fread", "contents": "fread(${1:void *ptr}, ${2:size_t size}, ${3:size_t nmemb}, ${4:FILE *stream});"},
+   { "trigger": "USER fscanf\tint fscanf", "contents": "fscanf(${1:FILE *restrict stream}, ${2:const char *restrict format}, ${3:...});"},
+   { "trigger": "USER freopen\tFILE *freopen", "contents": "freopen(${1:const char *restrict pathname}, ${2:const char *restrict mode}, ${3:FILE *restrict stream});"},
+   { "trigger": "USER fscanf\tint fscanf", "contents": "fscanf(${1:FILE *restrict stream}, ${2:const char *restrict format}, ${3:...});"},
+   { "trigger": "USER fseek\tint fseek", "contents": "fseek(${1:FILE *stream}, ${2:long offset}, ${3:int whence});"},
+   { "trigger": "USER fseeko\tint fseeko", "contents": "fseeko(${1:FILE *stream}, ${2:off_t offset}, ${3:int whence});"},
+   { "trigger": "USER fsetpos\tint fsetpos", "contents": "fsetpos(${1:FILE *stream}, ${2:const fpos_t *pos});"},
+   { "trigger": "USER ftell\tlong ftell", "contents": "ftell(${1:FILE *stream});"},
+   { "trigger": "USER ftello\toff_t ftello", "contents": "ftello(${1:FILE *stream});"},
+   { "trigger": "USER ftrylockfile\tint ftrylockfile", "contents": "ftrylockfile(${1:FILE *filehandle});"},
+   { "trigger": "USER funlockfile\tvoid funlockfile", "contents": "funlockfile(${1:FILE *filehandle});"},
+   { "trigger": "USER fwrite\tsize_t fwrite", "contents": "fwrite(${1:const void *restrict ptr}, ${2:size_t size}, ${3:size_t nitems}, ${4:FILE *restrict stream});"},
+   { "trigger": "USER getc\tint getc", "contents": "getc(${1:FILE *stream});"},
+   { "trigger": "USER getchar\tint getchar", "contents": "getchar(${1:void});"},
+   { "trigger": "USER getc_unlocked\tint getc_unlocked", "contents": "getc_unlocked(${1:FILE *stream});"},
+   { "trigger": "USER getchar_unlocked\tint getchar_unlocked", "contents": "getchar_unlocked(${1:void});"},
+   { "trigger": "USER getopt\tint getopt", "contents": "getopt(${1:int argc}, ${2:char * const argv[]}, ${3:const char *optstring});"},
+   { "trigger": "USER gets\tchar *gets", "contents": "gets(${1:char *s});"},
+   { "trigger": "USER getw\tint getw", "contents": "getw(${1:FILE *stream});"},
+   { "trigger": "USER pclose\tint pclose", "contents": "pclose(${1:FILE *stream});"},
+   { "trigger": "USER perror\tvoid perror", "contents": "perror(${1:const char *s});"},
+   { "trigger": "USER popen\tFILE *popen", "contents": "popen(${1:const char *command}, ${2:const char *type});"},
+   { "trigger": "USER printf\tint printf", "contents": "printf(${1:const char *format}, ${2:...});"},
+   { "trigger": "USER putc\tint putc", "contents": "putc(${1:int c}, ${2:FILE *stream});"},
+   { "trigger": "USER putchar\tint putchar", "contents": "putchar(${1:int c});"},
+   { "trigger": "USER putc_unlocked\tint putc_unlocked", "contents": "putc_unlocked(${1:int c}, ${2:FILE *stream});"},
+   { "trigger": "USER putchar_unlocked\tint putchar_unlocked", "contents": "putchar_unlocked(${1:int c});"},
+   { "trigger": "USER puts\tint puts", "contents": "puts(${1:const char *s});"},
+   { "trigger": "USER putw\tint putw", "contents": "putw(${1:int w}, ${2:FILE *stream});"},
+   { "trigger": "USER remove\tint remove", "contents": "remove(${1:const char *pathname});"},
+   { "trigger": "USER rename\tint rename", "contents": "rename(${1:const char *oldpath}, ${2:const char *newpath});"},
+   { "trigger": "USER rewind\tvoid rewind", "contents": "rewind(${1:FILE *stream});"},
+   { "trigger": "USER scanf\tint scanf", "contents": "scanf(${1:const char *format}, ${2:...});"},
+   { "trigger": "USER setbuf\tvoid setbuf", "contents": "setbuf(${1:FILE *stream}, ${2:char *buf});"},
+   { "trigger": "USER setvbuf\tint setvbuf", "contents": "setvbuf(${1:FILE *restrict stream}, ${2:char *restrict buf}, ${3:int type}, ${4:size_t size});"},
+   { "trigger": "USER snprintf\tint snprintf", "contents": "snprintf(${1:char *restrict s}, ${2:size_t n}, ${3:const char *restrict format}, ${4:...});"},
+   { "trigger": "USER sprintf\tint sprintf", "contents": "sprintf(${1:char *restrict s}, ${2:const char *restrict format}, ${3:...});"},
+   { "trigger": "USER sscanf\tint sscanf", "contents": "sscanf(${1:const char *restrict s}, ${2:const char *restrict format}, ${3:...});"},
+   { "trigger": "USER tempnam\tchar *tempnam", "contents": "tempnam(${1:const char *dir}, ${2:const char *pfx});"},
+   { "trigger": "USER tmpfile\tFILE *tmpfile", "contents": "tmpfile(${1:void});"},
+   { "trigger": "USER tmpnam\tchar *tmpnam", "contents": "tmpnam(${1:char *s});"},
+   { "trigger": "USER ungetc\tint ungetc", "contents": "ungetc(${1:int c}, ${2:FILE *stream});"},
+   { "trigger": "USER vfprintf\tint vfprintf", "contents": "vfprintf(${1:FILE *restrict stream}, ${2:const char *restrict format}, ${3:va_list ap});"},
+   { "trigger": "USER vprintf\tint vprintf", "contents": "vprintf(${1:const char *restrict format}, ${2:va_list ap});"},
+   { "trigger": "USER vsnprintf\tint vsnprintf", "contents": "vsnprintf(${1:char *restrict s}, ${2:size_t n}, ${3:const char *restrict format}, ${4:va_list ap});"},
+   { "trigger": "USER vsprintf\tint vsprintf", "contents": "vsprintf(${1:char *restrict s}, ${2:const char *restrict format}, ${3:va_list ap});"},
 
+/**
+ * Stdlib.h
+ * List functions: http://pubs.opengroup.org/onlinepubs/009695399/basedefs/stdlib.h.html
+ * Description  : http://man7.org/
+ */
+   { "trigger": "USER _exit\tvoid _exit", "contents": "_exit(${1:int status});"},
+   { "trigger": "USER a64l\tlong a64l", "contents": "a64l(${1:const char *str64});"},
+   { "trigger": "USER abort\tvoid abort", "contents": "abort(${1:void});"},
+   { "trigger": "USER abs\tint abs", "contents": "abs(${1:nt j});"},
+   { "trigger": "USER atexit\tint atexit", "contents": "atexit(${1:void (*function)(void)});"},
+   { "trigger": "USER atof\tdouble atof", "contents": "atof(${1:const char *nptr});"},
+   { "trigger": "USER atoi\tint atoi", "contents": "atoi(${1:const char *nptr});"},
+   { "trigger": "USER atol\tlong atol", "contents": "atol(${1:const char *nptr});"},
+   { "trigger": "USER atoll\tlong long atoll", "contents": "atoll(${1:const char *nptr});"},
+   { "trigger": "USER bsearch\tvoid *bsearch", "contents": "bsearch(${1:const void *key}, ${2:const void *base}, ${3:size_t nmemb}, ${4:size_t size}, ${5:int (*compar)(const void *, const void *)});"},
+   { "trigger": "USER calloc\tvoid *calloc", "contents": "calloc(${1:size_t nmemb}, ${2:size_t size});"},
+   { "trigger": "USER div\tdiv_t div", "contents": "div(${1:int numerator}, ${2:int denominator});"},
+   { "trigger": "USER drand48\tdouble drand48", "contents": "drand48(${1:void});"},
+   { "trigger": "USER ecvt\tchar *ecvt", "contents": "ecvt(${1:double number}, ${2:int ndigits}, ${3:int *decpt}, ${4:int *sign});"},
+   { "trigger": "USER erand48\tdouble erand48", "contents": "erand48(${1:unsigned short xsubi[3]});"},
+   { "trigger": "USER exit\tvoid exit", "contents": "exit(${1:int status});"},
+   { "trigger": "USER fcvt\tchar *fcvt", "contents": "fcvt(${1:double number}, ${2:int ndigits}, ${3:int *decpt}, ${4:int *sign});"},
+   { "trigger": "USER free\tvoid free", "contents": "free(${1:void *ptr});"},
+   { "trigger": "USER gcvt\tchar *gcvt", "contents": "gcvt(${1:double number}, ${2:int ndigit}, ${3:char *buf});"},
+   { "trigger": "USER getenv\tchar *getenv", "contents": "getenv(${1:const char *name});"},
+   { "trigger": "USER getsubopt\tint getsubopt", "contents": "getsubopt(${1:char **optionp}, ${2:char * const *tokens}, ${3:char **valuep});"},
+   { "trigger": "USER grantpt\tint grantpt", "contents": "grantpt(${1:int fd});"},
+   { "trigger": "USER initstate\tchar *initstate", "contents": "initstate(${1:unsigned seed}, ${2:char *state}, ${3:size_t size});"},
+   { "trigger": "USER jrand48\tlong jrand48", "contents": "jrand48(${1:unsigned short xsubi[3]});"},
+   { "trigger": "USER l64a\tchar *l64a", "contents": "l64a(${1:long value});"},
+   { "trigger": "USER labs\tlong int labs", "contents": "labs(${1:long int j});"},
+   { "trigger": "USER lcong48\tvoid lcong48", "contents": "lcong48(${1:unsigned short param[7]});"},
+   { "trigger": "USER ldiv\tldiv_t ldiv", "contents": "ldiv(${1:long numer}, ${2:long denom});"},
+   { "trigger": "USER llabs\tlong long int llabs", "contents": "llabs(${1:long long int j});"},
+   { "trigger": "USER lldiv\tlldiv_t lldiv", "contents": "lldiv(${1:long long numer}, ${2:long long denom});"},
+   { "trigger": "USER lrand48\tlong int lrand48", "contents": "lrand48(${1:void});"},
+   { "trigger": "USER malloc\tvoid *malloc", "contents": "malloc(${1:size_t size});"},
+   { "trigger": "USER mblen\tint mblen", "contents": "mblen(${1:const char *s}, ${2:size_t n});"},
+   { "trigger": "USER mbstowcs\tsize_t mbstowcs", "contents": "mbstowcs(${1:wchar_t *dest}, ${2:const char *src}, ${3:size_t n});"},
+   { "trigger": "USER mbtowc\tint mbtowc", "contents": "mbtowc(${1:wchar_t *pwc}, ${2:const char *s}, ${3:size_t n});"},
+   { "trigger": "USER mktemp\tchar *mktemp", "contents": "mktemp(${1:char *template});"},
+   { "trigger": "USER mkstemp\tint mkstemp", "contents": "mkstemp(${1:char *template});"},
+   { "trigger": "USER mrand48\tlong int mrand48", "contents": "mrand48(${1:void});"},
+   { "trigger": "USER nrand48\tlong int nrand48", "contents": "nrand48(${1:unsigned short xsubi[3]});"},
+   { "trigger": "USER posix_memalign\tint posix_memalign", "contents": "posix_memalign(${1:void **memptr}, ${2:size_t alignment}, ${3:size_t size});"},
+   { "trigger": "USER posix_openpt\tint posix_openpt", "contents": "posix_openpt(${1:int flags});"},
+   { "trigger": "USER ptsname\tchar *ptsname", "contents": "ptsname(${1:int fd});"},
+   { "trigger": "USER putenv\tint putenv", "contents": "putenv(${1:char *string});"},
+   { "trigger": "USER qsort\tvoid qsort", "contents": "qsort(${1:void *base}, ${2:size_t nmemb}, ${3:size_t size}, ${4:int (*compar)(const void *, const void *)});"},
+   { "trigger": "USER rand\tint rand", "contents": "rand(${1:void});"},
+   { "trigger": "USER rand_r\tint rand_r", "contents": "rand_r(${1:unsigned int *seedp});"},
+   { "trigger": "USER random\tlong int random", "contents": "random(${1:void});"},
+   { "trigger": "USER realloc\tvoid *realloc", "contents": "realloc(${1:void *ptr}, ${2:size_t size});"},
+   { "trigger": "USER realpath\tchar *realpath", "contents": "realpath(${1:const char *path}, ${2:char *resolved_path});"},
+   { "trigger": "USER seed48\tunsigned short * seed48", "contents": "seed48(${1:unsigned short seed16v[3]});"},
+   { "trigger": "USER setenv\tint setenv", "contents": "setenv(${1:const char *name}, ${2:const char *value}, ${3:int overwrite});"},
+   { "trigger": "USER setkey\tvoid setkey", "contents": "setkey(${1:const char *key});"},
+   { "trigger": "USER setstate\tchar *setstate", "contents": "setstate(${1:char *state});"},
+   { "trigger": "USER srand\tvoid srand", "contents": "srand(${1:unsigned seed});"},
+   { "trigger": "USER srand48\tvoid srand48", "contents": "srand48(${1:long seedval});"},
+   { "trigger": "USER srandom\tvoid srandom", "contents": "srandom(${1:unsigned seed});"},
+   { "trigger": "USER strtod\tdouble strtod", "contents": "strtod(${1:const char *nptr}, ${2:char **endptr});"},
+   { "trigger": "USER strtof\tfloat strtof", "contents": "strtof(${1:const char *restrict nptr}, ${2:char **restrict endptr});"},
+   { "trigger": "USER strtol\tlong int strtol", "contents": "strtol(${1:const char *nptr}, ${2:char **endptr}, ${3:int base});"},
+   { "trigger": "USER strtold\tlong double strtold", "contents": "strtold(${1:const char *restrict nptr}, ${2:char **restrict endptr});"},
+   { "trigger": "USER strtoll\tlong long strtoll", "contents": "strtoll(${1:const char *restrict str}, ${2:char **restrict endptr}, ${3:int base});"},
+   { "trigger": "USER strtoul\tunsigned long int strtoul", "contents": "strtoul(${1:const char *nptr}, ${2:char **endptr}, ${3:int base});"},
+   { "trigger": "USER strtoull\tunsigned long long int strtoull", "contents": "strtoull(${1:const char *nptr}, ${2:char **endptr}, ${3:int base});"},
+   { "trigger": "USER system\tint system", "contents": "system(${1:const char *command});"},
+   { "trigger": "USER unlockpt\tint unlockpt", "contents": "unlockpt(${1:int fd});"},
+   { "trigger": "USER unsetenv\tint unsetenv", "contents": "unsetenv(${1:const char *name});"},
+   { "trigger": "USER wcstombs\tsize_t wcstombs", "contents": "wcstombs(${1:char *dest}, ${2:const wchar_t *src}, ${3:size_t n});"},
+   { "trigger": "USER wctomb\tint wctomb", "contents": "wctomb(${1:char *s}, ${2:wchar_t wc});"},
+
+/**
+ * String.h
+ * List functions from: http://pubs.opengroup.org/onlinepubs/009695399/basedefs/stdlib.h.html
+ * Description  : http://man7.org/
+ */
+   { "trigger": "USER memccpy\tvoid *memccpy", "contents": "memccpy(${1:void *dest}, ${2:const void *src}, ${3:int c}, ${4:size_t n});"},
+   { "trigger": "USER memchr\tvoid *memchr", "contents": "memchr(${1:const void *s}, ${2:int c}, ${3:size_t n});"},
+   { "trigger": "USER memcmp\tint memcmp", "contents": "memcmp(${1:const void *s1}, ${2:const void *s2}, ${3:size_t n});"},
+   { "trigger": "USER memcpy\tvoid *memcpy", "contents": "memcpy(${1:void *dest}, ${2:const void *src}, ${3:size_t n});"},
+   { "trigger": "USER memmove\tvoid *memmove", "contents": "memmove(${1:void *dest}, ${2:const void *src}, ${3:size_t n});"},
+   { "trigger": "USER memset\tvoid *memset", "contents": "memset(${1:void *s}, ${2:int c}, ${3:size_t n});"},
+   { "trigger": "USER strcat\tchar *strcat", "contents": "strcat(${1:char *dest}, ${2:const char *src});"},
+   { "trigger": "USER strchr\tchar *strchr", "contents": "strchr(${1:const char *s}, ${2:int c});"},
+   { "trigger": "USER strcmp\tint strcmp", "contents": "strcmp(${1:const char *s1}, ${2:const char *s2});"},
+   { "trigger": "USER strcoll\tint strcoll", "contents": "strcoll(${1:const char *s1}, ${2:const char *s2});"},
+   { "trigger": "USER strcpy\tchar *strcpy", "contents": "strcpy(${1:char *dest}, ${2:const char *src});"},
+   { "trigger": "USER strcspn\tsize_t strcspn", "contents": "strcspn(${1:const char *s}, ${2:const char *reject});"},
+   { "trigger": "USER strdup\tchar *strdup", "contents": "strdup(${1:const char *s});"},
+   { "trigger": "USER strerror\tchar *strerror", "contents": "strerror(${1:int errnum});"},
+   { "trigger": "USER strlen\tsize_t strlen", "contents": "strlen(${1:const char *s});"},
+   { "trigger": "USER strncat\tchar *strncat", "contents": "strncat(${1:char *dest}, ${2:const char *src}, ${3:size_t n});"},
+   { "trigger": "USER strncmp\tint strncmp", "contents": "strncmp(${1:const char *s1}, ${2:const char *s2}, ${3:size_t n});"},
+   { "trigger": "USER strncpy\tchar *strncpy", "contents": "strncpy(${1:char *dest}, ${2:const char *src}, ${3:size_t n});"},
+   { "trigger": "USER strpbrk\tchar *strpbrk", "contents": "strpbrk(${1:const char *s}, ${2:const char *accept});"},
+   { "trigger": "USER strrchr\tchar *strrchr", "contents": "strrchr(${1:const char *s}, ${2:int c});"},
+   { "trigger": "USER strspn\tsize_t strspn", "contents": "strspn(${1:const char *s}, ${2:const char *accept});"},
+   { "trigger": "USER strstr\tchar *strstr", "contents": "strstr(${1:const char *haystack}, ${2:const char *needle});"},
+   { "trigger": "USER strtok\tchar *strtok", "contents": "strtok(${1:char *str}, ${2:const char *delim});"},
+   { "trigger": "USER strtok_r\tchar *strtok_r", "contents": "strtok_r(${1:char *str}, ${2:const char *delim}, ${3:char **saveptr});"},
+   { "trigger": "USER strxfrm\tsize_t strxfrm", "contents": "strxfrm(${1:char *dest}, ${2:const char *src}, ${3:size_t n});"},
+
+ /**
+  * unistd.h
+  * from http://www.tutorialpoints.org/
+  */
+   { "trigger": "USER access\tint access", "contents": "access(${1:const char *path}, ${2:int amode});"},
+   { "trigger": "USER alarm\tunsigned int alarm", "contents": "alarm(${1:unsigned int seconds});"},
+   { "trigger": "USER brk\tint brk", "contents": "brk(${1:void *addr});"},
+   { "trigger": "USER chdir\tint chdir", "contents": "chdir(${1:const char *path});"},
+   { "trigger": "USER chroot\tint chroot", "contents": "chroot(${1:const char *path});"},
+   { "trigger": "USER chown\tint chown", "contents": "chown(${1:const char *path}, ${2:uid_t owner}, ${3:gid_t group});"},
+   { "trigger": "USER close\tint close", "contents": "close(${1:int fildes});"},
+   { "trigger": "USER confstr\tsize_t confstr", "contents": "confstr(${1:int name}, ${2:char *buf}, ${3:size_t len});"},
+   { "trigger": "USER crypt\tchar *crypt", "contents": "crypt(${1:const char *key}, ${2:const char *salt});"},
+   { "trigger": "USER ctermid\tchar *ctermid", "contents": "ctermid(${1:char *s});"},
+   { "trigger": "USER cuserid\tchar *cuserid", "contents": "cuserid(${1:char *s});"},
+   { "trigger": "USER dup\tint dup", "contents": "dup(${1:int fildes});"},
+   { "trigger": "USER dup2\tint dup2", "contents": "dup2(${1:int fildes}, ${2:int fildes2});"},
+   { "trigger": "USER encrypt\tvoid encrypt", "contents": "encrypt(${1:char block[64]}, ${2:int edflag});"},
+   { "trigger": "USER execl\tint execl", "contents": "execl(${1:const char *path}, ${2:const char *arg0}, ${3:...});"},
+   { "trigger": "USER execle\tint execle", "contents": "execle(${1:const char *path}, ${2:const char *arg0}, ${3:...});"},
+   { "trigger": "USER execlp\tint execlp", "contents": "execlp(${1:const char *file}, ${2:const char *arg0}, ${3:...});"},
+   { "trigger": "USER execv\tint execv", "contents": "execv(${1:const char *path}, ${2:char *const argv[]});"},
+   { "trigger": "USER execve\tint execve", "contents": "execve(${1:const char *path}, ${2:char *const argv[]}, ${3:char *const envp[]});"},
+   { "trigger": "USER execvp\tint execvp", "contents": "execvp(${1:const char *file}, ${2:char *const argv[]});"},
+   { "trigger": "USER exit\tvoid exit", "contents": "exit(${1:int status});"},
+   { "trigger": "USER fchown\tint fchown", "contents": "fchown(${1:int fildes}, ${2:uid_t owner}, ${3:gid_t group});"},
+   { "trigger": "USER fchdir\tint fchdir", "contents": "fchdir(${1:int fildes});"},
+   { "trigger": "USER fdatasync\tint fdatasync", "contents": "fdatasync(${1int fildes});"},
+   { "trigger": "USER fork\tpid_t fork", "contents": "fork();"},
+   { "trigger": "USER fpathconf\tlong int fpathconf", "contents": "fpathconf(${1:int fildes}, ${2:int name});"},
+   { "trigger": "USER fsync\tint fsync", "contents": "fsync(${1:int fildes});"},
+   { "trigger": "USER ftruncate\tint ftruncate", "contents": "ftruncate(${1:int fildes}, ${2:off_t length});"},
+   { "trigger": "USER getcwd\tchar *getcwd", "contents": "getcwd(${1:char *buf}, ${2:size_t size});"},
+   { "trigger": "USER getdtablesize\tint getdtablesize", "contents": "getdtablesize();"},
+   { "trigger": "USER getegid\tgid_t getegid", "contents": "getegid();"},
+   { "trigger": "USER geteuid\tuid_t geteuid", "contents": "geteuid();"},
+   { "trigger": "USER getgid\tgid_t getgid", "contents": "getgid();"},
+   { "trigger": "USER getgroups\tint getgroups", "contents": "getgroups(${1:int gidsetsize}, ${2:gid_t grouplist[]});"},
+   { "trigger": "USER gethostid\tlong gethostid", "contents": "gethostid();"},
+   { "trigger": "USER getlogin\tchar *getlogin", "contents": "getlogin();"},
+   { "trigger": "USER getlogin_r\tint getlogin_r", "contents": "getlogin_r(${1:char *name}, ${2:size_t namesize});"},
+   { "trigger": "USER getopt\tint getopt", "contents": "getopt(${1:int argc}, ${2:char * const argv[]}, ${3:const char *optstring});"},
+   { "trigger": "USER getpagesize\tint getpagesize", "contents": "getpagesize();"},
+   { "trigger": "USER getpass\tchar *getpass", "contents": "getpass(${1:const char *prompt});"},
+   { "trigger": "USER getpgid\tpid_t getpgid", "contents": "getpgid(${1:pid_t pid});"},
+   { "trigger": "USER getpgrp\tpid_t getpgrp", "contents": "getpgrp();"},
+   { "trigger": "USER getpid\tpid_t getpid", "contents": "getpid();"},
+   { "trigger": "USER getppid\tpid_t getppid", "contents": "getppid();"},
+   { "trigger": "USER getsid\tpid_t getsid", "contents": "getsid(${1:pid_t pid});"},
+   { "trigger": "USER getuid\tuid_t getuid", "contents": "getuid();"},
+   { "trigger": "USER getwd\tchar *getwd", "contents": "getwd(${1:char *path_name});"},
+   { "trigger": "USER isatty\tint isatty", "contents": "isatty(${1:int fildes});"},
+   { "trigger": "USER lchown\tint lchown", "contents": "lchown(${1:const char *path}, ${2:uid_t owner}, ${3:gid_t group});"},
+   { "trigger": "USER link\tint link", "contents": "link(${1:const char *path1}, ${2:const char *path2});"},
+   { "trigger": "USER lockf\tint lockf", "contents": "lockf(${1:int fildes}, ${2:int function}, ${3:off_t size});"},
+   { "trigger": "USER nice\tint nice", "contents": "nice(${1:int incr});"},
+   { "trigger": "USER pathconf\tlong int pathconf", "contents": "pathconf(${1:const char *path}, ${2:int name});"},
+   { "trigger": "USER pause\tint pause", "contents": "pause();"},
+   { "trigger": "USER pipe\tint pipe", "contents": "pipe(${1:int fildes[2]});"},
+   { "trigger": "USER pread\tssize_t pread", "contents": "pread(${1:int fildes}, ${2:void *buf}, ${3:size_t nbyte}, ${4:off_t offset});"},
+   { "trigger": "USER pthread_atfork\tint pthread_atfork", "contents": "pthread_atfork(${1:void (*prepare)(void)}, ${2:void (*parent)(void)}, ${3:void (*child)(void)});"},
+   { "trigger": "USER pwrite\tssize_t pwrite", "contents": "pwrite(${1:int fildes}, ${2:const void *buf}, ${3:size_t nbyte}, ${4:off_t offset});"},
+   { "trigger": "USER read\tssize_t read", "contents": "read(${1:int fildes}, ${2:void *buf}, ${3:size_t nbyte});"},
+   { "trigger": "USER readlink\tint readlink", "contents": "readlink(${1:const char *path}, ${2:char *buf}, ${3:size_t bufsize});"},
+   { "trigger": "USER rmdir\tint rmdir", "contents": "rmdir(${1:const char *path});"},
+   { "trigger": "USER sbrk\tvoid *sbrk", "contents": "sbrk(${1:gid_t gid});"},
+   { "trigger": "USER setgid\tint setgid", "contents": "setgid(${1:gid_t gid});"},
+   { "trigger": "USER setpgid\tint setpgid", "contents": "setpgid(${1:pid_t pid}, ${2:pid_t pgid});"},
+   { "trigger": "USER setregid\tsetregid", "contents": "setregid();"},
+   { "trigger": "USER setpgrp\tpid_t setpgrp", "contents": "setpgrp();"},
+   { "trigger": "USER setreuid\tint setreuid", "contents": "setreuid(${1:uid_t ruid}, ${2:uid_t euid});"},
+   { "trigger": "USER setsid\tpid_t setsid", "contents": "isalnum();"},
+   { "trigger": "USER setuid\tint setuid", "contents": "setuid();"},
+   { "trigger": "USER sleep\tunsigned int sleep", "contents": "sleep(${1:unsigned int seconds});"},
+   { "trigger": "USER swab\tvoid swab", "contents": "swab(${1:const void *src}, ${2:void *dest}, ${3:ssize_t nbytes});"},
+   { "trigger": "USER symlink\tint symlink", "contents": "isalnum(${1:const char *path1}, ${2:const char *path2});"},
+   { "trigger": "USER sync\tvoid sync", "contents": "sync();"},
+   { "trigger": "USER sysconf\tlong int sysconf", "contents": "sysconf(${1:int name});"},
+   { "trigger": "USER tcgetpgrp\tpid_t tcgetpgrp", "contents": "tcgetpgrp(${1:int fildes});"},
+   { "trigger": "USER tcsetpgrp\tint tcsetpgrp", "contents": "tcsetpgrp(${1:int filde}, ${2:pid_t pgid_id});"},
+   { "trigger": "USER truncate\tint truncate", "contents": "truncate(${1:const char *path}, ${2:const char *path});"},
+   { "trigger": "USER ttyname\tchar *ttyname", "contents": "ttyname(${1:int fildes});"},
+   { "trigger": "USER ttyname_r\tint ttyname_r", "contents": "ttyname_r(${1:int fildes}, ${2:char *name}, ${3:size_t namesize});"},
+   { "trigger": "USER ualarm\tuseconds_t ualarm", "contents": "ualarm(${1:useconds_t useconds}, ${2:useconds_t interval});"},
+   { "trigger": "USER unlink\tint unlink", "contents": "unlink(${1:const char *path});"},
+   { "trigger": "USER usleep\tint usleep", "contents": "usleep(${1:useconds_t useconds});"},
+   { "trigger": "USER vfork\tpid_t vfork", "contents": "vfork();"},
+   { "trigger": "USER write\tssize_t write", "contents": "write(${1:int fildes}, ${2:const void *buf}, ${3:size_t nbyte});"},
+
+/**
+ * ctype.h
+ * from http://www.tutorialpoints.org/
+ */
+   { "trigger": "USER isalnum\tisalnum", "contents": "isalnum(${1:int c});"},
+   { "trigger": "USER isalpha\tisalpha", "contents": "isalpha(${1:int c});"},
+   { "trigger": "USER iscntrl\tiscntrl", "contents": "iscntrl(${1:int c});"},
+   { "trigger": "USER isdigit\tisdigit", "contents": "isdigit(${1:int c});"},
+   { "trigger": "USER isgraph\tisgraph", "contents": "isgraph(${1:int c});"},
+   { "trigger": "USER islower\tislower", "contents": "islower(${1:int c});"},
+   { "trigger": "USER isprint\tisprint", "contents": "isprint(${1:int c});"},
+   { "trigger": "USER ispunct\tispunct", "contents": "ispunct(${1:int c});"},
+   { "trigger": "USER isspace\tisspace", "contents": "isspace(${1:int c});"},
+   { "trigger": "USER isupper\tisupper", "contents": "isupper(${1:int c});"},
+   { "trigger": "USER isxdigit\tisxdigit", "contents": "isxdigit(${1:int c});"},
+   { "trigger": "USER tolower\ttolower", "contents": "tolower(${1:int c});"},
+   { "trigger": "USER toupper\ttoupper", "contents": "toupper(${1:int c});"},
 
 /**
  * Sockets.h
  * from http://www.man7.org/
  */
+   { "trigger": "USER accept\tint accept", "contents": "accept(${1:int sockfd}, (struct sockaddr*)${2:*addr}, ${3:socklen_t *addrlen});"},
+   { "trigger": "USER bind\tint bind", "contents": "bind(${1:int sockfd}, (struct sockaddr *)${2:*addr}, ${3:socklen_t addrlen});"},
+   { "trigger": "USER connect\tint connect", "contents": "connect(${1:int sockfd}, ${2:const struct sockaddr *addr}, ${3:socklen_t addrlen});"},
+   { "trigger": "USER getpeername\tint getpeername", "contents": "getpeername(${1:int sockfd}, ${2:struct sockaddr *addr}, ${3:socklen_t*addrlen});"},
+   { "trigger": "USER getsockname\tint getsockname", "contents": "getsockname(${1:int sockfd}, ${2:struct sockaddr *addr}, ${3:socklen_t *addrlen});"},
+   { "trigger": "USER getsockopt\tint shutdown", "contents": "shutdown(${1:int sockfd}, ${2:int level}, ${3:int optname}, ${4:void *optval}, ${5:socklen_t *optlen});"},
+   { "trigger": "USER listen\tint listen", "contents": "listen(${1:int sockfd}, ${2:int backlog});"},
+   { "trigger": "USER recv\tssize_t recv", "contents": "recv(${1:int sockfd}, ${2:void *buf}, ${3:size_t len}, ${4:int flags});"},
+   { "trigger": "USER recvfrom\tssize_t recvfrom", "contents": "recvfrom(${1:int sockfd}, ${2:void *buf}, ${3:size_t len}, ${4:int flags}, ${5:struct sockaddr *src_addr}, ${6:socklen_t *addrlen});"},
+   { "trigger": "USER recvmsg\tssize_t recvmsg", "contents": "recvmsg(${1:int sockfd}, ${2:struct msghdr *msg}, ${3:int flags});"},
+   { "trigger": "USER send\tssize_t send", "contents": "send(${1:int sockfd}, ${2:const void *buf}, ${3:size_t len}, ${4:nt flags});"},
+   { "trigger": "USER sendmsg\tssize_t sendmsg", "contents": "sendmsg(${1:iint sockfd}, ${2:const struct msghdr *msg}, ${3:int flags});"},
+   { "trigger": "USER sendto\tssize_t sendto", "contents": "sendto(${1:int sockfd}, ${2:const void *buf}, ${3:size_t len}, ${4:int flags}, ${5:const struct sockaddr *dest_addr}, ${6:socklen_t addrlen});"},
+   { "trigger": "USER setsockopt\tint setsockopt", "contents": "setsockopt(${1:int sockfd}, ${2:int level}, ${3:int optname}, ${4:const void *optval}, ${5:socklen_t optlen});"},
+   { "trigger": "USER shutdown\tint shutdown", "contents": "shutdown(${1:int sockfd}, ${2:int how});"},
+   { "trigger": "USER socket\tint socket", "contents": "socket(${1:int domain}, ${2:int type}, ${3:int protocol});"},
+   { "trigger": "USER socketpair\tint socketpair", "contents": "socketpair(${1:int domain}, ${2:int type}, ${3:int protocol}, ${4:int sv[2]});"},
 
-	{ "trigger": "USER accept\tint accept", "contents": "accept(${1:int sockfd}, (struct sockaddr*)${2:*addr}, ${3:socklen_t *addrlen});"},
-	{ "trigger": "USER bind\tint bind", "contents": "bind(${1:int sockfd}, (struct sockaddr *)${2:*addr}, ${3:socklen_t addrlen});"},
-	{ "trigger": "USER connect\tint connect", "contents": "connect(${1:int sockfd}, ${2:const struct sockaddr *addr}, ${3:socklen_t addrlen});"},
-	{ "trigger": "USER getpeername\tint getpeername", "contents": "getpeername(${1:int sockfd}, ${2:struct sockaddr *addr}, ${3:socklen_t*addrlen});"},
-	{ "trigger": "USER getsockname\tint getsockname", "contents": "getsockname(${1:int sockfd}, ${2:struct sockaddr *addr}, ${3:socklen_t *addrlen});"},
-	{ "trigger": "USER getsockopt\tint shutdown", "contents": "shutdown(${1:int sockfd}, ${2:int level}, ${3:int optname}, ${4:void *optval}, ${5:socklen_t *optlen});"},
-	{ "trigger": "USER listen\tint listen", "contents": "listen(${1:int sockfd}, ${2:int backlog});"},
-	{ "trigger": "USER recv\tssize_t recv", "contents": "recv(${1:int sockfd}, ${2:void *buf}, ${3:size_t len}, ${4:int flags});"},
-	{ "trigger": "USER recvfrom\tssize_t recvfrom", "contents": "recvfrom(${1:int sockfd}, ${2:void *buf}, ${3:size_t len}, ${4:int flags}, ${5:struct sockaddr *src_addr}, ${6:socklen_t *addrlen});"},
-	{ "trigger": "USER recvmsg\tssize_t recvmsg", "contents": "recvmsg(${1:int sockfd}, ${2:struct msghdr *msg}, ${3:int flags});"},
-	{ "trigger": "USER send\tssize_t send", "contents": "send(${1:int sockfd}, ${2:const void *buf}, ${3:size_t len}, ${4:nt flags});"},
-	{ "trigger": "USER sendmsg\tssize_t sendmsg", "contents": "sendmsg(${1:iint sockfd}, ${2:const struct msghdr *msg}, ${3:int flags});"},
-	{ "trigger": "USER sendto\tssize_t sendto", "contents": "sendto(${1:int sockfd}, ${2:const void *buf}, ${3:size_t len}, ${4:int flags}, ${5:const struct sockaddr *dest_addr}, ${6:socklen_t addrlen});"},
-	{ "trigger": "USER setsockopt\tint setsockopt", "contents": "setsockopt(${1:int sockfd}, ${2:int level}, ${3:int optname}, ${4:const void *optval}, ${5:socklen_t optlen});"},
-	{ "trigger": "USER shutdown\tint shutdown", "contents": "shutdown(${1:int sockfd}, ${2:int how});"},
-	{ "trigger": "USER socket\tint socket", "contents": "socket(${1:int domain}, ${2:int type}, ${3:int protocol});"},
-	{ "trigger": "USER socketpair\tint socketpair", "contents": "socketpair(${1:int domain}, ${2:int type}, ${3:int protocol}, ${4:int sv[2]});"},
- 	
-	// Types 
-	{ "trigger": "AF_INET\tflag AF_INET", "contents": "AF_INET"},
-	{ "trigger": "AF_UNSPEC\tflag AF_UNSPEC", "contents": "AF_UNSPEC"},
-	{ "trigger": "AF_UNIX\tflag AF_UNIX", "contents": "AF_UNIX"},
-	{ "trigger": "SHUT_RD\tflag SHUT_RD", "contents": "SHUT_RD"},
-	{ "trigger": "SHUT_WR\tflag SHUT_WR", "contents": "SHUT_WR"},
-	{ "trigger": "SHUT_RDWR\tflag SHUT_RDWR", "contents": "SHUT_RDWR"},
+   // Types
+   { "trigger": "AF_INET\tflag AF_INET", "contents": "AF_INET"},
+   { "trigger": "AF_UNSPEC\tflag AF_UNSPEC", "contents": "AF_UNSPEC"},
+   { "trigger": "AF_UNIX\tflag AF_UNIX", "contents": "AF_UNIX"},
+   { "trigger": "SHUT_RD\tflag SHUT_RD", "contents": "SHUT_RD"},
+   { "trigger": "SHUT_WR\tflag SHUT_WR", "contents": "SHUT_WR"},
+   { "trigger": "SHUT_RDWR\tflag SHUT_RDWR", "contents": "SHUT_RDWR"},
 
-	{ "trigger": "MSG_CTRUNC\tflag MSG_CTRUNC", "contents": "MSG_CTRUNC"},
-	{ "trigger": "MSG_DONTROUTE\tflag MSG_DONTROUTE", "contents": "MSG_DONTROUTE"},
-	{ "trigger": "MSG_EOR\tflag MSG_EOR", "contents": "MSG_EOR"},
-	{ "trigger": "MSG_OOB\tflag MSG_OOB", "contents": "MSG_OOB"},
-	{ "trigger": "MSG_PEEK\tflag MSG_PEEK", "contents": "MSG_PEEK"},
-	{ "trigger": "MSG_TRUNC\tflag MSG_TRUNC", "contents": "MSG_TRUNC"},
-	{ "trigger": "MSG_WAITALL\tflag MSG_WAITALL", "contents": "MSG_WAITALL"},
+   { "trigger": "MSG_CTRUNC\tflag MSG_CTRUNC", "contents": "MSG_CTRUNC"},
+   { "trigger": "MSG_DONTROUTE\tflag MSG_DONTROUTE", "contents": "MSG_DONTROUTE"},
+   { "trigger": "MSG_EOR\tflag MSG_EOR", "contents": "MSG_EOR"},
+   { "trigger": "MSG_OOB\tflag MSG_OOB", "contents": "MSG_OOB"},
+   { "trigger": "MSG_PEEK\tflag MSG_PEEK", "contents": "MSG_PEEK"},
+   { "trigger": "MSG_TRUNC\tflag MSG_TRUNC", "contents": "MSG_TRUNC"},
+   { "trigger": "MSG_WAITALL\tflag MSG_WAITALL", "contents": "MSG_WAITALL"},
 
-	{ "trigger": "SO_ACCEPTCONN\tflag SO_ACCEPTCONN", "contents": "SO_ACCEPTCONN"},
-	{ "trigger": "SO_BROADCAST\tflag SO_BROADCAST", "contents": "SO_BROADCAST"},
-	{ "trigger": "SO_DEBUG\tflag SO_DEBUG", "contents": "SO_DEBUG"},
-	{ "trigger": "SO_DONTROUTE\tflag SO_DONTROUTE", "contents": "SO_DONTROUTE"},
-	{ "trigger": "SO_ERROR\tflag SO_ERROR", "contents": "SO_ERROR"},
-	{ "trigger": "SO_KEEPALIVE\tflag SO_KEEPALIVE", "contents": "SO_KEEPALIVE"},
-	{ "trigger": "SO_LINGER\tflag SO_LINGER", "contents": "SO_LINGER"},
-	{ "trigger": "SO_OOBINLINE\tflag SO_OOBINLINE", "contents": "SO_OOBINLINE"},
-	{ "trigger": "SO_RCVBUF\tflag SO_RCVBUF", "contents": "SO_RCVBUF"},
-	{ "trigger": "SO_RCVLOWAT\tflag SO_RCVLOWAT", "contents": "SO_RCVLOWAT"},
-	{ "trigger": "SO_RCVTIMEO\tflag SO_RCVTIMEO", "contents": "SO_RCVTIMEO"},
-	{ "trigger": "SO_REUSEADDR\tflag SO_REUSEADDR", "contents": "SO_REUSEADDR"},
-	{ "trigger": "SO_SNDBUF\tflag SO_SNDBUF", "contents": "SO_SNDBUF"},
-	{ "trigger": "SO_SNDLOWAT\tflag SO_SNDLOWAT", "contents": "SO_SNDLOWAT"},
-	{ "trigger": "SO_SNDTIMEO\tflag SO_SNDTIMEO", "contents": "SO_SNDTIMEO"},
-	{ "trigger": "SO_TYPE\tflag SO_TYPE", "contents": "SO_TYPE"},
-	{ "trigger": "SOL_SOCKET\tflag SOL_SOCKET", "contents": "SOL_SOCKET"},
-	{ "trigger": "SOCK_DGRAM\tflag SOCK_DGRAM", "contents": "SOCK_DGRAM"},
-	{ "trigger": "SOCK_STREAM\tflag SOCK_STREAM", "contents": "SOCK_STREAM"},
-	{ "trigger": "SOCK_SEQPACKET\tflag SOCK_SEQPACKET", "contents": "SOCK_SEQPACKET"},
-
-	{ "trigger": "AF_UNIX\tflag AF_UNIX", "contents": "AF_UNIX"},
-	{ "trigger": "AF_UNIX\tflag AF_UNIX", "contents": "AF_UNIX"},
-	{ "trigger": "AF_UNIX\tflag AF_UNIX", "contents": "AF_UNIX"},
-	{ "trigger": "AF_UNIX\tflag AF_UNIX", "contents": "AF_UNIX"},
-	{ "trigger": "AF_UNIX\tflag AF_UNIX", "contents": "AF_UNIX"},
-	{ "trigger": "AF_UNIX\tflag AF_UNIX", "contents": "AF_UNIX"},
-	{ "trigger": "AF_UNIX\tflag AF_UNIX", "contents": "AF_UNIX"},
-
-
+   { "trigger": "SO_ACCEPTCONN\tflag SO_ACCEPTCONN", "contents": "SO_ACCEPTCONN"},
+   { "trigger": "SO_BROADCAST\tflag SO_BROADCAST", "contents": "SO_BROADCAST"},
+   { "trigger": "SO_DEBUG\tflag SO_DEBUG", "contents": "SO_DEBUG"},
+   { "trigger": "SO_DONTROUTE\tflag SO_DONTROUTE", "contents": "SO_DONTROUTE"},
+   { "trigger": "SO_ERROR\tflag SO_ERROR", "contents": "SO_ERROR"},
+   { "trigger": "SO_KEEPALIVE\tflag SO_KEEPALIVE", "contents": "SO_KEEPALIVE"},
+   { "trigger": "SO_LINGER\tflag SO_LINGER", "contents": "SO_LINGER"},
+   { "trigger": "SO_OOBINLINE\tflag SO_OOBINLINE", "contents": "SO_OOBINLINE"},
+   { "trigger": "SO_RCVBUF\tflag SO_RCVBUF", "contents": "SO_RCVBUF"},
+   { "trigger": "SO_RCVLOWAT\tflag SO_RCVLOWAT", "contents": "SO_RCVLOWAT"},
+   { "trigger": "SO_RCVTIMEO\tflag SO_RCVTIMEO", "contents": "SO_RCVTIMEO"},
+   { "trigger": "SO_REUSEADDR\tflag SO_REUSEADDR", "contents": "SO_REUSEADDR"},
+   { "trigger": "SO_SNDBUF\tflag SO_SNDBUF", "contents": "SO_SNDBUF"},
+   { "trigger": "SO_SNDLOWAT\tflag SO_SNDLOWAT", "contents": "SO_SNDLOWAT"},
+   { "trigger": "SO_SNDTIMEO\tflag SO_SNDTIMEO", "contents": "SO_SNDTIMEO"},
+   { "trigger": "SO_TYPE\tflag SO_TYPE", "contents": "SO_TYPE"},
+   { "trigger": "SOL_SOCKET\tflag SOL_SOCKET", "contents": "SOL_SOCKET"},
+   { "trigger": "SOCK_DGRAM\tflag SOCK_DGRAM", "contents": "SOCK_DGRAM"},
+   { "trigger": "SOCK_STREAM\tflag SOCK_STREAM", "contents": "SOCK_STREAM"},
+   { "trigger": "SOCK_SEQPACKET\tflag SOCK_SEQPACKET", "contents": "SOCK_SEQPACKET"},
 
 
 /**
@@ -400,84 +456,84 @@
  * from http://www.man7.org/
  */
 
- 	// Functions
-	{ "trigger": "USER endhostent\tvoid endhostent", "contents": "endhostent(${1:void});"},
-	{ "trigger": "USER endnetent\tvoid endnetent", "contents": "endnetent(${1:void});"},
-	{ "trigger": "USER endprotoent\tvoid endprotoent", "contents": "endprotoent(${1:void});"},
-	{ "trigger": "USER endservent\tvoid endservent", "contents": "endservent(${1:void});"},
-	{ "trigger": "USER freeaddrinfo\tvoid freeaddrinfo", "contents": "freeaddrinfo(${1:void});"},
-	{ "trigger": "USER gai_strerror\tchar* gai_strerror", "contents": "gai_strerror(${1:int ecode});"},
-	{ "trigger": "USER getaddrinfo\tint getaddrinfo", "contents": "getaddrinfo(${1:const char *node}, ${2:const char *service}, ${3:const struct addrinfo *hints}, ${4:struct addrinfo **res});"},
-	{ "trigger": "USER gethostbyaddr\tstruct hostent* gethostbyaddr", "contents": "gethostbyaddr(${1:void *addr}, ${2:socklen_t len}, ${3:int type});"},
-	{ "trigger": "USER gethostbyname\tstruct hostent* gethostbyname", "contents": "gethostbyname(${1:const char *name});"},
-	{ "trigger": "USER gethostent\tstruct hostent* gethostent", "contents": "gethostent(${1:void});"},
-	{ "trigger": "USER getnameinfo\tint getnameinfo", "contents": "getnameinfo(${1:struct sockaddr *sa}, ${2:socklen_t salen}, ${3:char *host}, ${4:socklen_t hostlen}, ${5:char *serv}, ${6:socklen_t servlen}, ${7:int flags});"},
-	{ "trigger": "USER getnetbyaddr\tstruct netent* getnetbyaddr", "contents": "getnetbyaddr(${1:uint32_t net}, ${2:int type});"},
-	{ "trigger": "USER getnetbyname\tstruct netent* getnetbyname", "contents": "getnetbyname(${1:const char *name});"},
-	{ "trigger": "USER getnetent\tstruct netent* getnetent", "contents": "getnetent(${1:void});"},
-	{ "trigger": "USER getprotobyname\tstruct protoent* getprotobyname", "contents": "getprotobyname(${1:const char *name});"},
-	{ "trigger": "USER getprotobynumber\tstruct protoent* getprotobynumber", "contents": "getprotobynumber(${1:int proto});"},
-	{ "trigger": "USER getprotoent\tstruct protoent* getprotoent", "contents": "getprotoent(${1:void});"},
-	{ "trigger": "USER getservbyname\tstruct servent* getservbyname", "contents": "getservbyname(${1:onst char *name}, ${2:const char *proto});"},
-	{ "trigger": "USER getservbyport\tstruct servent* getservbyport", "contents": "getservbyport(${1:int port}, ${2:const char *proto});"},
-	{ "trigger": "USER getservent\tstruct servent* getservent", "contents": "getservent(${1:void});"},
-	{ "trigger": "USER sethostent\tvoid sethostent", "contents": "sethostent(${1:int stayopen});"},
-	{ "trigger": "USER setnetent\tvoid setnetent", "contents": "setnetent(${1:int stayopen});"},
-	{ "trigger": "USER setprotoent\tvoid setprotoent", "contents": "setprotoent(${1:int stayopen});"},
-	{ "trigger": "USER setservent\tvoid setservent", "contents": "setservent(${1:int stayopen});"},
+   // Functions
+   { "trigger": "USER endhostent\tvoid endhostent", "contents": "endhostent(${1:void});"},
+   { "trigger": "USER endnetent\tvoid endnetent", "contents": "endnetent(${1:void});"},
+   { "trigger": "USER endprotoent\tvoid endprotoent", "contents": "endprotoent(${1:void});"},
+   { "trigger": "USER endservent\tvoid endservent", "contents": "endservent(${1:void});"},
+   { "trigger": "USER freeaddrinfo\tvoid freeaddrinfo", "contents": "freeaddrinfo(${1:void});"},
+   { "trigger": "USER gai_strerror\tchar* gai_strerror", "contents": "gai_strerror(${1:int ecode});"},
+   { "trigger": "USER getaddrinfo\tint getaddrinfo", "contents": "getaddrinfo(${1:const char *node}, ${2:const char *service}, ${3:const struct addrinfo *hints}, ${4:struct addrinfo **res});"},
+   { "trigger": "USER gethostbyaddr\tstruct hostent* gethostbyaddr", "contents": "gethostbyaddr(${1:void *addr}, ${2:socklen_t len}, ${3:int type});"},
+   { "trigger": "USER gethostbyname\tstruct hostent* gethostbyname", "contents": "gethostbyname(${1:const char *name});"},
+   { "trigger": "USER gethostent\tstruct hostent* gethostent", "contents": "gethostent(${1:void});"},
+   { "trigger": "USER getnameinfo\tint getnameinfo", "contents": "getnameinfo(${1:struct sockaddr *sa}, ${2:socklen_t salen}, ${3:char *host}, ${4:socklen_t hostlen}, ${5:char *serv}, ${6:socklen_t servlen}, ${7:int flags});"},
+   { "trigger": "USER getnetbyaddr\tstruct netent* getnetbyaddr", "contents": "getnetbyaddr(${1:uint32_t net}, ${2:int type});"},
+   { "trigger": "USER getnetbyname\tstruct netent* getnetbyname", "contents": "getnetbyname(${1:const char *name});"},
+   { "trigger": "USER getnetent\tstruct netent* getnetent", "contents": "getnetent(${1:void});"},
+   { "trigger": "USER getprotobyname\tstruct protoent* getprotobyname", "contents": "getprotobyname(${1:const char *name});"},
+   { "trigger": "USER getprotobynumber\tstruct protoent* getprotobynumber", "contents": "getprotobynumber(${1:int proto});"},
+   { "trigger": "USER getprotoent\tstruct protoent* getprotoent", "contents": "getprotoent(${1:void});"},
+   { "trigger": "USER getservbyname\tstruct servent* getservbyname", "contents": "getservbyname(${1:onst char *name}, ${2:const char *proto});"},
+   { "trigger": "USER getservbyport\tstruct servent* getservbyport", "contents": "getservbyport(${1:int port}, ${2:const char *proto});"},
+   { "trigger": "USER getservent\tstruct servent* getservent", "contents": "getservent(${1:void});"},
+   { "trigger": "USER sethostent\tvoid sethostent", "contents": "sethostent(${1:int stayopen});"},
+   { "trigger": "USER setnetent\tvoid setnetent", "contents": "setnetent(${1:int stayopen});"},
+   { "trigger": "USER setprotoent\tvoid setprotoent", "contents": "setprotoent(${1:int stayopen});"},
+   { "trigger": "USER setservent\tvoid setservent", "contents": "setservent(${1:int stayopen});"},
 
 
 /**
  * fcntl.h
  * from http://www.man7.org/
  */
- 	// Functions
-	{ "trigger": "USER fcntl\tint fcntl", "contents": "fcntl(${1:int fd}, ${2:int cmd}, ${3:struct *flock});"},
-	{ "trigger": "USER open\tint open", "contents": "open(${1:const char *pathname}, ${2:int flags}, ${3:mode_t mode});"},
-	{ "trigger": "USER creat\tint creat", "contents": "creat(${1:const char *pathname}, ${2:mode_t mode});"},
-	{ "trigger": "USER openat\tint openat", "contents": "openat(${1:int dirfd}, ${2:const char *pathname}, ${3:int flags}, ${4:mode_t mode});"},
+   // Functions
+   { "trigger": "USER fcntl\tint fcntl", "contents": "fcntl(${1:int fd}, ${2:int cmd}, ${3:struct *flock});"},
+   { "trigger": "USER open\tint open", "contents": "open(${1:const char *pathname}, ${2:int flags}, ${3:mode_t mode});"},
+   { "trigger": "USER creat\tint creat", "contents": "creat(${1:const char *pathname}, ${2:mode_t mode});"},
+   { "trigger": "USER openat\tint openat", "contents": "openat(${1:int dirfd}, ${2:const char *pathname}, ${3:int flags}, ${4:mode_t mode});"},
 
-	// Structs 
- 	{ "trigger": "struct flock\tstruct flock", "contents": "struct flock {\n\tshort l_type; /* Type of lock: F_RDLCK, F_WRLCK, F_UNLCK */\n\tshort l_whence; /* How to interpret l_start: SEEK_SET, SEEK_CUR, SEEK_END */\n\toff_t l_start; /* Starting offset for lock */\n\toff_t l_len; /* Number of bytes to lock */\n\tpid_t l_pid; /* PID of process blocking our lock (set by F_GETLK and F_OFD_GETLK) */\n}"},
+   // Structs
+   { "trigger": "struct flock\tstruct flock", "contents": "struct flock {\n\tshort l_type; /* Type of lock: F_RDLCK, F_WRLCK, F_UNLCK */\n\tshort l_whence; /* How to interpret l_start: SEEK_SET, SEEK_CUR, SEEK_END */\n\toff_t l_start; /* Starting offset for lock */\n\toff_t l_len; /* Number of bytes to lock */\n\tpid_t l_pid; /* PID of process blocking our lock (set by F_GETLK and F_OFD_GETLK) */\n}"},
 
- 	// Flags
-	{ "trigger": "F_DUPFD\tflag F_DUPFD", "contents": "F_DUPFD"},
-	{ "trigger": "F_DUPFD_CLOEXEC\tflag F_DUPFD_CLOEXEC", "contents": "F_DUPFD_CLOEXEC"},
-	{ "trigger": "F_GETFD\tflag F_GETFD", "contents": "F_GETFD"},
-	{ "trigger": "F_SETFD\tfalg F_SETFD", "contents": "F_SETFD"},
-	{ "trigger": "F_GETFL\tfalg F_GETFL", "contents": "F_GETFL"},
-	{ "trigger": "F_SETFL\tfalg F_SETFL", "contents": "F_SETFL"},
-	{ "trigger": "F_GETLK\tfalg F_GETLK", "contents": "F_GETLK"},
-	{ "trigger": "F_SETLK\tfalg F_SETLK", "contents": "F_SETLK"},
-	{ "trigger": "F_SETLKW\tflag F_SETLKW", "contents": "F_SETLKW"},
-	{ "trigger": "F_GETOWN\tflag F_GETOWN", "contents": "F_GETOWN"},
-	{ "trigger": "F_SETOWN\tflag F_SETOWN", "contents": "F_SETOWN"},
-	{ "trigger": "FD_CLOEXEC\tflag FD_CLOEXEC", "contents": "FD_CLOEXEC"},
-	{ "trigger": "F_RDLCK\tflag F_RDLCK", "contents": "F_RDLCK"},
-	{ "trigger": "F_UNLCK\tflag F_UNLCK", "contents": "F_UNLCK"},
-	{ "trigger": "O_APPEND\tflag O_APPEND", "contents": "O_APPEND"},
-	{ "trigger": "O_DSYNC\tflag O_DSYNC", "contents": "O_DSYNC"},
-	{ "trigger": "O_NONBLOCK\tflag O_NONBLOCK", "contents": "O_NONBLOCK"},
-	{ "trigger": "O_RSYNC\tflag O_RSYNC", "contents": "O_RSYNC"},
-	{ "trigger": "O_SYNC\tflag O_SYNC", "contents": "O_SYNC"},
-	{ "trigger": "O_ACCMODE\tflag O_ACCMODE", "contents": "O_ACCMODE"},
-	{ "trigger": "O_EXEC\tflag O_EXEC", "contents": "O_EXEC"},
-	{ "trigger": "O_RDONLY\tflag O_RDONLY", "contents": "O_RDONLY"},
-	{ "trigger": "O_RDWR\tflag O_RDWR", "contents": "O_RDWR"},
-	{ "trigger": "O_SEARCH\tflag O_SEARCH", "contents": "O_SEARCH"},
-	{ "trigger": "O_WRONLY\tflag O_WRONLY", "contents": "O_WRONLY"},
-	{ "trigger": "AT_FDCWD\tflag AT_FDCWD", "contents": "AT_FDCWD"},
-	{ "trigger": "AT_EACCESS\tflag AT_EACCESS", "contents": "AT_EACCESS"},
-	{ "trigger": "AT_SYMLINK_NOFOLLOW\tflag AT_SYMLINK_NOFOLLOW", "contents": "AT_SYMLINK_NOFOLLOW"},
-	{ "trigger": "AT_SYMLINK_FOLLOW\tflag AT_SYMLINK_FOLLOW", "contents": "AT_SYMLINK_FOLLOW"},
-	{ "trigger": "AT_REMOVEDIR\tflag AT_REMOVEDIR", "contents": "AT_REMOVEDIR"},
-	{ "trigger": "POSIX_FADV_DONTNEED\tflag POSIX_FADV_DONTNEED", "contents": "POSIX_FADV_DONTNEED"},
-	{ "trigger": "POSIX_FADV_NOREUSE\tflag POSIX_FADV_NOREUSE", "contents": "POSIX_FADV_NOREUSE"},
-	{ "trigger": "POSIX_FADV_NORMAL\tflag POSIX_FADV_NORMAL", "contents": "POSIX_FADV_NORMAL"},
-	{ "trigger": "POSIX_FADV_RANDOM\tflag POSIX_FADV_RANDOM", "contents": "POSIX_FADV_RANDOM"},
-	{ "trigger": "POSIX_FADV_SEQUENTIAL\tflag POSIX_FADV_SEQUENTIAL", "contents": "POSIX_FADV_SEQUENTIAL"},
-	{ "trigger": "POSIX_FADV_WILLNEED\tflag POSIX_FADV_WILLNEED", "contents": "POSIX_FADV_WILLNEED"},
-	{ "trigger": "F_WRLCK\tflag F_WRLCK", "contents": "F_WRLCK"},
+   // Flags
+   { "trigger": "F_DUPFD\tflag F_DUPFD", "contents": "F_DUPFD"},
+   { "trigger": "F_DUPFD_CLOEXEC\tflag F_DUPFD_CLOEXEC", "contents": "F_DUPFD_CLOEXEC"},
+   { "trigger": "F_GETFD\tflag F_GETFD", "contents": "F_GETFD"},
+   { "trigger": "F_SETFD\tfalg F_SETFD", "contents": "F_SETFD"},
+   { "trigger": "F_GETFL\tfalg F_GETFL", "contents": "F_GETFL"},
+   { "trigger": "F_SETFL\tfalg F_SETFL", "contents": "F_SETFL"},
+   { "trigger": "F_GETLK\tfalg F_GETLK", "contents": "F_GETLK"},
+   { "trigger": "F_SETLK\tfalg F_SETLK", "contents": "F_SETLK"},
+   { "trigger": "F_SETLKW\tflag F_SETLKW", "contents": "F_SETLKW"},
+   { "trigger": "F_GETOWN\tflag F_GETOWN", "contents": "F_GETOWN"},
+   { "trigger": "F_SETOWN\tflag F_SETOWN", "contents": "F_SETOWN"},
+   { "trigger": "FD_CLOEXEC\tflag FD_CLOEXEC", "contents": "FD_CLOEXEC"},
+   { "trigger": "F_RDLCK\tflag F_RDLCK", "contents": "F_RDLCK"},
+   { "trigger": "F_UNLCK\tflag F_UNLCK", "contents": "F_UNLCK"},
+   { "trigger": "O_APPEND\tflag O_APPEND", "contents": "O_APPEND"},
+   { "trigger": "O_DSYNC\tflag O_DSYNC", "contents": "O_DSYNC"},
+   { "trigger": "O_NONBLOCK\tflag O_NONBLOCK", "contents": "O_NONBLOCK"},
+   { "trigger": "O_RSYNC\tflag O_RSYNC", "contents": "O_RSYNC"},
+   { "trigger": "O_SYNC\tflag O_SYNC", "contents": "O_SYNC"},
+   { "trigger": "O_ACCMODE\tflag O_ACCMODE", "contents": "O_ACCMODE"},
+   { "trigger": "O_EXEC\tflag O_EXEC", "contents": "O_EXEC"},
+   { "trigger": "O_RDONLY\tflag O_RDONLY", "contents": "O_RDONLY"},
+   { "trigger": "O_RDWR\tflag O_RDWR", "contents": "O_RDWR"},
+   { "trigger": "O_SEARCH\tflag O_SEARCH", "contents": "O_SEARCH"},
+   { "trigger": "O_WRONLY\tflag O_WRONLY", "contents": "O_WRONLY"},
+   { "trigger": "AT_FDCWD\tflag AT_FDCWD", "contents": "AT_FDCWD"},
+   { "trigger": "AT_EACCESS\tflag AT_EACCESS", "contents": "AT_EACCESS"},
+   { "trigger": "AT_SYMLINK_NOFOLLOW\tflag AT_SYMLINK_NOFOLLOW", "contents": "AT_SYMLINK_NOFOLLOW"},
+   { "trigger": "AT_SYMLINK_FOLLOW\tflag AT_SYMLINK_FOLLOW", "contents": "AT_SYMLINK_FOLLOW"},
+   { "trigger": "AT_REMOVEDIR\tflag AT_REMOVEDIR", "contents": "AT_REMOVEDIR"},
+   { "trigger": "POSIX_FADV_DONTNEED\tflag POSIX_FADV_DONTNEED", "contents": "POSIX_FADV_DONTNEED"},
+   { "trigger": "POSIX_FADV_NOREUSE\tflag POSIX_FADV_NOREUSE", "contents": "POSIX_FADV_NOREUSE"},
+   { "trigger": "POSIX_FADV_NORMAL\tflag POSIX_FADV_NORMAL", "contents": "POSIX_FADV_NORMAL"},
+   { "trigger": "POSIX_FADV_RANDOM\tflag POSIX_FADV_RANDOM", "contents": "POSIX_FADV_RANDOM"},
+   { "trigger": "POSIX_FADV_SEQUENTIAL\tflag POSIX_FADV_SEQUENTIAL", "contents": "POSIX_FADV_SEQUENTIAL"},
+   { "trigger": "POSIX_FADV_WILLNEED\tflag POSIX_FADV_WILLNEED", "contents": "POSIX_FADV_WILLNEED"},
+   { "trigger": "F_WRLCK\tflag F_WRLCK", "contents": "F_WRLCK"},
 
 
 
@@ -486,34 +542,34 @@
  * from http://www.man7.org/
  */
 
- 	// Functions
- 	{ "trigger": "USER semget\tint semget", "contents": "semget(${1:key_t key}, ${2:int nsems}, ${3:int semflg});"},
-	{ "trigger": "USER semop\tint semop", "contents": "semop(${1:int semid}, ${2:struct sembuf *sops}, ${3:size_t nsops});"},
-	{ "trigger": "USER semctl\tint semctl", "contents": "semctl(${1:int semid}, ${2:int semnum}, ${3:int cmd});"},
+   // Functions
+   { "trigger": "USER semget\tint semget", "contents": "semget(${1:key_t key}, ${2:int nsems}, ${3:int semflg});"},
+   { "trigger": "USER semop\tint semop", "contents": "semop(${1:int semid}, ${2:struct sembuf *sops}, ${3:size_t nsops});"},
+   { "trigger": "USER semctl\tint semctl", "contents": "semctl(${1:int semid}, ${2:int semnum}, ${3:int cmd});"},
 
-	// Structs
-	{ "trigger": "struct semun\tstruct semun", "contents": "struct semun {\n\tint val; /* used for SETVAL only */\n\tstruct semid_ds *buf; /* used for IPC_STAT and IPC_SET */\n\tushort *array; /* used for GETALL and SETALL */\n};"},
-	{ "trigger": "struct semid_ds\tstruct semid_ds", "contents": "struct semid_ds {\n\tstruct ipc_perm sem_perm;  /* Ownership and permissions */\n\ttime_t          sem_otime; /* Last semop time */\n\ttime_t          sem_ctime; /* Last change time */\n\tunsigned short  sem_nsems; /* No. of semaphores in set */\n};"},
-	{ "trigger": "struct sembuf\tstruct sembuf", "contents": "struct sembuf{\n\tushort sem_num;\n\tshort sem_op;\n\tshort sem_flg;\n};"},
-	
-	// Flags 
-	{ "trigger": "GETVAL\tflag GETVAL", "contents": "GETVAL"},
-	{ "trigger": "SETVAL\tflag SETVAL", "contents": "SETVAL"},
-	{ "trigger": "GETPID\tflag GETPID", "contents": "GETPID"},
-	{ "trigger": "GETNCNT\tflag GETNCNT", "contents": "GETNCNT"},
-	{ "trigger": "GETZCNT\tflag GETZCNT", "contents": "GETZCNT"},
-	{ "trigger": "GETALL\tflag GETALL", "contents": "GETALL"},
-	{ "trigger": "SETALL\tflag SETALL", "contents": "SETALL"},
-	{ "trigger": "IPC_STAT\tflag IPC_STAT", "contents": "IPC_STAT"},
-	{ "trigger": "IPC_SET\tflag IPC_SET", "contents": "IPC_SET"},
-	{ "trigger": "IPC_CREAT\tflag IPC_CREAT", "contents": "IPC_CREAT"},
-	{ "trigger": "IPC_EXCL\tflag IPC_EXCL", "contents": "IPC_EXCL"},
-	{ "trigger": "O_ACCMODE\tflag O_ACCMODE", "contents": "O_ACCMODE"},
-	{ "trigger": "O_ACCMODE\tflag O_ACCMODE", "contents": "O_ACCMODE"},
-	{ "trigger": "O_ACCMODE\tflag O_ACCMODE", "contents": "O_ACCMODE"},
-	{ "trigger": "O_ACCMODE\tflag O_ACCMODE", "contents": "O_ACCMODE"},
-	{ "trigger": "O_ACCMODE\tflag O_ACCMODE", "contents": "O_ACCMODE"},
-	{ "trigger": "O_ACCMODE\tflag O_ACCMODE", "contents": "O_ACCMODE"},
+   // Structs
+   { "trigger": "struct semun\tstruct semun", "contents": "struct semun {\n\tint val; /* used for SETVAL only */\n\tstruct semid_ds *buf; /* used for IPC_STAT and IPC_SET */\n\tushort *array; /* used for GETALL and SETALL */\n};"},
+   { "trigger": "struct semid_ds\tstruct semid_ds", "contents": "struct semid_ds {\n\tstruct ipc_perm sem_perm;  /* Ownership and permissions */\n\ttime_t          sem_otime; /* Last semop time */\n\ttime_t          sem_ctime; /* Last change time */\n\tunsigned short  sem_nsems; /* No. of semaphores in set */\n};"},
+   { "trigger": "struct sembuf\tstruct sembuf", "contents": "struct sembuf{\n\tushort sem_num;\n\tshort sem_op;\n\tshort sem_flg;\n};"},
+
+   // Flags
+   { "trigger": "GETVAL\tflag GETVAL", "contents": "GETVAL"},
+   { "trigger": "SETVAL\tflag SETVAL", "contents": "SETVAL"},
+   { "trigger": "GETPID\tflag GETPID", "contents": "GETPID"},
+   { "trigger": "GETNCNT\tflag GETNCNT", "contents": "GETNCNT"},
+   { "trigger": "GETZCNT\tflag GETZCNT", "contents": "GETZCNT"},
+   { "trigger": "GETALL\tflag GETALL", "contents": "GETALL"},
+   { "trigger": "SETALL\tflag SETALL", "contents": "SETALL"},
+   { "trigger": "IPC_STAT\tflag IPC_STAT", "contents": "IPC_STAT"},
+   { "trigger": "IPC_SET\tflag IPC_SET", "contents": "IPC_SET"},
+   { "trigger": "IPC_CREAT\tflag IPC_CREAT", "contents": "IPC_CREAT"},
+   { "trigger": "IPC_EXCL\tflag IPC_EXCL", "contents": "IPC_EXCL"},
+   { "trigger": "O_ACCMODE\tflag O_ACCMODE", "contents": "O_ACCMODE"},
+   { "trigger": "O_ACCMODE\tflag O_ACCMODE", "contents": "O_ACCMODE"},
+   { "trigger": "O_ACCMODE\tflag O_ACCMODE", "contents": "O_ACCMODE"},
+   { "trigger": "O_ACCMODE\tflag O_ACCMODE", "contents": "O_ACCMODE"},
+   { "trigger": "O_ACCMODE\tflag O_ACCMODE", "contents": "O_ACCMODE"},
+   { "trigger": "O_ACCMODE\tflag O_ACCMODE", "contents": "O_ACCMODE"},
 
 
 
@@ -521,51 +577,51 @@
  * <libxml/parser.h>
  */
 
-	// Functions
-	{ "trigger": "USER xmlParseFile\txmlDocPtr xmlParseFile", "contents": "xmlParseFile(${1:const char * filename});"},
-	{ "trigger": "USER xmlDocGetRootElement\txmlDocPtr xmlDocGetRootElement", "contents": "xmlDocGetRootElement(${1:const xmlDoc * doc});"},
-	{ "trigger": "USER xmlStrcmp\tint xmlStrcmp", "contents": "xmlStrcmp(${1:const xmlChar * str1}, (xmlChar*)${2:str2});${3:/* Return 0 : equal, >0 : str2<str1, <0 : str1<str2 */}"},
-	{ "trigger": "USER xmlNodeGetContent\txmlChar* xmlNodeGetContent", "contents": "xmlNodeGetContent(${1:const xmlNode * cur}); /* Get content from 1 node */"},
-	{ "trigger": "USER xmlNodeListGetString\txmlChar* xmlNodeListGetString", "contents": "xmlNodeListGetString(${1:xmlDocPtr doc}, ${2:const xmlNode* list}, ${3:int inLine}); /* Get Content from many nodes */"},
-	{ "trigger": "USER xmlGetProp\txmlDocPtr xmlGetProp", "contents": "xmlGetProp(${1:const xmlNode * node}, ${2:const xmlChar * name}});"},
+   // Functions
+   { "trigger": "USER xmlParseFile\txmlDocPtr xmlParseFile", "contents": "xmlParseFile(${1:const char * filename});"},
+   { "trigger": "USER xmlDocGetRootElement\txmlDocPtr xmlDocGetRootElement", "contents": "xmlDocGetRootElement(${1:const xmlDoc * doc});"},
+   { "trigger": "USER xmlStrcmp\tint xmlStrcmp", "contents": "xmlStrcmp(${1:const xmlChar * str1}, (xmlChar*)${2:str2});${3:/* Return 0 : equal, >0 : str2<str1, <0 : str1<str2 */}"},
+   { "trigger": "USER xmlNodeGetContent\txmlChar* xmlNodeGetContent", "contents": "xmlNodeGetContent(${1:const xmlNode * cur}); /* Get content from 1 node */"},
+   { "trigger": "USER xmlNodeListGetString\txmlChar* xmlNodeListGetString", "contents": "xmlNodeListGetString(${1:xmlDocPtr doc}, ${2:const xmlNode* list}, ${3:int inLine}); /* Get Content from many nodes */"},
+   { "trigger": "USER xmlGetProp\txmlDocPtr xmlGetProp", "contents": "xmlGetProp(${1:const xmlNode * node}, ${2:const xmlChar * name}});"},
 
-	// Types 
-	{ "trigger": "xmlDoc\ttype-xmlDoc", "contents": "xmlDoc"},
-	{ "trigger": "xmlNode\ttype-xmlNode", "contents": "xmlNode"},
-	{ "trigger": "xmlChar\ttype-xmlChar", "contents": "xmlChar"},
-	{ "trigger": "xmlAttr\ttype-xmlAttr", "contents": "xmlAttr"},
+   // Types
+   { "trigger": "xmlDoc\ttype-xmlDoc", "contents": "xmlDoc"},
+   { "trigger": "xmlNode\ttype-xmlNode", "contents": "xmlNode"},
+   { "trigger": "xmlChar\ttype-xmlChar", "contents": "xmlChar"},
+   { "trigger": "xmlAttr\ttype-xmlAttr", "contents": "xmlAttr"},
 
 
 /**
  * <sys/shm.h>
  * from http://www.man7.org/
  */
- 	// Functions
-	{ "trigger": "USER shmat\tvoid* shmat", "contents": "shmat(${1:int shmid}, ${2:const void *shmaddr}, ${3:int shmflg});"},
-	{ "trigger": "USER shmctl\tint shmctl", "contents": "shmctl(${1:int shmid}, ${2:int cmd}, ${3:struct shmid_ds *buf});"},
-	{ "trigger": "USER shmdt\tint shmdt", "contents": "shmdt(${1:const void *shmadd});"},
-	{ "trigger": "USER shmget\tint shmget", "contents": "shmget(${1:key_t key}, ${2:size_t size}, ${3:int shmflg});"},
-	{ "trigger": "USER shmat\tvoid* shmat", "contents": "shmat(${1:const char * filename});"},
+   // Functions
+   { "trigger": "USER shmat\tvoid* shmat", "contents": "shmat(${1:int shmid}, ${2:const void *shmaddr}, ${3:int shmflg});"},
+   { "trigger": "USER shmctl\tint shmctl", "contents": "shmctl(${1:int shmid}, ${2:int cmd}, ${3:struct shmid_ds *buf});"},
+   { "trigger": "USER shmdt\tint shmdt", "contents": "shmdt(${1:const void *shmadd});"},
+   { "trigger": "USER shmget\tint shmget", "contents": "shmget(${1:key_t key}, ${2:size_t size}, ${3:int shmflg});"},
+   { "trigger": "USER shmat\tvoid* shmat", "contents": "shmat(${1:const char * filename});"},
 
-	// Flags
-	{ "trigger": "shmat SHM_EXEC\tflag SHM_EXEC", "contents": "SHM_EXEC"},
-	{ "trigger": "shmat SHM_RDONLY\tflag SHM_RDONLY", "contents": "SHM_RDONLY"},
-	{ "trigger": "shmat SHM_REMAP\tflag SHM_REMAP", "contents": "SHM_REMAP"},
-	
-	{ "trigger": "shmctl IPC_STAT\tflag IPC_STAT", "contents": "IPC_STAT"},
-	{ "trigger": "shmctl IPC_SET\tflag IPC_SET", "contents": "IPC_SET"},
-	{ "trigger": "shmctl IPC_RMID\tflag IPC_RMID", "contents": "IPC_RMID"},
-	{ "trigger": "shmctl IPC_INFO\tflag IPC_INFO", "contents": "IPC_INFO"},
-	{ "trigger": "shmctl SHM_INFO\tflag SHM_INFO", "contents": "SHM_INFO"},
-	{ "trigger": "shmctl SHM_STAT\tflag SHM_STAT", "contents": "SHM_STAT"},
-	{ "trigger": "shmctl SHM_LOCK\tflag SHM_LOCK", "contents": "SHM_LOCK"},
-	{ "trigger": "shmctl SHM_UNLOCK\tflag SHM_UNLOCK", "contents": "SHM_UNLOCK"},
+   // Flags
+   { "trigger": "shmat SHM_EXEC\tflag SHM_EXEC", "contents": "SHM_EXEC"},
+   { "trigger": "shmat SHM_RDONLY\tflag SHM_RDONLY", "contents": "SHM_RDONLY"},
+   { "trigger": "shmat SHM_REMAP\tflag SHM_REMAP", "contents": "SHM_REMAP"},
 
-	{ "trigger": "shmget IPC_CREAT\tflag IPC_CREAT", "contents": "IPC_CREAT"},
-	{ "trigger": "shmget IPC_EXCL\tflag IPC_EXCL", "contents": "IPC_EXCL"},
-	{ "trigger": "shmget SHM_HUGETLB\tflag SHM_HUGETLB", "contents": "SHM_HUGETLB"},
-	{ "trigger": "shmget SHM_HUGE_2MB\tflag SHM_HUGE_2MB", "contents": "SHM_HUGE_2MB"},
-	{ "trigger": "shmget SHM_NORESERVE\tflag SHM_NORESERVE", "contents": "SHM_NORESERVE"},
+   { "trigger": "shmctl IPC_STAT\tflag IPC_STAT", "contents": "IPC_STAT"},
+   { "trigger": "shmctl IPC_SET\tflag IPC_SET", "contents": "IPC_SET"},
+   { "trigger": "shmctl IPC_RMID\tflag IPC_RMID", "contents": "IPC_RMID"},
+   { "trigger": "shmctl IPC_INFO\tflag IPC_INFO", "contents": "IPC_INFO"},
+   { "trigger": "shmctl SHM_INFO\tflag SHM_INFO", "contents": "SHM_INFO"},
+   { "trigger": "shmctl SHM_STAT\tflag SHM_STAT", "contents": "SHM_STAT"},
+   { "trigger": "shmctl SHM_LOCK\tflag SHM_LOCK", "contents": "SHM_LOCK"},
+   { "trigger": "shmctl SHM_UNLOCK\tflag SHM_UNLOCK", "contents": "SHM_UNLOCK"},
+
+   { "trigger": "shmget IPC_CREAT\tflag IPC_CREAT", "contents": "IPC_CREAT"},
+   { "trigger": "shmget IPC_EXCL\tflag IPC_EXCL", "contents": "IPC_EXCL"},
+   { "trigger": "shmget SHM_HUGETLB\tflag SHM_HUGETLB", "contents": "SHM_HUGETLB"},
+   { "trigger": "shmget SHM_HUGE_2MB\tflag SHM_HUGE_2MB", "contents": "SHM_HUGE_2MB"},
+   { "trigger": "shmget SHM_NORESERVE\tflag SHM_NORESERVE", "contents": "SHM_NORESERVE"},
 
 
 
@@ -574,7 +630,7 @@
  * from http://www.man7.org/
  */
 
-	{ "trigger": "USER ftok\tkey_t ftok", "contents": "ftok(${1:const char *pathname}, ${2:int proj_id});"},
+   { "trigger": "USER ftok\tkey_t ftok", "contents": "ftok(${1:const char *pathname}, ${2:int proj_id});"},
 
 
 
@@ -582,110 +638,161 @@
 * General types
 * from http://www.tutorialpoints.org/
 */
-	// General types
-	{ "trigger": "int\ttype-general", "contents": "int"},
-	{ "trigger": "double\ttype-general", "contents": "double"},
-	{ "trigger": "float\ttype-general", "contents": "float"},
-	{ "trigger": "char\ttype-general", "contents": "char"},
-	{ "trigger": "void\ttype-general", "contents": "void"},
-	{ "trigger": "unsigned\ttype-general", "contents": "unsigned"},
-	{ "trigger": "signed\ttype-general", "contents": "signed"},
-	{ "trigger": "long\ttype-general", "contents": "long"},
-	{ "trigger": "short\ttype-general", "contents": "short"},
+   // General types
+   { "trigger": "int\ttype-general", "contents": "int"},
+   { "trigger": "double\ttype-general", "contents": "double"},
+   { "trigger": "float\ttype-general", "contents": "float"},
+   { "trigger": "char\ttype-general", "contents": "char"},
+   { "trigger": "void\ttype-general", "contents": "void"},
+   { "trigger": "unsigned\ttype-general", "contents": "unsigned"},
+   { "trigger": "signed\ttype-general", "contents": "signed"},
+   { "trigger": "long\ttype-general", "contents": "long"},
+   { "trigger": "short\ttype-general", "contents": "short"},
 
-	// Size types
-	{ "trigger": "int8_t\ttype-general", "contents": "int8_t"},
-	{ "trigger": "uint8_t\ttype-general", "contents": "uint8_t"},
-	{ "trigger": "int16_t\ttype-general", "contents": "int16_t"},
-	{ "trigger": "uint16_t\ttype-general", "contents": "uint16_t"},
-	{ "trigger": "int32_t\ttype-general", "contents": "int32_t"},
-	{ "trigger": "uint32_t\ttype-general", "contents": "uint32_t"},
-	{ "trigger": "int64_t\ttype-general", "contents": "int64_t"},
-	{ "trigger": "uint64_t\ttype-general", "contents": "uint64_t"},
-	{ "trigger": "short\ttype-general", "contents": "short"},
+   // Size types
+   { "trigger": "int8_t\ttype-general", "contents": "int8_t"},
+   { "trigger": "uint8_t\ttype-general", "contents": "uint8_t"},
+   { "trigger": "int16_t\ttype-general", "contents": "int16_t"},
+   { "trigger": "uint16_t\ttype-general", "contents": "uint16_t"},
+   { "trigger": "int32_t\ttype-general", "contents": "int32_t"},
+   { "trigger": "uint32_t\ttype-general", "contents": "uint32_t"},
+   { "trigger": "int64_t\ttype-general", "contents": "int64_t"},
+   { "trigger": "uint64_t\ttype-general", "contents": "uint64_t"},
+   { "trigger": "short\ttype-general", "contents": "short"},
 
 
 /**
  * sys/types.h
  * from : http://pubs.opengroup.org/
  */
-	{ "trigger": "blkcnt_t\ttype-blkcnt_t", "contents": "blkcnt_t"},
-	{ "trigger": "blksize_t\ttype-blksize_t", "contents": "blksize_t"},
-	{ "trigger": "clock_t\ttype-clock_t", "contents": "clock_t"},
-	{ "trigger": "clockid_t\ttype-clockid_t", "contents": "clockid_t"},
-	{ "trigger": "dev_t\ttype-dev_t", "contents": "dev_t"},
-	{ "trigger": "fsblkcnt_t\ttype-fsblkcnt_t", "contents": "fsblkcnt_t"},
-	{ "trigger": "fsfilcnt_t\ttype-fsfilcnt_t", "contents": "fsfilcnt_t"},
-	{ "trigger": "gid_t\ttype-gid_t", "contents": "gid_t"},
-	{ "trigger": "id_t\ttype-id_t", "contents": "id_t"},
-	{ "trigger": "ino_t\ttype-ino_t", "contents": "ino_t"},
-	{ "trigger": "key_t\ttype-key_t", "contents": "key_t"},
-	{ "trigger": "mode_t\ttype-mode_t", "contents": "mode_t"},
-	{ "trigger": "nlink_t\ttype-nlink_t", "contents": "nlink_t"},
-	{ "trigger": "off_t\ttype-off_t", "contents": "off_t"},
-	{ "trigger": "pid_t\ttype-pid_t", "contents": "pid_t"},
-	{ "trigger": "pthread_attr_t\ttype-pthread_attr_t", "contents": "pthread_attr_t"},
-	{ "trigger": "pthread_barrier_t\ttype-pthread_barrier_t", "contents": "pthread_barrier_t"},
-	{ "trigger": "pthread_barrierattr_t\ttype-pthread_barrierattr_t", "contents": "pthread_barrierattr_t"},
-	{ "trigger": "pthread_cond_t\ttype-pthread_cond_t", "contents": "pthread_cond_t"},
-	{ "trigger": "pthread_condattr_t\ttype-pthread_condattr_t", "contents": "pthread_condattr_t"},
-	{ "trigger": "pthread_key_t\ttype-pthread_key_t", "contents": "pthread_key_t"},
-	{ "trigger": "pthread_mutex_t\ttype-pthread_mutex_t", "contents": "pthread_mutex_t"},
-	{ "trigger": "pthread_mutexattr_t\ttype-pthread_mutexattr_t", "contents": "pthread_mutexattr_t"},
-	{ "trigger": "pthread_once_t\ttype-pthread_once_t", "contents": "pthread_once_t"},
-	{ "trigger": "pthread_rwlock_t\ttype-pthread_rwlock_t", "contents": "pthread_rwlock_t"},
-	{ "trigger": "pthread_rwlockattr_t\ttype-pthread_rwlockattr_t", "contents": "pthread_rwlockattr_t"},
-	{ "trigger": "pthread_spinlock_t\ttype-pthread_spinlock_t", "contents": "pthread_spinlock_t"},
-	{ "trigger": "pthread_t\ttype-pthread_t", "contents": "pthread_t"},
-	{ "trigger": "size_t\ttype-size_t", "contents": "size_t"},
-	{ "trigger": "ssize_t\ttype-ssize_t", "contents": "ssize_t"},
-	{ "trigger": "time_t\ttype-time_t", "contents": "time_t"},
-	{ "trigger": "timer_t\ttype-timer_t", "contents": "timer_t"},
-	{ "trigger": "trace_attr_t\ttype-trace_attr_t", "contents": "trace_attr_t"},
-	{ "trigger": "trace_event_id_t\ttype-trace_event_id_t", "contents": "trace_event_id_t"},
-	{ "trigger": "trace_event_set_t\ttype-trace_event_set_t", "contents": "trace_event_set_t"},
-	{ "trigger": "trace_id_t\ttype-trace_id_t", "contents": "trace_id_t"},
-	{ "trigger": "uid_t\ttype-uid_t", "contents": "uid_t"},
-
+   { "trigger": "blkcnt_t\ttype-blkcnt_t", "contents": "blkcnt_t"},
+   { "trigger": "blksize_t\ttype-blksize_t", "contents": "blksize_t"},
+   { "trigger": "clock_t\ttype-clock_t", "contents": "clock_t"},
+   { "trigger": "clockid_t\ttype-clockid_t", "contents": "clockid_t"},
+   { "trigger": "dev_t\ttype-dev_t", "contents": "dev_t"},
+   { "trigger": "fsblkcnt_t\ttype-fsblkcnt_t", "contents": "fsblkcnt_t"},
+   { "trigger": "fsfilcnt_t\ttype-fsfilcnt_t", "contents": "fsfilcnt_t"},
+   { "trigger": "gid_t\ttype-gid_t", "contents": "gid_t"},
+   { "trigger": "id_t\ttype-id_t", "contents": "id_t"},
+   { "trigger": "ino_t\ttype-ino_t", "contents": "ino_t"},
+   { "trigger": "key_t\ttype-key_t", "contents": "key_t"},
+   { "trigger": "mode_t\ttype-mode_t", "contents": "mode_t"},
+   { "trigger": "nlink_t\ttype-nlink_t", "contents": "nlink_t"},
+   { "trigger": "off_t\ttype-off_t", "contents": "off_t"},
+   { "trigger": "pid_t\ttype-pid_t", "contents": "pid_t"},
+   { "trigger": "pthread_attr_t\ttype-pthread_attr_t", "contents": "pthread_attr_t"},
+   { "trigger": "pthread_barrier_t\ttype-pthread_barrier_t", "contents": "pthread_barrier_t"},
+   { "trigger": "pthread_barrierattr_t\ttype-pthread_barrierattr_t", "contents": "pthread_barrierattr_t"},
+   { "trigger": "pthread_cond_t\ttype-pthread_cond_t", "contents": "pthread_cond_t"},
+   { "trigger": "pthread_condattr_t\ttype-pthread_condattr_t", "contents": "pthread_condattr_t"},
+   { "trigger": "pthread_key_t\ttype-pthread_key_t", "contents": "pthread_key_t"},
+   { "trigger": "pthread_mutex_t\ttype-pthread_mutex_t", "contents": "pthread_mutex_t"},
+   { "trigger": "pthread_mutexattr_t\ttype-pthread_mutexattr_t", "contents": "pthread_mutexattr_t"},
+   { "trigger": "pthread_once_t\ttype-pthread_once_t", "contents": "pthread_once_t"},
+   { "trigger": "pthread_rwlock_t\ttype-pthread_rwlock_t", "contents": "pthread_rwlock_t"},
+   { "trigger": "pthread_rwlockattr_t\ttype-pthread_rwlockattr_t", "contents": "pthread_rwlockattr_t"},
+   { "trigger": "pthread_spinlock_t\ttype-pthread_spinlock_t", "contents": "pthread_spinlock_t"},
+   { "trigger": "pthread_t\ttype-pthread_t", "contents": "pthread_t"},
+   { "trigger": "size_t\ttype-size_t", "contents": "size_t"},
+   { "trigger": "ssize_t\ttype-ssize_t", "contents": "ssize_t"},
+   { "trigger": "time_t\ttype-time_t", "contents": "time_t"},
+   { "trigger": "timer_t\ttype-timer_t", "contents": "timer_t"},
+   { "trigger": "trace_attr_t\ttype-trace_attr_t", "contents": "trace_attr_t"},
+   { "trigger": "trace_event_id_t\ttype-trace_event_id_t", "contents": "trace_event_id_t"},
+   { "trigger": "trace_event_set_t\ttype-trace_event_set_t", "contents": "trace_event_set_t"},
+   { "trigger": "trace_id_t\ttype-trace_id_t", "contents": "trace_id_t"},
+   { "trigger": "uid_t\ttype-uid_t", "contents": "uid_t"},
 
 /**
  * pthread.h
- * from : http://man7.org/
+ * From : http://man7.org/
  */
-	{ "trigger": "USER pthread_attr_destroy\tint pthread_attr_destroy", "contents": "pthread_attr_destroy(${1:pthread_attr_t *attr});"},
-	{ "trigger": "USER pthread_attr_getdetachstate\tint pthread_attr_getdetachstate", "contents": "pthread_attr_getdetachstate(${1:const pthread_attr_t *attr}, ${2:int *detachstate});"},
-	{ "trigger": "USER pthread_attr_getguardsize\tint pthread_attr_getguardsize", "contents": "pthread_attr_getguardsize(${1:const pthread_attr_t *attr}, ${2:size_t *guardsize});"},
-	{ "trigger": "USER pthread_attr_getinheritsched\tint pthread_attr_getinheritsched", "contents": "pthread_attr_getinheritsched(${1:const pthread_attr_t *attr}, ${2:int *inheritsched});"},
-	{ "trigger": "USER pthread_attr_getschedparam\tint pthread_attr_getschedparam", "contents": "pthread_attr_getschedparam(${1:const pthread_attr_t *attr}, ${2:struct sched_param *param});"},
-	{ "trigger": "USER pthread_attr_getschedpolicy\tint pthread_attr_getschedpolicy", "contents": "pthread_attr_getschedpolicy(${1:const pthread_attr_t *attr}, ${2:int *policy});"},
-	{ "trigger": "USER pthread_attr_getscope\tint pthread_attr_getscope", "contents": "pthread_attr_getscope(${1:const pthread_attr_t *attr}, ${2:int *scope});"},
-	{ "trigger": "USER pthread_attr_getstackaddr\tint pthread_attr_getstackaddr", "contents": "pthread_attr_getstackaddr(${1:const pthread_attr_t *attr}, ${2:void **stackaddr});"},
-	{ "trigger": "USER pthread_attr_getstacksize\tint pthread_attr_getstacksize", "contents": "pthread_attr_getstacksize(${1:const pthread_attr_t *attr}, ${2:size_t *stacksize});"},
-	{ "trigger": "USER pthread_attr_init\tint pthread_attr_init", "contents": "pthread_attr_init(${1:pthread_attr_t *attr});"},
-	{ "trigger": "USER pthread_attr_setdetachstate\tint pthread_attr_setdetachstate", "contents": "pthread_attr_setdetachstate(${1:pthread_attr_t *attr}, ${2:int detachstate});"},
-	{ "trigger": "USER pthread_attr_setguardsize\tint pthread_attr_setguardsize", "contents": "pthread_attr_setguardsize(${1:pthread_attr_t *attr}, ${2:size_t guardsize});"},
-	{ "trigger": "USER pthread_attr_setinheritsched\tint pthread_attr_setinheritsched", "contents": "pthread_attr_setinheritsched(${1:pthread_attr_t *attr}, ${2:int inheritsched});"},
-	{ "trigger": "USER pthread_attr_setschedparam\tint pthread_attr_setschedparam", "contents": "pthread_attr_setschedparam(${1:pthread_attr_t *attr}, ${2:const struct sched_param *param});"},
-	{ "trigger": "USER pthread_attr_setschedpolicy\tint pthread_attr_setschedpolicy", "contents": "pthread_attr_setschedpolicy(${1:pthread_attr_t *attr}, ${2:int policy});"},
-	{ "trigger": "USER pthread_attr_setscope\tint pthread_attr_setscope", "contents": "pthread_attr_setscope(${1:pthread_attr_t *attr}, ${2:int scope});"},
-	{ "trigger": "USER pthread_attr_setstackaddr\tint pthread_attr_setstackaddr", "contents": "pthread_attr_setstackaddr(${1:pthread_attr_t *attr}, ${2:void *stackaddr});"},
-	{ "trigger": "USER pthread_attr_setstacksize\tint pthread_attr_setstacksize", "contents": "pthread_attr_setstacksize(${1:pthread_attr_t *attr}, ${2:size_t stacksize});"},
-	{ "trigger": "USER pthread_cancel\tint pthread_cancel", "contents": "pthread_cancel(${1:pthread_t thread});"},
-	{ "trigger": "USER pthread_cleanup_push\tvoid pthread_cleanup_push", "contents": "pthread_cleanup_push(${1:void (*routine)(void *)}, ${2:void *arg});"},
-	{ "trigger": "USER pthread_cleanup_pop\tvoid pthread_cleanup_pop", "contents": "pthread_cleanup_pop(${1:void (*routine)(void *)}, ${2:void *arg});"},
-	{ "trigger": "USER pthread_create\tint pthread_create", "contents": "pthread_create(${1:pthread_t *thread}, ${2:const pthread_attr_t *attr}, ${3:void *(*start_routine) (void *)}, ${4:void *arg});"},
-	{ "trigger": "USER pthread_detach\tint pthread_detach", "contents": "pthread_detach(${1:pthread_t thread});"},
-	{ "trigger": "USER pthread_equal\tint pthread_equal", "contents": "pthread_equal(${1:pthread_t t1}, ${2:pthread_t t2});"},
-	{ "trigger": "USER pthread_exit\tint pthread_exit", "contents": "pthread_exit(${1:void *retval});"},
-	{ "trigger": "USER pthread_getconcurrency\tint pthread_getconcurrency", "contents": "pthread_getconcurrency(${1:void});"},
-	{ "trigger": "USER pthread_getschedparam\tint pthread_getschedparam", "contents": "pthread_getschedparam(${1:pthread_t thread}, ${2:int *policy}, ${3:struct sched_param *param});"},
-	{ "trigger": "USER pthread_join\tint pthread_join", "contents": "pthread_join(${1:pthread_t thread}, ${2:void **retval});"},
-	{ "trigger": "USER pthread_self\tpthread_t pthread_self", "contents": "pthread_self(${1:void});"},
-	{ "trigger": "USER pthread_setcancelstate\tint pthread_setcancelstate", "contents": "pthread_setcancelstate(${1:int state}, ${2:int *oldstate});"},
-	{ "trigger": "USER pthread_setcanceltype\tint pthread_setcanceltype", "contents": "pthread_setcanceltype(${1:int type}, ${2:int *oldtype});"},
-	{ "trigger": "USER pthread_setconcurrency\tint pthread_setconcurrency", "contents": "pthread_setconcurrency(${1:int new_level});"},
-	{ "trigger": "USER pthread_setschedparam\tint pthread_setschedparam", "contents": "pthread_setschedparam(${1:pthread_t thread}, ${2:int policy}, ${3:const struct sched_param *param});"},
-	{ "trigger": "USER pthread_testcancel\tvoid pthread_testcancel", "contents": "pthread_testcancel(${1:void});"},
+   { "trigger": "USER pthread_attr_destroy\tint pthread_attr_destroy", "contents": "pthread_attr_destroy(${1:pthread_attr_t *attr});"},
+   { "trigger": "USER pthread_attr_getdetachstate\tint pthread_attr_getdetachstate", "contents": "pthread_attr_getdetachstate(${1:const pthread_attr_t *attr}, ${2:int *detachstate});"},
+   { "trigger": "USER pthread_attr_getguardsize\tint pthread_attr_getguardsize", "contents": "pthread_attr_getguardsize(${1:const pthread_attr_t *attr}, ${2:size_t *guardsize});"},
+   { "trigger": "USER pthread_attr_getinheritsched\tint pthread_attr_getinheritsched", "contents": "pthread_attr_getinheritsched(${1:const pthread_attr_t *attr}, ${2:int *inheritsched});"},
+   { "trigger": "USER pthread_attr_getschedparam\tint pthread_attr_getschedparam", "contents": "pthread_attr_getschedparam(${1:const pthread_attr_t *attr}, ${2:struct sched_param *param});"},
+   { "trigger": "USER pthread_attr_getschedpolicy\tint pthread_attr_getschedpolicy", "contents": "pthread_attr_getschedpolicy(${1:const pthread_attr_t *attr}, ${2:int *policy});"},
+   { "trigger": "USER pthread_attr_getscope\tint pthread_attr_getscope", "contents": "pthread_attr_getscope(${1:const pthread_attr_t *attr}, ${2:int *scope});"},
+   { "trigger": "USER pthread_attr_getstackaddr\tint pthread_attr_getstackaddr", "contents": "pthread_attr_getstackaddr(${1:const pthread_attr_t *attr}, ${2:void **stackaddr});"},
+   { "trigger": "USER pthread_attr_getstacksize\tint pthread_attr_getstacksize", "contents": "pthread_attr_getstacksize(${1:const pthread_attr_t *attr}, ${2:size_t *stacksize});"},
+   { "trigger": "USER pthread_attr_init\tint pthread_attr_init", "contents": "pthread_attr_init(${1:pthread_attr_t *attr});"},
+   { "trigger": "USER pthread_attr_setdetachstate\tint pthread_attr_setdetachstate", "contents": "pthread_attr_setdetachstate(${1:pthread_attr_t *attr}, ${2:int detachstate});"},
+   { "trigger": "USER pthread_attr_setguardsize\tint pthread_attr_setguardsize", "contents": "pthread_attr_setguardsize(${1:pthread_attr_t *attr}, ${2:size_t guardsize});"},
+   { "trigger": "USER pthread_attr_setinheritsched\tint pthread_attr_setinheritsched", "contents": "pthread_attr_setinheritsched(${1:pthread_attr_t *attr}, ${2:int inheritsched});"},
+   { "trigger": "USER pthread_attr_setschedparam\tint pthread_attr_setschedparam", "contents": "pthread_attr_setschedparam(${1:pthread_attr_t *attr}, ${2:const struct sched_param *param});"},
+   { "trigger": "USER pthread_attr_setschedpolicy\tint pthread_attr_setschedpolicy", "contents": "pthread_attr_setschedpolicy(${1:pthread_attr_t *attr}, ${2:int policy});"},
+   { "trigger": "USER pthread_attr_setscope\tint pthread_attr_setscope", "contents": "pthread_attr_setscope(${1:pthread_attr_t *attr}, ${2:int scope});"},
+   { "trigger": "USER pthread_attr_setstackaddr\tint pthread_attr_setstackaddr", "contents": "pthread_attr_setstackaddr(${1:pthread_attr_t *attr}, ${2:void *stackaddr});"},
+   { "trigger": "USER pthread_attr_setstacksize\tint pthread_attr_setstacksize", "contents": "pthread_attr_setstacksize(${1:pthread_attr_t *attr}, ${2:size_t stacksize});"},
+   { "trigger": "USER pthread_cancel\tint pthread_cancel", "contents": "pthread_cancel(${1:pthread_t thread});"},
+   { "trigger": "USER pthread_cleanup_push\tvoid pthread_cleanup_push", "contents": "pthread_cleanup_push(${1:void (*routine)(void *)}, ${2:void *arg});"},
+   { "trigger": "USER pthread_cleanup_pop\tvoid pthread_cleanup_pop", "contents": "pthread_cleanup_pop(${1:void (*routine)(void *)}, ${2:void *arg});"},
+
+   /* Opengroup.org - Missing from man7 */
+   { "trigger": "USER pthread_cond_broadcast\tint pthread_cond_broadcast", "contents": "pthread_cond_broadcast(${1:pthread_cond_t *cond});"},
+   { "trigger": "USER pthread_cond_init\tint pthread_cond_init", "contents": "pthread_cond_init(${1:pthread_cond_t *cond}, ${2:const pthread_condattr_t *attr});"},
+   { "trigger": "USER pthread_cond_destroy\tint pthread_cond_destroy", "contents": "pthread_cond_destroy(${1:pthread_cond_t *cond});"},
+   { "trigger": "USER pthread_cond_signal\tint pthread_cond_signal", "contents": "pthread_cond_signal(${1:pthread_cond_t *cond});"},
+   { "trigger": "USER pthread_cond_timedwait\tint pthread_cond_timedwait", "contents": "pthread_cond_timedwait(${1:pthread_cond_t *cond}, ${2:pthread_mutex_t *mutex}, ${3:const struct timespec *abstime);"},
+   { "trigger": "USER pthread_cond_wait\tint pthread_cond_wait", "contents": "pthread_cond_wait(${1:pthread_cond_t *cond}, ${2:pthread_mutex_t *mutex});"},
+   { "trigger": "USER pthread_condattr_destroy\tint pthread_condattr_destroy", "contents": "pthread_condattr_destroy(${1:pthread_condattr_t *attr});"},
+   { "trigger": "USER pthread_condattr_getpshared\tint pthread_condattr_getpshared", "contents": "pthread_condattr_getpshared(${1:const pthread_condattr_t *attr}, ${2:int *pshared});"},
+   { "trigger": "USER pthread_condattr_init\tint pthread_condattr_init", "contents": "pthread_condattr_init(${1:pthread_condattr_t *attr});"},
+   { "trigger": "USER pthread_condattr_setpshared\tint pthread_condattr_setpshared", "contents": "pthread_condattr_setpshared(${1:pthread_condattr_t *attr}, ${2:int pshared});"},
+
+   /* man7.org */
+   { "trigger": "USER pthread_create\tint pthread_create", "contents": "pthread_create(${1:pthread_t *thread}, ${2:const pthread_attr_t *attr}, ${3:void *(*start_routine) (void *)}, ${4:void *arg});"},
+   { "trigger": "USER pthread_detach\tint pthread_detach", "contents": "pthread_detach(${1:pthread_t thread});"},
+   { "trigger": "USER pthread_equal\tint pthread_equal", "contents": "pthread_equal(${1:pthread_t t1}, ${2:pthread_t t2});"},
+   { "trigger": "USER pthread_exit\tint pthread_exit", "contents": "pthread_exit(${1:void *retval});"},
+   { "trigger": "USER pthread_getconcurrency\tint pthread_getconcurrency", "contents": "pthread_getconcurrency(${1:void});"},
+   { "trigger": "USER pthread_getschedparam\tint pthread_getschedparam", "contents": "pthread_getschedparam(${1:pthread_t thread}, ${2:int *policy}, ${3:struct sched_param *param});"},
+   { "trigger": "USER pthread_getspecific\tint pthread_getspecific", "contents": "pthread_getspecific(${1:pthread_key_t key});"},
+   { "trigger": "USER pthread_join\tint pthread_join", "contents": "pthread_join(${1:pthread_t thread}, ${2:void **retval});"},
+
+   /* Die.net - Missing from Man7*/
+   { "trigger": "USER pthread_key_create\tint pthread_key_create", "contents": "pthread_key_create(${1:pthread_key_t * key}, ${2:void (* destructor )(void *)});"},
+   { "trigger": "USER pthread_key_delete\tint pthread_key_delete", "contents": "pthread_key_delete(${1:pthread_key_t key});"},
+   { "trigger": "USER pthread_mutex_destroy\tint pthread_mutex_destroy", "contents": "pthread_mutex_destroy(${1:pthread_mutex_t * mutex});"},
+   { "trigger": "USER pthread_mutex_getprioceiling\tint pthread_mutex_getprioceiling", "contents": "pthread_mutex_getprioceiling(${1:const pthread_mutex_t *restrict mutex}, ${2:int *restrict prioceiling});"},
+   { "trigger": "USER pthread_mutex_init\tint pthread_mutex_init", "contents": "pthread_mutex_init(${1:pthread_mutex_t *restrict mutex}, ${2:const pthread_mutexattr_t *restrict attr});"},
+   { "trigger": "USER pthread_mutex_lock\tint pthread_mutex_lock", "contents": "pthread_mutex_lock(${1:pthread_mutex_t *mutex});"},
+   { "trigger": "USER pthread_mutex_setprioceiling\tint pthread_mutex_setprioceiling", "contents": "pthread_mutex_setprioceiling(${1:pthread_mutex_t *restrict mutex}, ${2:int prioceiling}, {3:int *restrict old_ceiling});"},
+   { "trigger": "USER pthread_mutex_trylock\tint pthread_mutex_trylock", "contents": "pthread_mutex_trylock(${1:pthread_mutex_t *mutex});"},
+   { "trigger": "USER pthread_mutex_unlock\tint pthread_mutex_unlock", "contents": "pthread_mutex_unlock(${1:pthread_mutex_t *mutex});"},
+   { "trigger": "USER pthread_mutexattr_destroy\tint pthread_mutexattr_destroy", "contents": "pthread_mutexattr_destroy(${1:pthread_mutexattr_t *attr});"},
+   { "trigger": "USER pthread_mutexattr_getprioceiling\tint pthread_mutexattr_getprioceiling", "contents": "pthread_mutexattr_getprioceiling(${1:const pthread_mutexattr_t *restrict attr}, ${2:int *restrict prioceiling});"},
+   { "trigger": "USER pthread_mutexattr_getprotocol\tint pthread_mutexattr_getprotocol", "contents": "pthread_mutexattr_getprotocol(${1:const pthread_mutexattr_t *restrict attr}, ${2:int *restrict protocol});"},
+   { "trigger": "USER pthread_mutexattr_getpshared\tint pthread_mutexattr_getpshared", "contents": "pthread_mutexattr_getpshared(${1:const pthread_mutexattr_t *restrict attr}, ${2:int *restrict pshared});"},
+   { "trigger": "USER pthread_mutexattr_gettype\tint pthread_mutexattr_gettype", "contents": "pthread_mutexattr_gettype(${1:const pthread_mutexattr_t *restrict attr}, ${2:int *restrict type});"},
+   { "trigger": "USER pthread_mutexattr_init\tint pthread_mutexattr_init", "contents": "pthread_mutexattr_init(${1:pthread_mutexattr_t *attr});"},
+   { "trigger": "USER pthread_mutexattr_setprioceiling\tint pthread_mutexattr_setprioceiling", "contents": "pthread_mutexattr_setprioceiling(${1:pthread_mutexattr_t *attr}, ${2:int prioceiling});"},
+   { "trigger": "USER pthread_mutexattr_setprotocol\tint pthread_mutexattr_setprotocol", "contents": "pthread_mutexattr_setprotocol(${1:pthread_mutexattr_t *attr}, ${2:int protocol});"},
+   { "trigger": "USER pthread_mutexattr_setpshared\tint pthread_mutexattr_setpshared", "contents": "pthread_mutexattr_setpshared(${1:pthread_mutexattr_t *attr}, ${2:int pshared});"},
+   { "trigger": "USER pthread_mutexattr_settype\tint pthread_mutexattr_settype", "contents": "pthread_mutexattr_settype(${1:pthread_mutexattr_t *attr}, ${2:int type});"},
+   { "trigger": "USER pthread_once\tint pthread_once", "contents": "pthread_once(${1:pthread_once_t *once_control}, ${2:void (*init_routine)(void)});"},
+   { "trigger": "USER pthread_rwlock_destroy\tint pthread_rwlock_destroy", "contents": "pthread_rwlock_destroy(${1:pthread_rwlock_t *rwlock});"},
+   { "trigger": "USER pthread_rwlock_init\tint pthread_rwlock_init", "contents": "pthread_rwlock_init(${1:pthread_rwlock_t *restrict rwlock}, ${2:const pthread_rwlockattr_t *restrict attr});"},
+   { "trigger": "USER pthread_rwlock_rdlock\tint pthread_rwlock_rdlock", "contents": "pthread_rwlock_rdlock(${1:pthread_rwlock_t *rwlock});"},
+   { "trigger": "USER pthread_rwlock_tryrdlock\tint pthread_rwlock_tryrdlock", "contents": "pthread_rwlock_tryrdlock(${1:pthread_rwlock_t *rwlock});"},
+   { "trigger": "USER pthread_rwlock_trywrlock\tint pthread_rwlock_trywrlock", "contents": "pthread_rwlock_trywrlock(${1:pthread_rwlock_t *rwlock});"},
+   { "trigger": "USER pthread_rwlock_unlock\tint pthread_rwlock_unlock", "contents": "pthread_rwlock_unlock(${1:pthread_rwlock_t *rwlock});"},
+   { "trigger": "USER pthread_rwlock_wrlock\tint pthread_rwlock_wrlock", "contents": "pthread_rwlock_wrlock(${1:pthread_rwlock_t *rwlock});"},
+   { "trigger": "USER pthread_rwlockattr_destroy\tint pthread_rwlockattr_destroy", "contents": "pthread_rwlockattr_destroy(${1:pthread_rwlockattr_t *attr});"},
+   { "trigger": "USER pthread_rwlockattr_getpshared\tint pthread_rwlockattr_getpshared", "contents": "pthread_rwlockattr_getpshared(${1:const pthread_rwlockattr_t *restrict attr}, ${2:int *restrict pshared});"},
+   { "trigger": "USER pthread_rwlockattr_init\tint pthread_rwlockattr_init", "contents": "pthread_rwlockattr_init(${1:pthread_rwlockattr_t *attr});"},
+   { "trigger": "USER pthread_rwlockattr_setpshared\tint pthread_rwlockattr_setpshared", "contents": "pthread_rwlockattr_setpshared(${1:pthread_rwlockattr_t *attr}, ${2:int pshared});"},
+
+   /* Man7.org */
+   { "trigger": "USER pthread_self\tpthread_t pthread_self", "contents": "pthread_self(${1:void});"},
+   { "trigger": "USER pthread_setcancelstate\tint pthread_setcancelstate", "contents": "pthread_setcancelstate(${1:int state}, ${2:int *oldstate});"},
+   { "trigger": "USER pthread_setcanceltype\tint pthread_setcanceltype", "contents": "pthread_setcanceltype(${1:int type}, ${2:int *oldtype});"},
+   { "trigger": "USER pthread_setconcurrency\tint pthread_setconcurrency", "contents": "pthread_setconcurrency(${1:int new_level});"},
+   { "trigger": "USER pthread_setschedparam\tint pthread_setschedparam", "contents": "pthread_setschedparam(${1:pthread_t thread}, ${2:int policy}, ${3:const struct sched_param *param});"},
+   { "trigger": "USER pthread_testcancel\tvoid pthread_testcancel", "contents": "pthread_testcancel(${1:void});"},
+   { "trigger": "USER pthread_setspecific\tint pthread_setspecific", "contents": "pthread_setspecific(${1:pthread_key_t key}, ${2:const void *value});"},
+   { "trigger": "USER pthread_cond_broadcast\tint pthread_cond_broadcast", "contents": "pthread_cond_broadcast(${1:});"},
 
 
 
@@ -693,138 +800,148 @@
 
 
 
-	]// End completions
+
+
+
+
+
+
+
+
+
+
+
+
+   ]// End completions
 }
 
 
 // // 4. Memory Management in Linux
 
-// 	// 4.1 The Slab Cache
-// 	{ "trigger": "KERNEL kmalloc\tvoid *kmalloc", "contents": "kmalloc(${1:size_t size}, ${2:gfp_t flags});"},
-// 	{ "trigger": "KERNEL kmalloc_array\tvoid *kmalloc_array", "contents": "kmalloc_array(${1:size_t n}, ${2:size_t size}, ${3:gfp_t flags});"},
-// 	{ "trigger": "KERNEL kcalloc\tvoid *kcalloc", "contents": "kcalloc(${1:size_t n}, ${2:size_t size}, ${3:gfp_t flags});"},
-// 	{ "trigger": "KERNEL kzalloc\tvoid *kzalloc", "contents": "kzalloc(${1:size_t size}, ${2:gfp_t flags});"},
-// 	{ "trigger": "KERNEL kzalloc_node\tvoid *kzalloc_node", "contents": "kzalloc_node(${1:size_t size}, ${2:gfp_t flags}, ${3:int node});"},
-// 	{ "trigger": "KERNEL kmem_cache_alloc\tvoid *kmem_cache_alloc", "contents": "kmem_cache_alloc(${1:struct kmem_cache * cachep}, ${2:gfp_t flags});"},
-// 	{ "trigger": "KERNEL kmem_cache_alloc_node\tvoid *kmem_cache_alloc_node", "contents": "kmem_cache_alloc_node(${1:struct kmem_cache * cachep}, ${2:gfp_t flags}, ${3:int nodeid});"},
-// 	{ "trigger": "KERNEL kmem_cache_free\tvoid kmem_cache_free", "contents": "kmem_cache_free(${1:struct kmem_cache * cachep}, ${2:void * objp});"},
-// 	{ "trigger": "KERNEL kfree\tvoid kfree", "contents": "kfree(${1:const void * objp});"},
-// 	{ "trigger": "KERNEL ksize\tsize_t ksize", "contents": "ksize(${1:const void * objp});"},
-// 	{ "trigger": "KERNEL kfree_const\tvoid kfree_const", "contents": "kfree_const(${1:const void * x});"},
-// 	{ "trigger": "KERNEL kstrdup\tchar *kstrdup", "contents": "kstrdup(${1:const char * s}, ${2:gfp_t gfp});"},
-// 	{ "trigger": "KERNEL kstrdup_const\tchar *kstrdup_const", "contents": "kstrdup_const(${1:const char * s}, ${2:gfp_t gfp});"},
-// 	{ "trigger": "KERNEL kstrndup\tchar *kstrndup", "contents": "kstrndup(${1:const char * s}, ${2:size_t max}, ${3:gfp_t gfp});"},
-// 	{ "trigger": "KERNEL kmemdup\tvoid *kmemdup", "contents": "kmemdup(${1:const void * src}, ${2:size_t len}, ${3:gfp_t gfp});"},
-// 	{ "trigger": "KERNEL memdup_user\tvoid *memdup_user", "contents": "memdup_user(${1:void __user * src}, ${2:size_t len});"},
-// 	{ "trigger": "KERNEL memdup_user_nul\tvoid *memdup_user_nul", "contents": "memdup_user_nul(${1:void __user * src}, ${2:size_t len});"},
-// 	{ "trigger": "KERNEL get_user_pages_fast\tint get_user_pages_fast", "contents": "get_user_pages_fast(${1:unsigned long start}, ${2:int nr_pages}, ${3:int write}, ${4:struct page ** pages});"},
+//    // 4.1 The Slab Cache
+//    { "trigger": "KERNEL kmalloc\tvoid *kmalloc", "contents": "kmalloc(${1:size_t size}, ${2:gfp_t flags});"},
+//    { "trigger": "KERNEL kmalloc_array\tvoid *kmalloc_array", "contents": "kmalloc_array(${1:size_t n}, ${2:size_t size}, ${3:gfp_t flags});"},
+//    { "trigger": "KERNEL kcalloc\tvoid *kcalloc", "contents": "kcalloc(${1:size_t n}, ${2:size_t size}, ${3:gfp_t flags});"},
+//    { "trigger": "KERNEL kzalloc\tvoid *kzalloc", "contents": "kzalloc(${1:size_t size}, ${2:gfp_t flags});"},
+//    { "trigger": "KERNEL kzalloc_node\tvoid *kzalloc_node", "contents": "kzalloc_node(${1:size_t size}, ${2:gfp_t flags}, ${3:int node});"},
+//    { "trigger": "KERNEL kmem_cache_alloc\tvoid *kmem_cache_alloc", "contents": "kmem_cache_alloc(${1:struct kmem_cache * cachep}, ${2:gfp_t flags});"},
+//    { "trigger": "KERNEL kmem_cache_alloc_node\tvoid *kmem_cache_alloc_node", "contents": "kmem_cache_alloc_node(${1:struct kmem_cache * cachep}, ${2:gfp_t flags}, ${3:int nodeid});"},
+//    { "trigger": "KERNEL kmem_cache_free\tvoid kmem_cache_free", "contents": "kmem_cache_free(${1:struct kmem_cache * cachep}, ${2:void * objp});"},
+//    { "trigger": "KERNEL kfree\tvoid kfree", "contents": "kfree(${1:const void * objp});"},
+//    { "trigger": "KERNEL ksize\tsize_t ksize", "contents": "ksize(${1:const void * objp});"},
+//    { "trigger": "KERNEL kfree_const\tvoid kfree_const", "contents": "kfree_const(${1:const void * x});"},
+//    { "trigger": "KERNEL kstrdup\tchar *kstrdup", "contents": "kstrdup(${1:const char * s}, ${2:gfp_t gfp});"},
+//    { "trigger": "KERNEL kstrdup_const\tchar *kstrdup_const", "contents": "kstrdup_const(${1:const char * s}, ${2:gfp_t gfp});"},
+//    { "trigger": "KERNEL kstrndup\tchar *kstrndup", "contents": "kstrndup(${1:const char * s}, ${2:size_t max}, ${3:gfp_t gfp});"},
+//    { "trigger": "KERNEL kmemdup\tvoid *kmemdup", "contents": "kmemdup(${1:const void * src}, ${2:size_t len}, ${3:gfp_t gfp});"},
+//    { "trigger": "KERNEL memdup_user\tvoid *memdup_user", "contents": "memdup_user(${1:void __user * src}, ${2:size_t len});"},
+//    { "trigger": "KERNEL memdup_user_nul\tvoid *memdup_user_nul", "contents": "memdup_user_nul(${1:void __user * src}, ${2:size_t len});"},
+//    { "trigger": "KERNEL get_user_pages_fast\tint get_user_pages_fast", "contents": "get_user_pages_fast(${1:unsigned long start}, ${2:int nr_pages}, ${3:int write}, ${4:struct page ** pages});"},
 
-// 	// 4.2 User Space Memory Access
-// 	{ "trigger": "KERNEL __copy_to_user_inatomic\tunsigned long __copy_to_user_inatomic", "contents": "__copy_to_user_inatomic(${1:void __user * to}, ${2:const void * from}, ${3:unsigned long n});"},
-// 	{ "trigger": "KERNEL __copy_to_user\tunsigned long __copy_to_user", "contents": "__copy_to_user(${1:void __user *to}, ${2:void * from}, ${3:unsigned long n});"},
+//    // 4.2 User Space Memory Access
+//    { "trigger": "KERNEL __copy_to_user_inatomic\tunsigned long __copy_to_user_inatomic", "contents": "__copy_to_user_inatomic(${1:void __user * to}, ${2:const void * from}, ${3:unsigned long n});"},
+//    { "trigger": "KERNEL __copy_to_user\tunsigned long __copy_to_user", "contents": "__copy_to_user(${1:void __user *to}, ${2:void * from}, ${3:unsigned long n});"},
 
 
-// 	{ "trigger": "KERNEL __copy_from_user\tunsigned long __copy_from_user", "contents": "__copy_from_user(${1:void * to}, ${2:void __user * from}, ${3:unsigned long n});"},
-// 	{ "trigger": "KERNEL clear_user\tunsigned long clear_user", "contents": "clear_user(${1:void __user * to}, ${2:unsigned long n});"},
-// 	{ "trigger": "KERNEL __clear_user\tunsigned long __clear_user", "contents": "__clear_user(${1:void __user * to}, ${2:unsigned long n});"},
-// 	{ "trigger": "KERNEL _copy_to_user\tunsigned long _copy_to_user", "contents": "_copy_to_user(${1:void __user * to}, ${2:const void * from}, ${3:unsigned int n});"},
-// 	{ "trigger": "KERNEL _copy_from_user\tunsigned long _copy_from_user", "contents": "_copy_from_user(${1:void * to}, ${2:const void __user * from}, ${3:unsigned int n});"},
+//    { "trigger": "KERNEL __copy_from_user\tunsigned long __copy_from_user", "contents": "__copy_from_user(${1:void * to}, ${2:void __user * from}, ${3:unsigned long n});"},
+//    { "trigger": "KERNEL clear_user\tunsigned long clear_user", "contents": "clear_user(${1:void __user * to}, ${2:unsigned long n});"},
+//    { "trigger": "KERNEL __clear_user\tunsigned long __clear_user", "contents": "__clear_user(${1:void __user * to}, ${2:unsigned long n});"},
+//    { "trigger": "KERNEL _copy_to_user\tunsigned long _copy_to_user", "contents": "_copy_to_user(${1:void __user * to}, ${2:const void * from}, ${3:unsigned int n});"},
+//    { "trigger": "KERNEL _copy_from_user\tunsigned long _copy_from_user", "contents": "_copy_from_user(${1:void * to}, ${2:const void __user * from}, ${3:unsigned int n});"},
 
-// 	// 4.3 More Memory Management Functions
+//    // 4.3 More Memory Management Functions
 
 
 // // 15. Char devices
-// 	{ "trigger": "KERNEL register_chrdev_region\tint register_chrdev_region", "contents": "register_chrdev_region(${1:dev_t from}, ${2:unsigned count}, ${3:const char * name});"},
-// 	{ "trigger": "KERNEL alloc_chrdev_region\tint alloc_chrdev_region", "contents": "alloc_chrdev_region(${1:dev_t *dev}, ${2:unsigned int baseminor}, ${3:unsigned int count}, ${4:const char * name});"},
-// 	{ "trigger": "KERNEL __register_chrdev\tint __register_chrdev", "contents": "__register_chrdev(${1:unsigned int major}, ${2:unsigned int baseminor}, ${3:unsigned int count}, ${4:const char * name}, ${5:struct file_operations * fops});"},
-// 	{ "trigger": "KERNEL unregister_chrdev_region\tvoid unregister_chrdev_region", "contents": "unregister_chrdev_region(${1:dev_t from}, ${2:unsigned count});"},
-// 	{ "trigger": "KERNEL __unregister_chrdev\tvoid __unregister_chrdev", "contents": "__unregister_chrdev(${1:unsigned int major}, ${2:unsigned int baseminor}, ${3:unsigned int count}, ${4:const char * name});"},
-	// { "trigger": "KERNEL cdev_add\tint cdev_add", "contents": "cdev_add(${1:struct cdev * p}, ${2:dev_t dev}, ${3:unsigned count});"},
-	// { "trigger": "KERNEL cdev_del\tvoid cdev_del", "contents": "cdev_del(${1:struct cdev * p});"},
-	// { "trigger": "KERNEL cdev_alloc\tstruct cdev *cdev_alloc", "contents": "cdev_alloc(${1:void});"},
-	// { "trigger": "KERNEL cdev_init\tvoid cdev_init", "contents": "cdev_init(${1:struct cdev * cdev}, ${2:struct file_operations * fops});"},
+//    { "trigger": "KERNEL register_chrdev_region\tint register_chrdev_region", "contents": "register_chrdev_region(${1:dev_t from}, ${2:unsigned count}, ${3:const char * name});"},
+//    { "trigger": "KERNEL alloc_chrdev_region\tint alloc_chrdev_region", "contents": "alloc_chrdev_region(${1:dev_t *dev}, ${2:unsigned int baseminor}, ${3:unsigned int count}, ${4:const char * name});"},
+//    { "trigger": "KERNEL __register_chrdev\tint __register_chrdev", "contents": "__register_chrdev(${1:unsigned int major}, ${2:unsigned int baseminor}, ${3:unsigned int count}, ${4:const char * name}, ${5:struct file_operations * fops});"},
+//    { "trigger": "KERNEL unregister_chrdev_region\tvoid unregister_chrdev_region", "contents": "unregister_chrdev_region(${1:dev_t from}, ${2:unsigned count});"},
+//    { "trigger": "KERNEL __unregister_chrdev\tvoid __unregister_chrdev", "contents": "__unregister_chrdev(${1:unsigned int major}, ${2:unsigned int baseminor}, ${3:unsigned int count}, ${4:const char * name});"},
+   // { "trigger": "KERNEL cdev_add\tint cdev_add", "contents": "cdev_add(${1:struct cdev * p}, ${2:dev_t dev}, ${3:unsigned count});"},
+   // { "trigger": "KERNEL cdev_del\tvoid cdev_del", "contents": "cdev_del(${1:struct cdev * p});"},
+   // { "trigger": "KERNEL cdev_alloc\tstruct cdev *cdev_alloc", "contents": "cdev_alloc(${1:void});"},
+   // { "trigger": "KERNEL cdev_init\tvoid cdev_init", "contents": "cdev_init(${1:struct cdev * cdev}, ${2:struct file_operations * fops});"},
 
 
 // // 16. Miscellaneous Devices
-// 	{ "trigger": "KERNEL misc_register\tvoid misc_register", "contents": "misc_register(${1:struct miscdevice * misc});"},
-// 	{ "trigger": "KERNEL misc_deregister\tvoid misc_deregister", "contents": "misc_deregister(${1:struct miscdevice * misc});"},
+//    { "trigger": "KERNEL misc_register\tvoid misc_register", "contents": "misc_register(${1:struct miscdevice * misc});"},
+//    { "trigger": "KERNEL misc_deregister\tvoid misc_deregister", "contents": "misc_deregister(${1:struct miscdevice * misc});"},
 
 
 // // 1. Data Types
-// 	{ "trigger": "KERNEL list_add\tvoid list_add", "contents": "list_add(${1:struct list_head * new}, ${2:struct list_head * head});"},
-// 	{ "trigger": "KERNEL list_add_tail\tvoid list_add_tail", "contents": "list_add_tail(${1:struct list_head * new}, ${2:struct list_head * head});"},
-// 	{ "trigger": "KERNEL list_add_rcu\tvoid list_add_rcu", "contents": "list_add_rcu(${1:struct list_head * new}, ${2:struct list_head * head});"},
-// 	{ "trigger": "KERNEL list_add_tail_rcu\tvoid list_add_tail_rcu", "contents": "list_add_tail_rcu(${1:struct list_head * new}, ${2:struct list_head * head});"},
-// 	{ "trigger": "KERNEL list_del\tvoid list_del", "contents": "list_del(${1:struct list_head * entry)});"},
-// 	{ "trigger": "KERNEL list_del_rcu\tvoid list_del_rcu", "contents": "list_del_rcu(${1:struct list_head * entry)});"},
-// 	{ "trigger": "KERNEL list_del_init\tvoid list_del_init", "contents": "list_del_init(${1:struct list_head * entry)});"},
-// 	{ "trigger": "KERNEL list_move\tvoid list_move", "contents": "list_move(${1:struct list_head * list)}, ${2:struct list_head * head});"},
-// 	{ "trigger": "KERNEL list_move_tail\tvoid list_move_tail", "contents": "list_move_tail(${1:struct list_head * list)}, ${2:struct list_head * head});"},
-// 	{ "trigger": "KERNEL list_empty\tint list_empty", "contents": "list_empty(${1:truct list_head * head});"},
-// 	{ "trigger": "KERNEL list_splice\tvoid list_splice", "contents": "list_splice(${1:struct list_head * list)}, ${2:struct list_head * head});"},
-// 	{ "trigger": "KERNEL list_splice_init\tvoid list_splice_init", "contents": "list_splice_init(${1:struct list_head * list)}, ${2:struct list_head * head});"},
+//    { "trigger": "KERNEL list_add\tvoid list_add", "contents": "list_add(${1:struct list_head * new}, ${2:struct list_head * head});"},
+//    { "trigger": "KERNEL list_add_tail\tvoid list_add_tail", "contents": "list_add_tail(${1:struct list_head * new}, ${2:struct list_head * head});"},
+//    { "trigger": "KERNEL list_add_rcu\tvoid list_add_rcu", "contents": "list_add_rcu(${1:struct list_head * new}, ${2:struct list_head * head});"},
+//    { "trigger": "KERNEL list_add_tail_rcu\tvoid list_add_tail_rcu", "contents": "list_add_tail_rcu(${1:struct list_head * new}, ${2:struct list_head * head});"},
+//    { "trigger": "KERNEL list_del\tvoid list_del", "contents": "list_del(${1:struct list_head * entry)});"},
+//    { "trigger": "KERNEL list_del_rcu\tvoid list_del_rcu", "contents": "list_del_rcu(${1:struct list_head * entry)});"},
+//    { "trigger": "KERNEL list_del_init\tvoid list_del_init", "contents": "list_del_init(${1:struct list_head * entry)});"},
+//    { "trigger": "KERNEL list_move\tvoid list_move", "contents": "list_move(${1:struct list_head * list)}, ${2:struct list_head * head});"},
+//    { "trigger": "KERNEL list_move_tail\tvoid list_move_tail", "contents": "list_move_tail(${1:struct list_head * list)}, ${2:struct list_head * head});"},
+//    { "trigger": "KERNEL list_empty\tint list_empty", "contents": "list_empty(${1:truct list_head * head});"},
+//    { "trigger": "KERNEL list_splice\tvoid list_splice", "contents": "list_splice(${1:struct list_head * list)}, ${2:struct list_head * head});"},
+//    { "trigger": "KERNEL list_splice_init\tvoid list_splice_init", "contents": "list_splice_init(${1:struct list_head * list)}, ${2:struct list_head * head});"},
 
-// 	// list_entry ( struct list_head *ptr, type, member);
-// 	// list_for_each ( pos, head);
-// 	// __list_for_each ( pos, head);
-// 	// list_for_each_prev ( pos, head);
-// 	// list_for_each_safe ( pos, n, head);
-// 	// list_for_each_entry ( pos, head, member);
-// 	// list_for_each_entry_reverse ( pos, head, member);
-// 	// list_for_each_entry_safe ( pos, n, head, member);
-// 	// list_for_each_rcu ( pos, head);
-// 	// list_for_each_safe_rcu ( pos, n, head);
-// 	// list_for_each_entry_rcu ( pos, head, member);
-// 	// list_for_each_continue_rcu ( pos, head);
-// 	{ "trigger": "KERNEL hlist_del_rcu\tvoid hlist_del_rcu", "contents": "hlist_del_rcu(${1:struct hlist_node * n});"},
-// 	// void hlist_del_rcu (struct hlist_node * n);
-// 	// hlist_for_each_entry ( tpos, pos, head, member);
-// 	// hlist_for_each_entry_continue ( tpos, pos, member);
-// 	// hlist_for_each_entry_from ( tpos, pos, member);
-// 	// hlist_for_each_entry_safe ( tpos, pos, n, head, member);
+//    // list_entry ( struct list_head *ptr, type, member);
+//    // list_for_each ( pos, head);
+//    // __list_for_each ( pos, head);
+//    // list_for_each_prev ( pos, head);
+//    // list_for_each_safe ( pos, n, head);
+//    // list_for_each_entry ( pos, head, member);
+//    // list_for_each_entry_reverse ( pos, head, member);
+//    // list_for_each_entry_safe ( pos, n, head, member);
+//    // list_for_each_rcu ( pos, head);
+//    // list_for_each_safe_rcu ( pos, n, head);
+//    // list_for_each_entry_rcu ( pos, head, member);
+//    // list_for_each_continue_rcu ( pos, head);
+//    { "trigger": "KERNEL hlist_del_rcu\tvoid hlist_del_rcu", "contents": "hlist_del_rcu(${1:struct hlist_node * n});"},
+//    // void hlist_del_rcu (struct hlist_node * n);
+//    // hlist_for_each_entry ( tpos, pos, head, member);
+//    // hlist_for_each_entry_continue ( tpos, pos, member);
+//    // hlist_for_each_entry_from ( tpos, pos, member);
+//    // hlist_for_each_entry_safe ( tpos, pos, n, head, member);
 
 
 
 // // 2. Basic C Library Functions
 
-// 	// 2.1 String Conversions
-// 	{ "trigger": "KERNEL simple_strtoll\tlong long simple_strtoll", "contents": "simple_strtoll(${1:const char *start_string}, ${2:char **end_string}, ${3:unsigned int base});"},
-// 	{ "trigger": "KERNEL simple_strtoul\tlong simple_strtoul", "contents": "simple_strtoul(${1:const char *start_string}, ${2:char **end_string}, ${3:unsigned int base});"},
-// 	{ "trigger": "KERNEL simple_strtol\tlong simple_strtol", "contents": "simple_strtol(${1:const char *start_string}, ${2:char **end_string}, ${3:unsigned int base});"},
-// 	{ "trigger": "KERNEL simple_strtoull\tunsigned long long simple_strtoull", "contents": "simple_strtoull(${1:const char *start_string}, ${2:char **end_string}, ${3:unsigned int base});"},
-// 	{ "trigger": "KERNEL vsnprintf\tint vsnprintf", "contents": "vsnprintf(${1:char *str}, ${2:size_t str_size}, ${3:const char *format}, ${4:var_list arg});"},
-// 	{ "trigger": "KERNEL snprintf\tint snprintf", "contents": "snprintf(${1:char *str}, ${2:size_t str_size}, ${3:const char *format}, ${4:var_list arg});"},
-// 	{ "trigger": "KERNEL vsprintf\tint vsprintf", "contents": "vsprintf(${1:char *str}, ${2:const char *format}, ${3:var_list arg});"},
-// 	{ "trigger": "KERNEL sprintf\tint sprintf", "contents": "sprintf(${1:char *str}, ${2:char *format}, ${3:var_list arg});"},
-// 	{ "trigger": "KERNEL vsscanf\tint vsscanf", "contents": "vsscanf(${1:char *str}, ${2:char *format}, ${3:var_list arg});"},
-// 	{ "trigger": "KERNEL sscanf\tint sscanf", "contents": "sscanf(${1:char *str}, ${2:char *format}, ${3:var_list arg});"},
+//    // 2.1 String Conversions
+//    { "trigger": "KERNEL simple_strtoll\tlong long simple_strtoll", "contents": "simple_strtoll(${1:const char *start_string}, ${2:char **end_string}, ${3:unsigned int base});"},
+//    { "trigger": "KERNEL simple_strtoul\tlong simple_strtoul", "contents": "simple_strtoul(${1:const char *start_string}, ${2:char **end_string}, ${3:unsigned int base});"},
+//    { "trigger": "KERNEL simple_strtol\tlong simple_strtol", "contents": "simple_strtol(${1:const char *start_string}, ${2:char **end_string}, ${3:unsigned int base});"},
+//    { "trigger": "KERNEL simple_strtoull\tunsigned long long simple_strtoull", "contents": "simple_strtoull(${1:const char *start_string}, ${2:char **end_string}, ${3:unsigned int base});"},
+//    { "trigger": "KERNEL vsnprintf\tint vsnprintf", "contents": "vsnprintf(${1:char *str}, ${2:size_t str_size}, ${3:const char *format}, ${4:var_list arg});"},
+//    { "trigger": "KERNEL snprintf\tint snprintf", "contents": "snprintf(${1:char *str}, ${2:size_t str_size}, ${3:const char *format}, ${4:var_list arg});"},
+//    { "trigger": "KERNEL vsprintf\tint vsprintf", "contents": "vsprintf(${1:char *str}, ${2:const char *format}, ${3:var_list arg});"},
+//    { "trigger": "KERNEL sprintf\tint sprintf", "contents": "sprintf(${1:char *str}, ${2:char *format}, ${3:var_list arg});"},
+//    { "trigger": "KERNEL vsscanf\tint vsscanf", "contents": "vsscanf(${1:char *str}, ${2:char *format}, ${3:var_list arg});"},
+//    { "trigger": "KERNEL sscanf\tint sscanf", "contents": "sscanf(${1:char *str}, ${2:char *format}, ${3:var_list arg});"},
 
-// 	// 2.2 String Manipulation
-// 		// char * strcpy (char * dest, const char * src);
-// 		// char * strncpy (char * dest, const char * src, size_t count);
-// 		// char * strncat (char * dest, const char * src, size_t count);
-// 		// char * strncat (char * dest, const char * src, size_t count);
-// 		// int strcmp (const char * cs, const char * ct);
-// 		// int strncmp (const char * cs, const char * ct, size_t count);
-// 		// char * strchr (const char * s, int c);
-// 		// char * strrchr (const char * s, int c);
-// 		// size_t strlen (const char * s);
-// 		// size_t strnlen (const char * s, size_t count);
-// 		// size_t strcspn (const char * s, const char * reject);
-// 		// char * strpbrk (const char * cs, const char * ct);
-// 		// void * memset (void * s, int c, size_t count);
-// 		// char * bcopy (const char * src, char * dest, int count);
-// 		// void * memcpy (void * dest, const void * src, size_t count);
-// 		// void * memmove (void * dest, const void * src, size_t count);
-// 		// int memcmp (const void * cs, const void * ct, size_t count);
-// 		// void * memscan (void * addr, int c, size_t size);
-// 		// char * strstr (const char * s1, const char * s2);
-// 		// void * memchr (const void * s, int c, size_t n);
-// 		// int strnicmp (const char * s1, const char * s2, size_t len);
-// 		// size_t strlcpy (char * dest, const char * src, size_t size);
-// 		// size_t strlcat (char * dest, const char * src, size_t count);
-// 		// size_t strspn (const char * s, const char * accept);
-// 		// char * strsep (char ** s, const char * ct);
+//    // 2.2 String Manipulation
+//       // char * strcpy (char * dest, const char * src);
+//       // char * strncpy (char * dest, const char * src, size_t count);
+//       // char * strncat (char * dest, const char * src, size_t count);
+//       // char * strncat (char * dest, const char * src, size_t count);
+//       // int strcmp (const char * cs, const char * ct);
+//       // int strncmp (const char * cs, const char * ct, size_t count);
+//       // char * strchr (const char * s, int c);
+//       // char * strrchr (const char * s, int c);
+//       // size_t strlen (const char * s);
+//       // size_t strnlen (const char * s, size_t count);
+//       // size_t strcspn (const char * s, const char * reject);
+//       // char * strpbrk (const char * cs, const char * ct);
+//       // void * memset (void * s, int c, size_t count);
+//       // char * bcopy (const char * src, char * dest, int count);
+//       // void * memcpy (void * dest, const void * src, size_t count);
+//       // void * memmove (void * dest, const void * src, size_t count);
+//       // int memcmp (const void * cs, const void * ct, size_t count);
+//       // void * memscan (void * addr, int c, size_t size);
+//       // char * strstr (const char * s1, const char * s2);
+//       // void * memchr (const void * s, int c, size_t n);
+//       // int strnicmp (const char * s1, const char * s2, size_t len);
+//       // size_t strlcpy (char * dest, const char * src, size_t size);
+//       // size_t strlcat (char * dest, const char * src, size_t count);
+//       // size_t strspn (const char * s, const char * accept);
+//       // char * strsep (char ** s, const char * ct);
 
-
-// 	// 2.3 Bit Operations
