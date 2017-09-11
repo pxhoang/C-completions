@@ -1,0 +1,79 @@
+{
+   "scope": "source.c, source.cpp, source.c++",
+   "completions":[
+
+
+/* -----------------------------------------------------------------------------------------------------------------------------
+* Cunit test
+* From: http://cunit.sourceforge.net
+* ----------------------------------------------------------------------------------------------------------------------------*/
+   // <CUnit/CUnit.h>
+   { "trigger": "CUNIT CU_ASSERT\tvoid", "contents": "CU_ASSERT(${1:int expression});"},
+   { "trigger": "CUNIT CU_TEST\tvoid", "contents": "CU_TEST(${1:int expression});"},
+   { "trigger": "CUNIT CU_ASSERT_FATAL\tvoid", "contents": "CU_ASSERT_FATAL(${1:int expression});"},
+   { "trigger": "CUNIT CU_TEST\\tvoid", "contents": "CU_TEST(${1:int expression});"},
+   { "trigger": "CUNIT CU_TEST_FATAL\tvoid", "contents": "CU_TEST_FATAL(${1:int expression});"},
+   { "trigger": "CUNIT CU_ASSERT_TRUE\tvoid", "contents": "CU_ASSERT_TRUE(${1:value});"},
+   { "trigger": "CUNIT CU_ASSERT_TRUE_FATAL\tvoid", "contents": "CU_ASSERT_TRUE_FATAL(${1:value});"},
+   { "trigger": "CUNIT CU_ASSERT_FALSE\tvoid", "contents": "CU_ASSERT_FALSE(${1:value});"},
+   { "trigger": "CUNIT CU_ASSERT_FALSE_FATAL\tvoid", "contents": "CU_ASSERT_FALSE_FATAL(${1:value});"},
+   { "trigger": "CUNIT CU_ASSERT_EQUAL\tvoid", "contents": "CU_ASSERT_EQUAL(${1:value}, $(2:expected));"},
+   { "trigger": "CUNIT CU_ASSERT_EQUAL_FATAL\tvoid", "contents": "CU_ASSERT_EQUAL_FATAL(${1:value}, $(2:expected));"},
+   { "trigger": "CUNIT CU_ASSERT_NOT_EQUAL\tvoid", "contents": "CU_ASSERT_NOT_EQUAL(${1:value}, $(2:expected));"},
+   { "trigger": "CUNIT CU_ASSERT_NOT_EQUAL_FATAL\tvoid", "contents": "CU_ASSERT_NOT_EQUAL_FATAL(${1:value}, $(2:expected));"},
+   { "trigger": "CUNIT CU_ASSERT_PTR_EQUAL\tvoid", "contents": "CU_ASSERT_PTR_EQUAL(${1:value}, $(2:expected));"},
+   { "trigger": "CUNIT CU_ASSERT_PTR_EQUAL_FATAL\tvoid", "contents": "CU_ASSERT_PTR_EQUAL_FATAL(${1:value}, $(2:expected));"},
+   { "trigger": "CUNIT CU_ASSERT_PTR_NOT_EQUAL\tvoid", "contents": "CU_ASSERT_PTR_NOT_EQUAL(${1:value}, $(2:expected));"},
+   { "trigger": "CUNIT CU_ASSERT_PTR_NOT_EQUAL_FATAL\tvoid", "contents": "CU_ASSERT_PTR_NOT_EQUAL_FATAL(${1:value}, $(2:expected));"},
+   { "trigger": "CUNIT CU_ASSERT_PTR_NULL\tvoid", "contents": "CU_ASSERT_PTR_NULL(${1:value});"},
+   { "trigger": "CUNIT CU_ASSERT_PTR_NULL_FATAL\tvoid", "contents": "CU_ASSERT_PTR_NULL_FATAL(${1:value});"},
+   { "trigger": "CUNIT CU_ASSERT_PTR_NOT_NULL\tvoid", "contents": "CU_ASSERT_PTR_NOT_NULL(${1:value});"},
+   { "trigger": "CUNIT CU_ASSERT_PTR_NOT_NULL_FATAL\tvoid", "contents": "CU_ASSERT_PTR_NOT_NULL_FATAL(${1:value});"},
+   { "trigger": "CUNIT CU_ASSERT_STRING_EQUAL\tvoid", "contents": "CU_ASSERT_STRING_EQUAL(${1:actual}, $(2:expected));"},
+   { "trigger": "CUNIT CU_ASSERT_STRING_EQUAL_FATAL\tvoid", "contents": "CU_ASSERT_STRING_EQUAL_FATAL(${1:actual}, $(2:expected));"},
+   { "trigger": "CUNIT CU_ASSERT_STRING_NOT_EQUAL\tvoid", "contents": "CU_ASSERT_STRING_NOT_EQUAL(${1:actual}, $(2:expected));"},
+   { "trigger": "CUNIT CU_ASSERT_STRING_NOT_EQUAL_FATAL\tvoid", "contents": "CU_ASSERT_STRING_NOT_EQUAL_FATAL(${1:actual}, $(2:expected));"},
+   { "trigger": "CUNIT CU_ASSERT_NSTRING_EQUAL\tvoid", "contents": "CU_ASSERT_NSTRING_EQUAL(${1:actual}, $(2:expected), $(3:count));"},
+   { "trigger": "CUNIT CU_ASSERT_NSTRING_EQUAL_FATAL\tvoid", "contents": "CU_ASSERT_NSTRING_EQUAL_FATAL(${1:actual}, $(2:expected), $(3:count));"},
+   { "trigger": "CUNIT CU_ASSERT_NSTRING_NOT_EQUAL\tvoid", "contents": "CU_ASSERT_NSTRING_NOT_EQUAL(${1:actual}, $(2:expected), $(3:count));"},
+   { "trigger": "CUNIT CU_ASSERT_NSTRING_NOT_EQUAL_FATAL\tvoid", "contents": "CU_ASSERT_NSTRING_NOT_EQUAL_FATAL(${1:actual}, $(2:expected), $(3:count));"},
+   { "trigger": "CUNIT CU_ASSERT_DOUBLE_EQUAL\tvoid", "contents": "CU_ASSERT_DOUBLE_EQUAL(${1:actual}, $(2:expected), $(3:granularity));"},
+   { "trigger": "CUNIT CU_ASSERT_DOUBLE_EQUAL_FATAL\tvoid", "contents": "CU_ASSERT_DOUBLE_EQUAL_FATAL(${1:actual}, $(2:expected), $(3:granularity));"},
+   { "trigger": "CUNIT CU_ASSERT_DOUBLE_NOT_EQUAL\tvoid", "contents": "CU_ASSERT_DOUBLE_NOT_EQUAL(${1:actual}, $(2:expected), $(3:granularity));"},
+   { "trigger": "CUNIT CU_ASSERT_DOUBLE_NOT_EQUAL_FATAL\tvoid", "contents": "CU_ASSERT_DOUBLE_NOT_EQUAL_FATAL(${1:actual}, $(2:expected), $(3:granularity));"},
+   { "trigger": "CUNIT CU_PASS\tvoid", "contents": "CU_PASS(${1:message});"},
+   { "trigger": "CUNIT CU_FAIL\tvoid", "contents": "CU_FAIL(${1:message});"},
+   { "trigger": "CUNIT CU_FAIL_FATAL\tvoid", "contents": "CU_FAIL_FATAL(${1:message});"},
+
+   // <CUnit/TestDB.h>
+   { "trigger": "CUNIT CU_initialize_registry\tCU_ErrorCode", "contents": "CU_initialize_registry(${1:void});"},
+   { "trigger": "CUNIT CU_cleanup_registry\tvoid", "contents": "CU_cleanup_registry(${1:message});"},
+   { "trigger": "CUNIT CU_get_registry\tCU_pTestRegistry", "contents": "CU_get_registry(${1:void});"},
+   { "trigger": "CUNIT CU_pTestRegistry\tCU_pTestRegistry", "contents": "CU_pTestRegistry(${1:void});"},
+   { "trigger": "CUNIT CU_set_registry\tCU_pTestRegistry", "contents": "CU_set_registry(${1:CU_pTestRegistry pTestRegistry});"},
+   { "trigger": "CUNIT CU_create_new_registry\tCU_pTestRegistry", "contents": "CU_create_new_registry(${1:void});"},
+   { "trigger": "CUNIT CU_destroy_existing_registry\tvoid", "contents": "CU_destroy_existing_registry(${1:CU_pTestRegistry* ppRegistry});"},
+
+   { "trigger": "CUNIT CU_add_suite\tCU_pSuite", "contents": "CU_add_suite(${1:const char* strName}, ${2:CU_InitializeFunc pInit}, ${3:CU_CleanupFunc pClean});"},
+   { "trigger": "CUNIT CU_add_test\tCU_pTest", "contents": "CU_add_test(${1:CU_pSuite pSuite}, ${2:const char* strName}, ${3:CU_TestFunc pTestFunc});"},
+   { "trigger": "CUNIT CU_register_suites\tCU_ErrorCode", "contents": "CU_register_suites(${1:CU_SuiteInfo suite_info[]});"},
+   { "trigger": "CUNIT CU_register_nsuites\tCU_ErrorCode", "contents": "CU_register_nsuites(${1:int suite_count}, ${2:...});"},
+
+
+/* -----------------------------------------------------------------------------------------------------------------------------
+* XML
+* From: http://xmlsoft.org/
+* ----------------------------------------------------------------------------------------------------------------------------*/
+    // <libxml/parser.h>
+   { "trigger": "USER xmlParseFile\txmlDocPtr", "contents": "xmlParseFile(${1:const char * filename});"},
+   { "trigger": "USER xmlDocGetRootElement\txmlDocPtr", "contents": "xmlDocGetRootElement(${1:const xmlDoc * doc});"},
+   { "trigger": "USER xmlStrcmp\tint", "contents": "xmlStrcmp(${1:const xmlChar * str1}, (xmlChar*)${2:str2});${3:/* Return 0 : equal, >0 : str2<str1, <0 : str1<str2 */}"},
+   { "trigger": "USER xmlNodeGetContent\txmlChar*", "contents": "xmlNodeGetContent(${1:const xmlNode * cur}); /* Get content from 1 node */"},
+   { "trigger": "USER xmlNodeListGetString\txmlChar*", "contents": "xmlNodeListGetString(${1:xmlDocPtr doc}, ${2:const xmlNode* list}, ${3:int inLine}); /* Get Content from many nodes */"},
+   { "trigger": "USER xmlGetProp\txmlDocPtr", "contents": "xmlGetProp(${1:const xmlNode * node}, ${2:const xmlChar * name}});"},
+
+
+   ]// End completions
+}
+
+

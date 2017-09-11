@@ -1,0 +1,101 @@
+{
+   "scope": "source.c, source.cpp, source.c++",
+   "completions":[
+
+/* -----------------------------------------------------------------------------------------------------------------------------
+* Definitions
+* From: pxhoang
+* ----------------------------------------------------------------------------------------------------------------------------*/
+   // Marcos
+   { "trigger": "MACRO __FUNCTION__\t__FUNCTION__", "contents": "__FUNCTION__"},
+   { "trigger": "MACRO __LINE__\t__LINE__", "contents": "__LINE__"},
+   { "trigger": "define -PXHOANG\t#define", "contents": "#define ${1:/* Definition */}"},
+   { "trigger": "undef-PXHOANG\t#undef", "contents": "#undef ${1:/* Definition */}"},
+   { "trigger": "include-PXHOANG\t#include \"\"", "contents": "#include \"${1:test.h}\""},
+   { "trigger": "ifdef-PXHOANG\t#ifdef", "contents": "#ifdef ${1:/* Definition */}"},
+   { "trigger": "ifndef-PXHOANG\t#ifndef", "contents": "#ifndef ${1:/* Definition */}"},
+   { "trigger": "endif-PXHOANG\t#endif", "contents": "#endif"},
+
+   // General function
+   { "trigger": "main-PXHOANG\tmain", "contents": "main(${1:int argc}, ${2:char const *argv[]}){\n\t${3:/* code */}\n\treturn 0;\n};"},
+   { "trigger": "while-PXHOANG\twhile", "contents": "while(${1})\n{\n${2}\n}"},
+   { "trigger": "switch-case-PXHOANG\tcase", "contents": "switch (${1:/* expression */})\n{\n\tcase ${2:A}:\n\t\tbreak;\n\n\tdefault:\n\t\tbreak;\n}"},
+   { "trigger": "if-PXHOANG\tif", "contents": "if (${1:condiction})\n{\n${2}\n}"},
+   { "trigger": "for-PXHOANG\tfor", "contents": "for (idx = 0; idx < ${2:count}; idx++)\n{\n\t${3:/* code */}\n}"},
+
+
+/* -----------------------------------------------------------------------------------------------------------------------------
+* <general types>
+*    - List:
+*    - Desc:
+* <sys/types.h>
+*    - List: http://pubs.opengroup.org/
+*    - Desc: http://pubs.opengroup.org/
+* ----------------------------------------------------------------------------------------------------------------------------*/
+   // General types
+   { "trigger": "int\ttype", "contents": "int"},
+   { "trigger": "double\ttype", "contents": "double"},
+   { "trigger": "float\ttype", "contents": "float"},
+   { "trigger": "char\ttype", "contents": "char"},
+   { "trigger": "void\ttype", "contents": "void"},
+   { "trigger": "unsigned\ttype", "contents": "unsigned"},
+   { "trigger": "signed\ttype", "contents": "signed"},
+   { "trigger": "long\ttype", "contents": "long"},
+   { "trigger": "short\ttype", "contents": "short"},
+   { "trigger": "int8_t\ttype", "contents": "int8_t"},
+   { "trigger": "uint8_t\ttype", "contents": "uint8_t"},
+   { "trigger": "int16_t\ttype", "contents": "int16_t"},
+   { "trigger": "uint16_t\ttype", "contents": "uint16_t"},
+   { "trigger": "int32_t\ttype", "contents": "int32_t"},
+   { "trigger": "uint32_t\ttype", "contents": "uint32_t"},
+   { "trigger": "int64_t\ttype", "contents": "int64_t"},
+   { "trigger": "uint64_t\ttype", "contents": "uint64_t"},
+   { "trigger": "short\ttype", "contents": "short"},
+
+   // <sys/types.h>
+   { "trigger": "blkcnt_t\ttype", "contents": "blkcnt_t"},
+   { "trigger": "blksize_t\ttype", "contents": "blksize_t"},
+   { "trigger": "clock_t\ttype", "contents": "clock_t"},
+   { "trigger": "clockid_t\ttype", "contents": "clockid_t"},
+   { "trigger": "dev_t\ttype", "contents": "dev_t"},
+   { "trigger": "fsblkcnt_t\ttype", "contents": "fsblkcnt_t"},
+   { "trigger": "fsfilcnt_t\ttype", "contents": "fsfilcnt_t"},
+   { "trigger": "gid_t\ttype", "contents": "gid_t"},
+   { "trigger": "id_t\ttype", "contents": "id_t"},
+   { "trigger": "ino_t\ttype", "contents": "ino_t"},
+   { "trigger": "key_t\ttype", "contents": "key_t"},
+   { "trigger": "mode_t\ttype", "contents": "mode_t"},
+   { "trigger": "nlink_t\ttype", "contents": "nlink_t"},
+   { "trigger": "off_t\ttype", "contents": "off_t"},
+   { "trigger": "pid_t\ttype", "contents": "pid_t"},
+   { "trigger": "pthread_attr_t\ttype", "contents": "pthread_attr_t"},
+   { "trigger": "pthread_barrier_t\ttype", "contents": "pthread_barrier_t"},
+   { "trigger": "pthread_barrierattr_t\ttype", "contents": "pthread_barrierattr_t"},
+   { "trigger": "pthread_cond_t\ttype", "contents": "pthread_cond_t"},
+   { "trigger": "pthread_condattr_t\ttype", "contents": "pthread_condattr_t"},
+   { "trigger": "pthread_key_t\ttype", "contents": "pthread_key_t"},
+   { "trigger": "pthread_mutex_t\ttype", "contents": "pthread_mutex_t"},
+   { "trigger": "pthread_mutexattr_t\ttype", "contents": "pthread_mutexattr_t"},
+   { "trigger": "pthread_once_t\ttype", "contents": "pthread_once_t"},
+   { "trigger": "pthread_rwlock_t\ttype", "contents": "pthread_rwlock_t"},
+   { "trigger": "pthread_rwlockattr_t\ttype", "contents": "pthread_rwlockattr_t"},
+   { "trigger": "pthread_spinlock_t\ttype", "contents": "pthread_spinlock_t"},
+   { "trigger": "pthread_t\ttype", "contents": "pthread_t"},
+   { "trigger": "size_t\ttype", "contents": "size_t"},
+   { "trigger": "ssize_t\ttype", "contents": "ssize_t"},
+   { "trigger": "time_t\ttype", "contents": "time_t"},
+   { "trigger": "timer_t\ttype", "contents": "timer_t"},
+   { "trigger": "trace_attr_t\ttype", "contents": "trace_attr_t"},
+   { "trigger": "trace_event_id_t\ttype", "contents": "trace_event_id_t"},
+   { "trigger": "trace_event_set_t\ttype", "contents": "trace_event_set_t"},
+   { "trigger": "trace_id_t\ttype", "contents": "trace_id_t"},
+   { "trigger": "uid_t\ttype", "contents": "uid_t"},
+
+
+
+
+
+   ]// End completions
+}
+
+
